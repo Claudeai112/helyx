@@ -4,7 +4,10 @@
       "Bash(npx --yes create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --eslint --use-npm)",
       "Bash(mkdir -p /tmp/nova-stash)",
       "Bash(mv \"/Users/stewartevans/Projects/my-site/Nova Marketing Website copy.html\" /tmp/nova-stash/)",
-      "Bash(mv /Users/stewartevans/Projects/my-site/design-system.md /tmp/nova-stash/)"
+      "Bash(mv /Users/stewartevans/Projects/my-site/design-system.md /tmp/nova-stash/)",
+      "Bash(mv /tmp/nova-stash/\"Nova Marketing Website copy.html\" /Users/stewartevans/Projects/my-site/reference.html)",
+      "Bash(mv /tmp/nova-stash/design-system.md /Users/stewartevans/Projects/my-site/)",
+      "Bash(npx --yes shadcn@latest init -y -d)"
     ]
   }
 }
