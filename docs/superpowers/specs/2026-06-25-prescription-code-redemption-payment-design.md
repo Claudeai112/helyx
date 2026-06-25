@@ -73,7 +73,7 @@ dashboard, the per-product dosing calculator.
   redeemed code" — see §6.
 
 Migration adds the `PrescriptionCode` table, the `CodeStatus` enum, and the new
-`Order` columns. (Requires the provisioned Postgres from the Spec-1 follow-up.)
+`Order` columns. See §11 for how this runs given the deployment setup.
 
 ---
 
@@ -123,19 +123,26 @@ Migration adds the `PrescriptionCode` table, the `CodeStatus` enum, and the new
 
 ---
 
-## 7. Payment (real Stripe)
+## 7. Payment (Stripe — built now, placeholder keys)
+
+The business has **not created a Stripe account yet.** The full integration is
+built and tested now, but wired to **placeholder keys** so it ships green and goes
+live later by simply setting real keys — no code change.
 
 - Build real `line_items` from the cart (each variant → Stripe price data in
   integer cents; quantities from the cart).
-- `/api/checkout` (gated per §6) creates a Stripe **Checkout Session** in test
-  mode, sets `order.status = AWAITING_PAYMENT` + `stripeSessionId`, returns the
-  redirect URL.
+- `/api/checkout` (gated per §6) creates a Stripe **Checkout Session**, sets
+  `order.status = AWAITING_PAYMENT` + `stripeSessionId`, returns the redirect URL.
 - **Webhook** `/api/webhooks/stripe` verifies the Stripe signature and on
   `checkout.session.completed` marks the matching `Order → PAID` and records
   `amountTotalCents`. Idempotent (ignore duplicate events).
 - Success page `/order/success` and cancel back to `/cart`.
-- Test mode throughout; flip to live keys at go-live. Real fulfillment (pharmacy
-  handoff) is a later sub-spec — `PAID` orders simply await fulfillment.
+- `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` default to placeholders; the
+  Stripe client constructs without throwing (as in Spec #1) and all payment paths
+  are verified via **mocked Stripe** in tests. Activation = create a Stripe
+  account, add test keys (then live keys at go-live), register the webhook
+  endpoint. Real fulfillment (pharmacy handoff) is a later sub-spec — `PAID`
+  orders simply await fulfillment.
 
 ---
 
@@ -174,6 +181,32 @@ Migration adds the `PrescriptionCode` table, the `CodeStatus` enum, and the new
    code cannot.
 3. Checkout is impossible without a valid, active redeemed code (403 otherwise),
    and every order records the code it was authorized under.
-4. A real (test-mode) Stripe payment completes via Checkout Session + verified
-   webhook, advancing the order to `PAID`.
+4. A Stripe payment completes via Checkout Session + verified webhook, advancing
+   the order to `PAID` (against placeholder keys in tests; real keys at go-live).
 5. Tests pass; `next build` succeeds.
+
+---
+
+## 11. Deployment & environment
+
+**Hosting:** Netlify (Next.js runtime). **Postgres** is provided by an external
+provider (Neon/Supabase/etc.); its connection string is set as the Netlify
+environment variable `DATABASE_URL` — never committed.
+
+**Environment variables (set in Netlify, placeholders locally / in `.env.example`):**
+- `DATABASE_URL` — Postgres connection string (Netlify env).
+- `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` — placeholder until a Stripe
+  account exists; real test → live keys later.
+- `NEXT_PUBLIC_SITE_URL` — the deployed site URL.
+- `RX_COOKIE_SECRET` — HMAC secret for signing the `rx_auth` redemption cookie.
+
+**Migrations:** authored as a Prisma migration in the repo and applied to the
+Netlify-configured database via `prisma migrate deploy` (a build/release step) —
+not `migrate dev`, which needs a shadow DB. Locally (no DB) the schema is verified
+with `prisma validate` and the data layer via mocked tests, exactly as in Spec #1;
+real DB verification happens against the deployed database. The build runs
+`prisma generate`.
+
+**Build note:** ensure the Netlify build pipeline runs `prisma generate` (and, as
+a release/deploy step, `prisma migrate deploy`) so the client and schema match the
+database.
