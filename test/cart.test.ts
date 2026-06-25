@@ -14,8 +14,8 @@ describe("cart math", () => {
   it("counts items", () => {
     expect(cartItemCount(lines)).toBe(3);
   });
-  it("BLOCKS checkout without an approved prescription", () => {
-    expect(canCheckout({ prescriptionId: null })).toBe(false);
-    expect(canCheckout({ prescriptionId: "rx_1" })).toBe(true);
+  it("BLOCKS checkout without a redeemed code", () => {
+    expect(canCheckout({ redeemedCodeId: null })).toBe(false);
+    expect(canCheckout({ redeemedCodeId: "c1" })).toBe(true);
   });
 });
