@@ -23,7 +23,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = await getProductBySlug(slug);
   if (!product) notFound();
   const related = await getRelatedProducts(product.relatedSlugs);
-  const cheapestVariant = Math.min(...product.variants.map((v) => v.priceCents));
+  const cheapestCents = product.variants.length
+    ? Math.min(...product.variants.map((v) => v.priceCents))
+    : 0;
   return (
     <div className="mx-auto max-w-5xl px-6 py-24">
       <script
@@ -33,7 +35,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             name: product.name,
             description: product.subtitle,
             slug: product.slug,
-            priceCents: cheapestVariant,
+            priceCents: cheapestCents,
           })),
         }}
       />
