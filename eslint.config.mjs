@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Unrelated sub-project — excluded from tsc and vitest too
+    "n8n-mcp/**",
   ]),
 ]);
 

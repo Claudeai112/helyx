@@ -1,0 +1,174 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProductStatus {
+  ACTIVE
+  COMING_SOON
+  WAITLIST
+}
+
+enum UserRole {
+  CUSTOMER
+  PROVIDER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING_CONSULT
+  AWAITING_PAYMENT
+  PAID
+  FULFILLED
+  CANCELLED
+}
+
+enum ConsultStatus {
+  SUBMITTED
+  IN_REVIEW
+  APPROVED
+  DENIED
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String
+  heroCopy    String?
+  order       Int       @default(0)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+}
+
+model Product {
+  id               String           @id @default(cuid())
+  slug             String           @unique
+  name             String
+  subtitle         String
+  categoryId       String
+  category         Category         @relation(fields: [categoryId], references: [id])
+  researchOverview String           @db.Text
+  benefits         String[]
+  reconstitution   String           @db.Text
+  status           ProductStatus    @default(ACTIVE)
+  isRx             Boolean          @default(true)
+  seoTitle         String?
+  seoDescription   String?
+  imageUrl         String?
+  variants         ProductVariant[]
+  stackItems       StackItem[]
+  relatedSlugs     String[]
+  createdAt        DateTime         @default(now())
+}
+
+model ProductVariant {
+  id                   String      @id @default(cuid())
+  productId            String
+  product              Product     @relation(fields: [productId], references: [id])
+  label                String
+  sku                  String      @unique
+  priceCents           Int
+  compareAtCents       Int?
+  subscriptionEligible Boolean     @default(false)
+  cartItems            CartItem[]
+  orderItems           OrderItem[]
+}
+
+model Stack {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  name        String
+  tagline     String
+  overview    String      @db.Text
+  protocol    String      @db.Text
+  discountBps Int         @default(0)
+  items       StackItem[]
+}
+
+model StackItem {
+  id        String  @id @default(cuid())
+  stackId   String
+  stack     Stack   @relation(fields: [stackId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  role      UserRole  @default(CUSTOMER)
+  carts     Cart[]
+  orders    Order[]
+  createdAt DateTime  @default(now())
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String?
+  user      User?      @relation(fields: [userId], references: [id])
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+}
+
+model CartItem {
+  id        String         @id @default(cuid())
+  cartId    String
+  cart      Cart           @relation(fields: [cartId], references: [id])
+  variantId String
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+  quantity  Int            @default(1)
+}
+
+model Order {
+  id             String        @id @default(cuid())
+  userId         String?
+  user           User?         @relation(fields: [userId], references: [id])
+  status         OrderStatus   @default(PENDING_CONSULT)
+  items          OrderItem[]
+  consultId      String?       @unique
+  consult        Consult?      @relation(fields: [consultId], references: [id])
+  prescriptionId String?       @unique
+  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
+  createdAt      DateTime      @default(now())
+}
+
+model OrderItem {
+  id             String         @id @default(cuid())
+  orderId        String
+  order          Order          @relation(fields: [orderId], references: [id])
+  variantId      String
+  variant        ProductVariant @relation(fields: [variantId], references: [id])
+  quantity       Int
+  unitPriceCents Int
+}
+
+model Consult {
+  id        String        @id @default(cuid())
+  email     String
+  status    ConsultStatus @default(SUBMITTED)
+  order     Order?
+  createdAt DateTime      @default(now())
+}
+
+model Prescription {
+  id        String   @id @default(cuid())
+  consultId String
+  order     Order?
+  createdAt DateTime @default(now())
+}
+
+model EmailCapture {
+  id         String   @id @default(cuid())
+  email      String
+  phone      String?
+  source     String
+  smsConsent Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([email])
+}
