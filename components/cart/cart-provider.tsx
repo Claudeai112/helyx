@@ -7,11 +7,16 @@ const Ctx = createContext<CartCtx | null>(null);
 const KEY = "helyx_cart";
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(() => {
-    if (typeof window === "undefined") return [];
-    try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw) as CartItem[]; } catch {}
-    return [];
-  });
+  const [items, setItems] = useState<CartItem[]>([]); // matches server render
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate client-only cart after mount
+        setItems(JSON.parse(raw) as CartItem[]);
+      }
+    } catch {}
+  }, []);
   useEffect(() => {
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {}
   }, [items]);

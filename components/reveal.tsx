@@ -6,11 +6,14 @@ export function Reveal({
   children, delay = 0, className = "",
 }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(
-    () => typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
-  );
+  const [shown, setShown] = useState(false); // matches server render
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reduced-motion: reveal immediately after mount
+      setShown(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
