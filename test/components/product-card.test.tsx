@@ -8,6 +8,7 @@ describe("ProductCard", () => {
     render(<CartProvider><ProductCard product={{
       slug: "bpc-157", name: "BPC-157", subtitle: "Research peptide",
       status: "ACTIVE", minPriceCents: 5900, minVariantId: "v1",
+      variants: [{ id: "v1", label: "5mg", mg: 5, priceCents: 5900 }],
     }} /></CartProvider>);
     expect(screen.getByRole("link", { name: /bpc-157/i }).getAttribute("href")).toBe("/product/bpc-157");
     expect(screen.getByText("$59.00")).toBeTruthy();

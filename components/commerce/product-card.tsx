@@ -8,6 +8,7 @@ export type ProductCardData = {
   slug: string; name: string; subtitle: string;
   status: "ACTIVE" | "COMING_SOON" | "WAITLIST"; imageUrl?: string | null;
   minPriceCents: number; minCompareAtCents?: number | null; minVariantId: string;
+  variants: { id: string; label: string; mg?: number; priceCents: number }[];
 };
 
 export function ProductCard({ product }: { product: ProductCardData }) {
