@@ -1,8 +1,16 @@
 import { NextResponse } from "next/server";
 import { canCheckout } from "@/lib/cart";
 import { createCheckoutSession } from "@/lib/stripe";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
+  const limit = rateLimit(`checkout:${clientIp(request.headers)}`, 10, 60_000);
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again shortly." },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } },
+    );
+  }
   let order: { prescriptionId: string | null } | undefined;
   try {
     ({ order } = await request.json());

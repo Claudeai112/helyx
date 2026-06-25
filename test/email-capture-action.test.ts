@@ -2,6 +2,11 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 const { create } = vi.hoisted(() => ({ create: vi.fn() }));
 vi.mock("@/lib/db", () => ({ prisma: { emailCapture: { create } } }));
+vi.mock("next/headers", () => ({ headers: async () => new Headers() }));
+vi.mock("@/lib/rate-limit", () => ({
+  rateLimit: () => ({ ok: true, remaining: 4, retryAfterSeconds: 0 }),
+  clientIp: () => "test",
+}));
 
 import { captureEmail } from "@/app/actions/email-capture";
 

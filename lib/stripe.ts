@@ -1,3 +1,6 @@
+// `server-only` makes the build fail if this module (which holds the secret
+// Stripe key) is ever imported into a Client Component bundle.
+import "server-only";
 import Stripe from "stripe";
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "sk_test_placeholder");

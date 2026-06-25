@@ -1,8 +1,15 @@
 "use server";
+import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
 import { parseEmailCapture } from "@/lib/validation";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
 
 export async function captureEmail(formData: FormData): Promise<{ ok: boolean; error?: string }> {
+  // Throttle by client IP before doing any work, to resist abuse/scraping.
+  const limit = rateLimit(`email-capture:${clientIp(await headers())}`, 5, 60_000);
+  if (!limit.ok) {
+    return { ok: false, error: "Too many requests. Please try again in a moment." };
+  }
   const parsed = parseEmailCapture({
     email: formData.get("email"),
     phone: formData.get("phone") || undefined,

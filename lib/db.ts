@@ -1,3 +1,6 @@
+// `server-only` ensures the Prisma client (direct DB access) can never be
+// bundled into client-side code.
+import "server-only";
 import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
