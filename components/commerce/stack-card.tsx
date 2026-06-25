@@ -1,17 +1,45 @@
-import Link from "next/link";
+"use client";
 import { PriceDisplay } from "@/components/ui/price-display";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useCart } from "@/components/cart/cart-provider";
 
 export function StackCard({ stack }: {
-  stack: { slug: string; name: string; tagline: string; priceCents: number; compareAtCents: number };
+  stack: {
+    slug: string;
+    name: string;
+    tagline: string;
+    priceCents: number;
+    compareAtCents: number;
+    contents?: string[];
+  };
 }) {
+  const { add } = useCart();
   return (
-    <Link href={`/stacks/${stack.slug}`}
-      className="flex flex-col rounded-2xl border border-border bg-card/40 p-6 transition-colors hover:border-primary/40">
-      <Badge>Bundle</Badge>
-      <h3 className="mt-3 text-xl font-semibold text-foreground">{stack.name}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{stack.tagline}</p>
-      <div className="mt-4"><PriceDisplay priceCents={stack.priceCents} compareAtCents={stack.compareAtCents} /></div>
-    </Link>
+    <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-sm">
+      {/* image placeholder area — real imagery later */}
+      <div className="aspect-[4/3] bg-secondary" />
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-heading text-base font-semibold text-foreground">{stack.name}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{stack.tagline}</p>
+        {stack.contents && stack.contents.length > 0 && (
+          <ul className="mt-3 space-y-1">
+            {stack.contents.map((item) => (
+              <li key={item} className="text-sm text-muted-foreground">
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="mt-3">
+          <PriceDisplay priceCents={stack.priceCents} compareAtCents={stack.compareAtCents} />
+        </div>
+        <Button
+          className="mt-4 w-full"
+          onClick={() => add({ variantId: `stack:${stack.slug}`, slug: stack.slug, name: stack.name, unitPriceCents: stack.priceCents, quantity: 1 })}
+        >
+          Add to cart
+        </Button>
+      </div>
+    </div>
   );
 }
