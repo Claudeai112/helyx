@@ -12,7 +12,9 @@
     "test:watch": "vitest",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
-    "db:generate": "prisma generate"
+    "db:generate": "prisma generate",
+    "codes:generate": "tsx scripts/generate-codes.ts",
+    "codes:revoke": "tsx scripts/revoke-code.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

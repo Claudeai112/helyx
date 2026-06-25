@@ -8,7 +8,7 @@ export function cartItemCount(lines: CartLine[]): number {
   return lines.reduce((n, l) => n + l.quantity, 0);
 }
 
-/** The compliance gate: an order may only proceed to payment with a linked prescription. */
-export function canCheckout(order: { prescriptionId: string | null }): boolean {
-  return order.prescriptionId !== null;
+/** The compliance gate: an order may only proceed to payment with a redeemed, active code. */
+export function canCheckout(auth: { redeemedCodeId: string | null }): boolean {
+  return auth.redeemedCodeId !== null;
 }

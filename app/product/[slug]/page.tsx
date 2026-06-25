@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProductBySlug, getRelatedProducts } from "@/lib/catalog";
+import { getRedeemedCode } from "@/lib/rx-auth";
 import { ConsultCTA } from "@/components/commerce/consult-cta";
 import { VariantSelector } from "@/components/commerce/variant-selector";
 import { ProductCard } from "@/components/commerce/product-card";
@@ -23,6 +24,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = await getProductBySlug(slug);
   if (!product) notFound();
   const related = await getRelatedProducts(product.relatedSlugs);
+  const unlocked = (await getRedeemedCode()) !== null;
   const cheapestCents = product.variants.length
     ? Math.min(...product.variants.map((v) => v.priceCents))
     : 0;
@@ -48,7 +50,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="mt-6">
             <VariantSelector variants={product.variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents }))} />
           </div>
-          <div className="mt-6"><ConsultCTA productName={product.name} status={product.status} /></div>
+          <div className="mt-6"><ConsultCTA productName={product.name} status={product.status} unlocked={unlocked} /></div>
           <DisclaimerBar className="mt-6" />
         </div>
       </div>

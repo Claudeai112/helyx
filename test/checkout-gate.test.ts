@@ -1,42 +1,25 @@
-import { describe, it, expect, vi } from "vitest";
-
+import { describe, it, expect, vi, beforeEach } from "vitest";
+vi.mock("server-only", () => ({}));
 vi.mock("@/lib/stripe", () => ({
   createCheckoutSession: vi.fn().mockResolvedValue({ url: "https://stripe.test/session" }),
 }));
-vi.mock("@/lib/rate-limit", () => ({
-  rateLimit: () => ({ ok: true, remaining: 9, retryAfterSeconds: 0 }),
-  clientIp: () => "test",
-}));
-
+vi.mock("@/lib/rate-limit", () => ({ rateLimit: () => ({ ok: true }), clientIp: () => "t" }));
+const { getRedeemedCode } = vi.hoisted(() => ({ getRedeemedCode: vi.fn() }));
+vi.mock("@/lib/rx-auth", () => ({ getRedeemedCode }));
 import { POST } from "@/app/api/checkout/route";
 
-function req(body: unknown) {
-  return new Request("http://localhost/api/checkout", {
-    method: "POST", body: JSON.stringify(body), headers: { "content-type": "application/json" },
-  });
-}
+function req() { return new Request("http://localhost/api/checkout", { method: "POST" }); }
+beforeEach(() => getRedeemedCode.mockReset());
 
-describe("checkout gate", () => {
-  it("blocks checkout for an order without a prescription (403)", async () => {
-    const res = await POST(req({ order: { prescriptionId: null } }));
-    expect(res.status).toBe(403);
+describe("checkout gate (code-based)", () => {
+  it("403 when no redeemed code", async () => {
+    getRedeemedCode.mockResolvedValue(null);
+    expect((await POST(req())).status).toBe(403);
   });
-  it("allows checkout once a prescription is linked", async () => {
-    const res = await POST(req({ order: { prescriptionId: "rx_1" } }));
+  it("200 + url when a valid code is redeemed", async () => {
+    getRedeemedCode.mockResolvedValue({ id: "c1" });
+    const res = await POST(req());
     expect(res.status).toBe(200);
-    const json = await res.json();
-    expect(json.url).toBe("https://stripe.test/session");
-  });
-  it("rejects requests with invalid JSON body (400)", async () => {
-    const res = await POST(
-      new Request("http://localhost/api/checkout", {
-        method: "POST",
-        body: "not json",
-        headers: { "content-type": "application/json" },
-      }),
-    );
-    expect(res.status).toBe(400);
-    const json = await res.json();
-    expect(json.error).toBe("Invalid request body.");
+    expect((await res.json()).url).toBe("https://stripe.test/session");
   });
 });
