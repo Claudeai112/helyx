@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Subagent-driven-development scratch (ledger, briefs, reports, diffs)
 .superpowers/
+
+# Unrelated vendored sub-project (its own git repo)
+n8n-mcp/
