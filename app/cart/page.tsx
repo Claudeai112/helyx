@@ -1,34 +1,12 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
+import { RedeemForm } from "@/components/commerce/redeem-form";
+import { getRedeemedCode } from "@/lib/rx-auth";
 
-export default function CartPage() {
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+export const dynamic = "force-dynamic";
 
-  async function handleCheckout() {
-    setCheckoutError(null);
-    setLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ order: { prescriptionId: null } }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setCheckoutError(data.error ?? "Something went wrong.");
-      } else if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch {
-      setCheckoutError("Unable to reach checkout. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
+export default async function CartPage() {
+  const redeemed = await getRedeemedCode();
 
   return (
     <main className="relative z-[2] mx-auto min-h-screen max-w-[900px] px-6 pb-24 pt-36">
@@ -51,33 +29,23 @@ export default function CartPage() {
         </Link>
       </div>
 
-      {/* Checkout gate notice */}
+      {/* Access gate */}
       <div className="mt-8 rounded-2xl border border-[rgba(40,224,200,0.15)] bg-[rgba(40,224,200,0.04)] p-6">
-        <p className="mb-1 text-sm font-semibold text-[#28e0c8]">Consultation required</p>
-        <p className="text-sm text-[#7777aa]">
-          Checkout opens after your consultation is approved. A licensed provider will review
-          your intake and, if appropriate, issue a prescription before your order ships.
-        </p>
-        <div className="mt-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-          <button
-            type="button"
-            onClick={handleCheckout}
-            disabled={loading}
-            className="inline-flex items-center rounded-full border border-[rgba(40,224,200,0.3)] bg-transparent px-6 py-2.5 text-sm font-semibold text-[#28e0c8] transition-all hover:border-[#28e0c8] hover:bg-[rgba(40,224,200,0.08)] disabled:opacity-50"
-          >
-            {loading ? "Checking…" : "Proceed to Checkout"}
-          </button>
-          <Link
-            href="/consultation"
-            className="text-sm text-[#7777aa] underline underline-offset-2 hover:text-[#28e0c8]"
-          >
-            Start a consultation instead
-          </Link>
-        </div>
-        {checkoutError && (
-          <p className="mt-3 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2 text-sm text-destructive">
-            {checkoutError}
-          </p>
+        {redeemed ? (
+          <>
+            <p className="mb-1 text-sm font-semibold text-[#28e0c8]">Access active</p>
+            <p className="text-sm text-[#7777aa]">
+              Your access is active — purchasing arrives in the next release.
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="mb-3 text-sm font-semibold text-[#28e0c8]">Access required</p>
+            <p className="mb-4 text-sm text-[#7777aa]">
+              Enter your access code to continue.
+            </p>
+            <RedeemForm />
+          </>
         )}
       </div>
 

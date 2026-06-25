@@ -21,4 +21,8 @@ describe("ConsultCTA", () => {
     expect(container.textContent?.toLowerCase()).not.toContain("add to cart");
     expect(container.textContent?.toLowerCase()).not.toContain("buy now");
   });
+  it("shows an unlocked state when access is active", () => {
+    render(<ConsultCTA productName="Tirzepatide" status="ACTIVE" unlocked />);
+    expect(screen.getByText(/access active/i)).toBeTruthy();
+  });
 });
