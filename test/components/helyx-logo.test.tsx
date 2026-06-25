@@ -7,6 +7,7 @@ describe("HelyxLogo", () => {
     const { container } = render(<HelyxLogo />);
     const svg = container.querySelector("svg");
     expect(svg?.getAttribute("aria-label")).toMatch(/helyx/i);
+    expect(svg?.getAttribute("class")).toContain("helyx-mark");
     // Two helix strands + base-pair rungs make up the DNA mark.
     expect(container.querySelectorAll(".helyx-strand").length).toBe(2);
     expect(container.querySelectorAll(".helyx-rung").length).toBe(4);

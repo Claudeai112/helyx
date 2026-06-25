@@ -27,7 +27,7 @@ describe("homepage source compliance", () => {
 
   it("imports the home section components", () => {
     const src = readFileSync("app/page.tsx", "utf8");
-    expect(src).toContain("catalog-browser");
+    expect(src).toContain("storefront/storefront");
     expect(src).toContain("sections/home/stacks");
     expect(src).toContain("sections/home/bulk");
     expect(src).toContain("sections/home/education");

@@ -155,10 +155,21 @@
   to { transform: scale(1); }
 }
 
+/* Slow continuous DNA rotation of the whole mark */
+.helyx-mark {
+  transform-origin: center;
+  animation: helyx-rotate 12s linear infinite;
+}
+@keyframes helyx-rotate {
+  from { transform: perspective(240px) rotateY(0deg); }
+  to { transform: perspective(240px) rotateY(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .helyx-strand,
   .helyx-rung,
-  .helyx-node { animation: none; }
+  .helyx-node,
+  .helyx-mark { animation: none; }
 }
 
 @layer base {
