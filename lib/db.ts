@@ -11,6 +11,10 @@ function getPrismaClient(): PrismaClient {
 
 export const prisma = new Proxy({} as PrismaClient, {
   get(_target, prop) {
-    return (getPrismaClient() as unknown as Record<string | symbol, unknown>)[prop];
+    const client = getPrismaClient();
+    const value = (client as unknown as Record<string | symbol, unknown>)[prop];
+    // Bind methods (e.g. $transaction, $queryRaw, $connect) to the real client so
+    // `this` resolves to the PrismaClient, not the Proxy, when they are invoked.
+    return typeof value === "function" ? (value as (...args: unknown[]) => unknown).bind(client) : value;
   },
 });
