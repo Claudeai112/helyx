@@ -31,6 +31,23 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  /* Sidebar tokens (for future admin dashboard) */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Chart tokens (for data visualization) */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
   /* Brand palette — retuned to Heman Peptide dark-biotech theme.
      Token names kept (--color-brand-*, --color-nova-*) to avoid breaking
      downstream component references; values updated to teal/clinical palette. */
@@ -57,6 +74,7 @@
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-2xl: 24px;
+  --radius-4xl: calc(var(--radius) * 2.6);
   --radius-pill: 9999px;
 
   /* Glow shadows — teal accent for biotech theme */
@@ -87,6 +105,23 @@
   --input: rgba(255, 255, 255, 0.06);
   --ring: #28e0c8;
   --radius: 1rem;
+
+  /* Sidebar tokens — dark-biotech palette */
+  --sidebar: #0b0b18;
+  --sidebar-foreground: #e8e8f2;
+  --sidebar-primary: #28e0c8;
+  --sidebar-primary-foreground: #050510;
+  --sidebar-accent: rgba(255, 255, 255, 0.06);
+  --sidebar-accent-foreground: #e8e8f2;
+  --sidebar-border: rgba(255, 255, 255, 0.09);
+  --sidebar-ring: #28e0c8;
+
+  /* Chart colors — biotech palette */
+  --chart-1: #28e0c8;
+  --chart-2: #4aa8ff;
+  --chart-3: #8b7cf0;
+  --chart-4: #f0b86b;
+  --chart-5: #5fd0a8;
 }
 
 /* Heman Peptide signature gradient utility */
