@@ -139,7 +139,7 @@ model Order {
   consult        Consult?      @relation(fields: [consultId], references: [id])
   prescriptionId     String?           @unique
   prescription       Prescription?     @relation(fields: [prescriptionId], references: [id])
-  prescriptionCodeId String?           @unique
+  prescriptionCodeId String?
   prescriptionCode   PrescriptionCode? @relation(fields: [prescriptionCodeId], references: [id])
   createdAt          DateTime          @default(now())
 }
