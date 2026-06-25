@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { HelyxLogo } from "@/components/brand/helyx-logo";
 import { useCart } from "@/components/cart/cart-provider";
-import { cn } from "@/lib/utils";
 
 const NAV = [
   { href: "/shop", label: "Shop" },
