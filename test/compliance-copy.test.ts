@@ -7,9 +7,10 @@ import { describe, it, expect } from "vitest";
 // and forbidden. This scans ALL source under app/, components/, and lib/ — not
 // just one page — so a forbidden phrase introduced into any component, section,
 // or data module fails CI.
-const FORBIDDEN = [
+const FORBIDDEN_REGEX = [/\bcure\b/i, /\btreats\b/i];
+const FORBIDDEN_SUBSTR = [
   "for human use", "intended for human", "inject yourself", "how to inject",
-  "your dose", "dose yourself", "weight loss results", "cure ", "treats ",
+  "your dose", "dose yourself", "weight loss results",
   "consult your doctor", "prescription required",
 ];
 
@@ -40,7 +41,13 @@ describe("sitewide compliance copy", () => {
     const offenders: string[] = [];
     for (const file of files) {
       const text = readFileSync(file, "utf8").toLowerCase();
-      for (const phrase of FORBIDDEN) {
+      // Check regex patterns (word-boundary matched)
+      for (const regex of FORBIDDEN_REGEX) {
+        const match = text.match(regex);
+        if (match) offenders.push(`${file}: regex /${regex.source}/i matched "${match[0]}"`);
+      }
+      // Check substrings (exact phrase matched)
+      for (const phrase of FORBIDDEN_SUBSTR) {
         if (text.includes(phrase)) offenders.push(`${file}: "${phrase}"`);
       }
     }
