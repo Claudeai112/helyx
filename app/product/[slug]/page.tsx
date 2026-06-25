@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { toProductCardData } from "@/lib/product-view";
 import { productImage } from "@/lib/product-images";
 import { productJsonLd } from "@/lib/seo";
+import { ReconstitutionReference } from "@/components/commerce/reconstitution-reference";
+import { ProviderPathway } from "@/components/commerce/provider-pathway";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +28,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const cheapestCents = product.variants.length
     ? Math.min(...product.variants.map((v) => v.priceCents))
     : 0;
+  const firstVariantLabel = product.variants[0]?.label ?? "";
+  const mgPerVial = parseFloat(firstVariantLabel);
+  const showReconstitution =
+    Number.isFinite(mgPerVial) &&
+    mgPerVial > 0 &&
+    firstVariantLabel.includes("mg") &&
+    product.category?.slug !== "supplies";
   return (
     <div className="mx-auto max-w-5xl px-6 py-24">
       <script
@@ -62,6 +71,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             />
           </div>
           <DisclaimerBar className="mt-6" />
+          <div className="mt-6">
+            <ProviderPathway />
+          </div>
         </div>
       </div>
 
@@ -74,6 +86,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </ul>
         <h3 className="mt-8 text-xl font-semibold text-foreground">Reconstitution</h3>
         <p className="mt-3 text-muted-foreground">{product.reconstitution}</p>
+        {showReconstitution && (
+          <div className="mt-6">
+            <ReconstitutionReference mgPerVial={mgPerVial} />
+          </div>
+        )}
       </section>
 
       {related.length > 0 && (
