@@ -1,6 +1,6 @@
 // Retail price map: "<slug>:<mg>" -> price in CENTS.
 // Set ~10% below average market retail (research-supply single-vial pricing).
-// PENDING USER APPROVAL before reseed. Source: market research, June 2026.
+// APPROVED by owner 2026-06-25. Source: market research, June 2026.
 // IU/mL items key on their numeric strength (e.g. "hcg:5000", "sterile-water:3").
 const PRICES_CENTS: Record<string, number> = {
   // GLP-1 & metabolic
