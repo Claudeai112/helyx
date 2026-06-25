@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/commerce/product-card";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 import { Badge } from "@/components/ui/badge";
 import { toProductCardData } from "@/lib/product-view";
+import { productJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -22,8 +23,20 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = await getProductBySlug(slug);
   if (!product) notFound();
   const related = await getRelatedProducts(product.relatedSlugs);
+  const cheapestVariant = Math.min(...product.variants.map((v) => v.priceCents));
   return (
     <div className="mx-auto max-w-5xl px-6 py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd({
+            name: product.name,
+            description: product.subtitle,
+            slug: product.slug,
+            priceCents: cheapestVariant,
+          })),
+        }}
+      />
       <div className="grid gap-12 lg:grid-cols-2">
         <div className="aspect-square rounded-3xl border border-border bg-card/40" />
         <div>
