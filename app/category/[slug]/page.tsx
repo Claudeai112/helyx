@@ -1,25 +1,20 @@
-import { notFound } from "next/navigation";
-import { getProductsByCategory, getAllCategories } from "@/lib/catalog";
-import { ProductCard } from "@/components/commerce/product-card";
-import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
-import { toProductCardData } from "@/lib/product-view";
+import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+// Category pages are consolidated into the unified storefront at / (sidebar
+// filters). Old slugs are aliased so legacy links resolve instead of 404ing.
+const ALIAS: Record<string, string> = {
+  healing: "healing-recovery",
+  "fat-loss": "metabolic-fat-loss",
+  recovery: "healing-recovery",
+  "muscle-growth": "muscle-gh",
+};
+const VALID = new Set([
+  "glp-1", "metabolic-fat-loss", "healing-recovery", "muscle-gh", "longevity",
+  "cognitive", "hormonal-reproductive", "sleep-recovery", "skin-cosmetic", "supplies",
+]);
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const categories = await getAllCategories();
-  const category = categories.find((c) => c.slug === slug);
-  if (!category) notFound();
-  const products = await getProductsByCategory(slug);
-  return (
-    <div className="mx-auto max-w-6xl px-6 py-24">
-      <h1 className="text-4xl font-semibold text-foreground">{category.name}</h1>
-      <p className="mt-3 max-w-2xl text-muted-foreground">{category.description}</p>
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((p) => <ProductCard key={p.slug} product={toProductCardData(p)} />)}
-      </div>
-      <DisclaimerBar className="mt-16" />
-    </div>
-  );
+  const target = ALIAS[slug] ?? slug;
+  redirect(VALID.has(target) ? `/?purpose=${target}` : "/");
 }

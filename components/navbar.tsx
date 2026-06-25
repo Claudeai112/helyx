@@ -5,11 +5,11 @@ import { HelyxLogo } from "@/components/brand/helyx-logo";
 import { useCart } from "@/components/cart/cart-provider";
 
 const NAV = [
-  { href: "/shop", label: "Shop" },
-  { href: "/category/glp-1", label: "GLP-1" },
-  { href: "/category/healing", label: "Healing" },
-  { href: "/category/fat-loss", label: "Fat Loss" },
-  { href: "/stacks", label: "Stacks" },
+  { href: "/", label: "Shop" },
+  { href: "/?purpose=glp-1", label: "GLP-1" },
+  { href: "/?purpose=healing-recovery", label: "Healing" },
+  { href: "/?purpose=metabolic-fat-loss", label: "Fat Loss" },
+  { href: "/#stacks", label: "Stacks" },
   { href: "/bulk", label: "Bulk Orders" },
   { href: "/ambassador", label: "Ambassador" },
   { href: "/faq", label: "FAQ" },
