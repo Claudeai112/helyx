@@ -5,7 +5,7 @@ import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 export const metadata: Metadata = {
   title: "Join the Waitlist",
   description:
-    "Join the Heman Peptide waitlist for early access to new protocols and the Ambassador Program.",
+    "Join the Pure Peps waitlist for early access to new protocols and the Ambassador Program.",
 };
 
 export default function WaitlistPage() {
@@ -18,7 +18,7 @@ export default function WaitlistPage() {
         Join the Waitlist
       </h1>
       <p className="mt-4 max-w-[640px] text-[1.05rem] text-[#c8c8dc]">
-        Heman Peptide is currently in private beta. Spots open on a rolling basis as we
+        Pure Peps is currently in private beta. Spots open on a rolling basis as we
         expand provider capacity. Sign up below and we will notify you when access opens
         in your area.
       </p>
@@ -28,7 +28,7 @@ export default function WaitlistPage() {
         <p className="mb-2 font-semibold text-white">Ambassador Program</p>
         <p className="text-sm leading-relaxed text-[#7777aa]">
           Members with an approved consultation can refer others and earn rewards through the
-          Heman Ambassador Program. Ambassador spots are invite-only during the beta period.
+          Pure Peps Ambassador Program. Ambassador spots are invite-only during the beta period.
           Signing up here puts you at the front of the list when invites go out.
         </p>
       </div>

@@ -1,7 +1,7 @@
 export const HOME_FAQS: { q: string; a: string }[] = [
   {
     q: "Do I need a prescription to order?",
-    a: "Yes. All products on Heman Peptide are prescription items. Before any order ships, you complete an online consultation with a licensed healthcare provider. The provider reviews your intake information and determines eligibility. If approved, a prescription is issued and your order is fulfilled.",
+    a: "Yes. All products on Pure Peps are prescription items. Before any order ships, you complete an online consultation with a licensed healthcare provider. The provider reviews your intake information and determines eligibility. If approved, a prescription is issued and your order is fulfilled.",
   },
   {
     q: "How does the online consultation work?",
@@ -13,7 +13,7 @@ export const HOME_FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What if my consultation is not approved?",
-    a: "Eligibility is determined entirely by the licensed provider, not by Heman Peptide. If a provider determines that a protocol is not appropriate for you at this time, you will not be charged and the provider may offer alternative guidance or suggest a follow-up consultation.",
+    a: "Eligibility is determined entirely by the licensed provider, not by Pure Peps. If a provider determines that a protocol is not appropriate for you at this time, you will not be charged and the provider may offer alternative guidance or suggest a follow-up consultation.",
   },
   {
     q: "How are products sourced and fulfilled?",

@@ -2,7 +2,7 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export function organizationJsonLd() {
   return { "@context": "https://schema.org", "@type": "Organization",
-    name: "Heman Peptide", url: SITE };
+    name: "Pure Peps", url: SITE };
 }
 
 export function productJsonLd(p: { name: string; description: string; priceCents: number; slug: string }) {

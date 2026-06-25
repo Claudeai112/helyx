@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="GreenEdge Landscaping — organic green energy">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#050510"/>
+      <stop offset="0.55" stop-color="#061612"/>
+      <stop offset="1" stop-color="#050510"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.3" cy="0.55" r="0.55">
+      <stop offset="0" stop-color="#2ecc71" stop-opacity="0.28"/>
+      <stop offset="0.6" stop-color="#00cec9" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#00cec9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.78" cy="0.35" r="0.5">
+      <stop offset="0" stop-color="#6c5ce7" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#6c5ce7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#52b788"/>
+      <stop offset="0.5" stop-color="#00cec9"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#52b788" stop-opacity="0"/>
+      <stop offset="0.3" stop-color="#52b788" stop-opacity="0.85"/>
+      <stop offset="0.7" stop-color="#00cec9" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="lineGrad2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00cec9" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#00cec9" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#6c5ce7" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="hardGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow1)"/>
+  <rect width="1600" height="900" fill="url(#glow2)"/>
+
+  <!-- soft organic blobs -->
+  <g filter="url(#softGlow)" opacity="0.85">
+    <ellipse cx="420" cy="560" rx="380" ry="220" fill="#2ecc71" opacity="0.18"/>
+    <ellipse cx="1180" cy="420" rx="340" ry="260" fill="#00cec9" opacity="0.14"/>
+    <ellipse cx="820" cy="260" rx="260" ry="160" fill="#6c5ce7" opacity="0.12"/>
+  </g>
+
+  <!-- hex/triangle tech overlay -->
+  <g opacity="0.16" stroke="#52b788" stroke-width="1" fill="none">
+    <path d="M100 200 L160 170 L220 200 L220 260 L160 290 L100 260 Z"/>
+    <path d="M260 290 L320 260 L380 290 L380 350 L320 380 L260 350 Z"/>
+    <path d="M1380 640 L1440 610 L1500 640 L1500 700 L1440 730 L1380 700 Z"/>
+    <path d="M1220 730 L1280 700 L1340 730 L1340 790 L1280 820 L1220 790 Z"/>
+  </g>
+
+  <!-- flowing organic lines -->
+  <g filter="url(#hardGlow)" fill="none" stroke-linecap="round">
+    <path d="M-50 500 C 200 320, 500 700, 780 480 S 1300 260, 1700 440" stroke="url(#lineGrad)" stroke-width="3"/>
+    <path d="M-50 520 C 210 340, 510 720, 790 500 S 1310 280, 1700 460" stroke="url(#lineGrad)" stroke-width="2" opacity="0.75"/>
+    <path d="M-50 540 C 220 360, 520 740, 800 520 S 1320 300, 1700 480" stroke="url(#lineGrad)" stroke-width="1.3" opacity="0.5"/>
+
+    <path d="M-50 360 C 260 560, 620 200, 960 420 S 1420 600, 1700 360" stroke="url(#lineGrad2)" stroke-width="2.2"/>
+    <path d="M-50 640 C 280 440, 640 820, 980 580 S 1440 740, 1700 620" stroke="url(#lineGrad2)" stroke-width="2"/>
+  </g>
+
+  <!-- leaf silhouettes -->
+  <g opacity="0.85">
+    <path d="M320 420 Q 380 330, 470 340 Q 450 450, 370 480 Q 320 460, 320 420 Z" fill="url(#leafGrad)" opacity="0.32"/>
+    <path d="M320 420 Q 380 330, 470 340" stroke="#52b788" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <path d="M360 410 Q 390 380, 440 360" stroke="#52b788" stroke-width="1" fill="none" opacity="0.6"/>
+
+    <path d="M1100 500 Q 1170 400, 1260 420 Q 1250 530, 1160 560 Q 1110 540, 1100 500 Z" fill="url(#leafGrad)" opacity="0.3"/>
+    <path d="M1100 500 Q 1170 400, 1260 420" stroke="#00cec9" stroke-width="1.5" fill="none" opacity="0.75"/>
+    <path d="M1140 490 Q 1180 450, 1230 440" stroke="#00cec9" stroke-width="1" fill="none" opacity="0.55"/>
+
+    <path d="M720 620 Q 780 530, 870 540 Q 860 650, 780 680 Q 730 660, 720 620 Z" fill="url(#leafGrad)" opacity="0.25"/>
+    <path d="M720 620 Q 780 530, 870 540" stroke="#a78bfa" stroke-width="1.2" fill="none" opacity="0.6"/>
+  </g>
+
+  <!-- drifting particles -->
+  <g>
+    <circle cx="180" cy="150" r="2" fill="#52b788" opacity="0.9"/>
+    <circle cx="260" cy="220" r="1.3" fill="#52b788" opacity="0.7"/>
+    <circle cx="380" cy="180" r="1.6" fill="#00cec9" opacity="0.8"/>
+    <circle cx="520" cy="250" r="1.1" fill="#52b788" opacity="0.6"/>
+    <circle cx="660" cy="170" r="1.8" fill="#00cec9" opacity="0.85"/>
+    <circle cx="820" cy="230" r="1.2" fill="#a78bfa" opacity="0.65"/>
+    <circle cx="980" cy="160" r="1.6" fill="#00cec9" opacity="0.75"/>
+    <circle cx="1140" cy="210" r="1.3" fill="#6c5ce7" opacity="0.7"/>
+    <circle cx="1300" cy="160" r="2" fill="#00cec9" opacity="0.85"/>
+    <circle cx="1460" cy="240" r="1.2" fill="#a78bfa" opacity="0.65"/>
+
+    <circle cx="200" cy="740" r="1.5" fill="#52b788" opacity="0.75"/>
+    <circle cx="360" cy="800" r="1.2" fill="#00cec9" opacity="0.65"/>
+    <circle cx="560" cy="760" r="1.8" fill="#52b788" opacity="0.85"/>
+    <circle cx="760" cy="820" r="1.1" fill="#a78bfa" opacity="0.6"/>
+    <circle cx="960" cy="750" r="1.6" fill="#00cec9" opacity="0.8"/>
+    <circle cx="1180" cy="810" r="1.3" fill="#52b788" opacity="0.7"/>
+    <circle cx="1380" cy="760" r="1.9" fill="#00cec9" opacity="0.85"/>
+  </g>
+
+  <!-- data-node accents -->
+  <g>
+    <circle cx="420" cy="560" r="5" fill="#52b788"/>
+    <circle cx="420" cy="560" r="12" fill="none" stroke="#52b788" stroke-width="1" opacity="0.5"/>
+    <circle cx="1180" cy="420" r="5" fill="#00cec9"/>
+    <circle cx="1180" cy="420" r="12" fill="none" stroke="#00cec9" stroke-width="1" opacity="0.5"/>
+    <line x1="420" y1="560" x2="1180" y2="420" stroke="#ffffff" stroke-width="0.5" stroke-dasharray="2 6" opacity="0.35"/>
+  </g>
+</svg>
