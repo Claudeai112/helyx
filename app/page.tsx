@@ -8,7 +8,7 @@ import { StackCard } from "@/components/commerce/stack-card";
 import { ProductCard } from "@/components/commerce/product-card";
 import { EmailCapture } from "@/components/marketing/email-capture";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
-import { SectionShell, SectionHeader, GradientText } from "@/components/sections/_shared";
+import { SectionShell, SectionHeader } from "@/components/sections/_shared";
 import { Reveal } from "@/components/reveal";
 import { toProductCardData, stackComponentSumCents } from "@/lib/product-view";
 import { stackPriceCents } from "@/lib/money";

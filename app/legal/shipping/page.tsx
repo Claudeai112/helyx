@@ -46,7 +46,7 @@ export default function ShippingPage() {
       <h2>Tracking</h2>
       <p>
         A tracking number will be provided via email once your order has shipped. You can use this
-        number on the carrier's website to monitor delivery status. Please allow up to 24 hours
+        number on the carrier&apos;s website to monitor delivery status. Please allow up to 24 hours
         after shipment for tracking information to become active.
       </p>
 
