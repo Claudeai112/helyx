@@ -7,10 +7,11 @@ const Ctx = createContext<CartCtx | null>(null);
 const KEY = "helyx_cart";
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  useEffect(() => {
-    try { const raw = localStorage.getItem(KEY); if (raw) setItems(JSON.parse(raw)); } catch {}
-  }, []);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window === "undefined") return [];
+    try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw) as CartItem[]; } catch {}
+    return [];
+  });
   useEffect(() => {
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {}
   }, [items]);

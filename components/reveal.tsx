@@ -6,13 +6,11 @@ export function Reveal({
   children, delay = 0, className = "",
 }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(false);
+  const [shown, setShown] = useState(
+    () => typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
+  );
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setShown(true);
-      return;
-    }
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
