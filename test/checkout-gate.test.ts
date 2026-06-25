@@ -21,6 +21,18 @@ describe("checkout gate", () => {
     const res = await POST(req({ order: { prescriptionId: "rx_1" } }));
     expect(res.status).toBe(200);
     const json = await res.json();
-    expect(json.url).toContain("stripe");
+    expect(json.url).toBe("https://stripe.test/session");
+  });
+  it("rejects requests with invalid JSON body (400)", async () => {
+    const res = await POST(
+      new Request("http://localhost/api/checkout", {
+        method: "POST",
+        body: "not json",
+        headers: { "content-type": "application/json" },
+      }),
+    );
+    expect(res.status).toBe(400);
+    const json = await res.json();
+    expect(json.error).toBe("Invalid request body.");
   });
 });

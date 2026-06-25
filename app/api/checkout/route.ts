@@ -3,8 +3,13 @@ import { canCheckout } from "@/lib/cart";
 import { createCheckoutSession } from "@/lib/stripe";
 
 export async function POST(request: Request) {
-  const { order } = await request.json();
-  if (!canCheckout(order)) {
+  let order: { prescriptionId: string | null } | undefined;
+  try {
+    ({ order } = await request.json());
+  } catch {
+    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+  }
+  if (!order || !canCheckout(order)) {
     return NextResponse.json(
       { error: "A completed consultation and prescription are required before checkout." },
       { status: 403 },
