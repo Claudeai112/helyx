@@ -1,14 +1,13 @@
 "use client";
-import { PriceDisplay } from "@/components/ui/price-display";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart/cart-provider";
+import { formatCents } from "@/lib/money";
 
 export type StackCardData = {
   slug: string;
   name: string;
   tagline: string;
   priceCents: number;
-  compareAtCents: number;
   contents?: string[];
 };
 
@@ -31,7 +30,9 @@ export function StackCard({ stack }: { stack: StackCardData }) {
           </ul>
         )}
         <div className="mt-3">
-          <PriceDisplay priceCents={stack.priceCents} compareAtCents={stack.compareAtCents} />
+          <span className="text-lg font-semibold text-foreground">
+            {formatCents(stack.priceCents)}
+          </span>
         </div>
         <Button
           className="mt-4 w-full"

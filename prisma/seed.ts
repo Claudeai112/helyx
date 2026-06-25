@@ -2,6 +2,7 @@ import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { categories, products, stacks } from "../lib/seed-data";
+import { retailPriceCents } from "../lib/retail-pricing";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -28,9 +29,9 @@ async function main() {
     for (const v of p.variants) {
       await prisma.productVariant.upsert({
         where: { sku: v.sku },
-        update: { label: v.label, priceCents: v.priceCents, compareAtCents: v.compareAtCents,
+        update: { label: v.label, priceCents: retailPriceCents(p.slug, v.mg),
           subscriptionEligible: v.subscriptionEligible, productId: product.id },
-        create: { label: v.label, sku: v.sku, priceCents: v.priceCents, compareAtCents: v.compareAtCents,
+        create: { label: v.label, sku: v.sku, priceCents: retailPriceCents(p.slug, v.mg),
           subscriptionEligible: v.subscriptionEligible, productId: product.id },
       });
     }

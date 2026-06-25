@@ -11,7 +11,7 @@ export function StacksSection({ stacks }: { stacks: StackCardData[] }) {
         <SectionHeader
           tag="Protocol stacks"
           title="Curated research bundles"
-          description="Pre-assembled combinations of complementary peptides for multi-target research programmes. Bundled pricing versus individual compound ordering."
+          description="Pre-assembled combinations of complementary research peptides for multi-target research programmes."
         />
       </Reveal>
       <div className="mx-auto grid max-w-[1200px] gap-6 sm:grid-cols-2 lg:grid-cols-3">

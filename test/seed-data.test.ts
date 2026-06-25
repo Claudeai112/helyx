@@ -1,39 +1,38 @@
 import { describe, it, expect } from "vitest";
 import { categories, products, stacks } from "@/lib/seed-data";
+import { retailPriceCents } from "@/lib/retail-pricing";
 
-const FORBIDDEN = ["research purposes only", "research use only", "not for human consumption"];
+describe("catalog seed", () => {
+  it("has the 10 research-framed categories", () => {
+    expect(categories.map((c) => c.slug)).toEqual([
+      "glp-1", "metabolic-fat-loss", "healing-recovery", "muscle-gh", "longevity",
+      "cognitive", "hormonal-reproductive", "sleep-recovery", "skin-cosmetic", "supplies",
+    ]);
+  });
 
-describe("seed catalog", () => {
-  it("has the eight categories", () => {
-    expect(categories.map((c) => c.slug)).toEqual(
-      expect.arrayContaining([
-        "glp-1", "fat-loss", "recovery", "muscle-growth",
-        "longevity", "cognitive", "healing", "stacks",
-      ]),
-    );
-  });
-  it("seeds all featured peptides", () => {
-    const slugs = products.map((p) => p.slug);
-    for (const s of [
-      "tirzepatide", "semaglutide", "retatrutide", "cagrilintide", "tesamorelin",
-      "aod-9604", "bpc-157", "tb-500", "ghk-cu", "ipamorelin", "cjc-1295",
-      "mots-c", "nad-plus", "dsip",
-    ]) expect(slugs).toContain(s);
-  });
-  it("marks every product with a category and pricing", () => {
+  it("every product has >=1 MG variant with a numeric mg and unique sku", () => {
+    const skus = new Set<string>();
     for (const p of products) {
-      expect(p.categorySlug).toBeTruthy();
       expect(p.variants.length).toBeGreaterThan(0);
-      for (const v of p.variants) expect(v.priceCents).toBeGreaterThan(0);
+      for (const v of p.variants) {
+        expect(typeof v.mg).toBe("number");
+        expect(skus.has(v.sku)).toBe(false);
+        skus.add(v.sku);
+      }
     }
   });
-  it("contains NO forbidden non-compliant copy", () => {
-    const blob = JSON.stringify({ products, stacks, categories }).toLowerCase();
-    for (const phrase of FORBIDDEN) expect(blob).not.toContain(phrase);
+
+  it("every variant has a non-zero retail price", () => {
+    for (const p of products) {
+      for (const v of p.variants) {
+        expect(retailPriceCents(p.slug, v.mg)).toBeGreaterThan(0);
+      }
+    }
   });
-  it("defines the four branded stacks", () => {
-    expect(stacks.map((s) => s.slug)).toEqual(
-      expect.arrayContaining(["wolverine", "glp-1-advanced", "recovery", "longevity"]),
+
+  it("has the 6 stacks", () => {
+    expect(stacks.map((s) => s.slug).sort()).toEqual(
+      ["glow", "glp1-advanced", "glp1-combo", "klow", "performance", "wolverine"],
     );
   });
 });

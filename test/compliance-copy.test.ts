@@ -13,6 +13,9 @@ const FORBIDDEN_SUBSTR = [
   "your dose", "dose yourself", "weight loss results",
   "consult your doctor", "prescription required",
   "bacteriostatic",
+  // Dosing / cycle-calculator stems — the declined self-administration tooling.
+  "per injection", "insulin unit", "injections required", "injection schedule",
+  "reorder date",
   // Prescription / telehealth framing — dormant under the research-supply model.
   // PHRASE-level on purpose: a bare "provider" collides with React Context
   // Provider / CartProvider, so we forbid only unambiguous prescription phrases.
