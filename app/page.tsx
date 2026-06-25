@@ -92,7 +92,7 @@ export default async function Home() {
             tag="Research & Science"
             title="Built on Published"
             gradientTitle="Science"
-            description="Heman Peptide protocols are informed by peer-reviewed literature and administered through licensed prescribers."
+            description="Pure Peps protocols are informed by peer-reviewed literature and administered through licensed prescribers."
           />
         </Reveal>
         <div className="mx-auto grid max-w-[1200px] gap-8 md:grid-cols-3">

@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Bright Family Dental — radiant light burst">
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.5" r="0.75">
+      <stop offset="0" stop-color="#0e0a26"/>
+      <stop offset="0.5" stop-color="#08081a"/>
+      <stop offset="1" stop-color="#050510"/>
+    </radialGradient>
+    <radialGradient id="core" cx="0.5" cy="0.5" r="0.25">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.2" stop-color="#a78bfa" stop-opacity="0.75"/>
+      <stop offset="0.55" stop-color="#6c5ce7" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#6c5ce7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0" stop-color="#00cec9" stop-opacity="0.25"/>
+      <stop offset="0.5" stop-color="#00cec9" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#00cec9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rayGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.35" stop-color="#a78bfa" stop-opacity="0.8"/>
+      <stop offset="0.7" stop-color="#6c5ce7" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#6c5ce7" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rayGradCyan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.4" stop-color="#00cec9" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#00cec9" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="25"/>
+    </filter>
+    <filter id="rayGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- outer halo + core glow -->
+  <circle cx="800" cy="450" r="540" fill="url(#halo)"/>
+  <circle cx="800" cy="450" r="400" fill="url(#core)" filter="url(#coreGlow)"/>
+  <circle cx="800" cy="450" r="220" fill="url(#core)"/>
+
+  <!-- sunburst rays (24 spokes, alternating colors/lengths) -->
+  <g transform="translate(800 450)" filter="url(#rayGlow)">
+    <g>
+      <!-- long purple rays -->
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(0)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(30)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(60)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(90)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(120)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(150)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(180)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(210)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(240)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(270)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(300)"/>
+      <rect x="-2" y="-600" width="4" height="520" fill="url(#rayGrad)" transform="rotate(330)"/>
+    </g>
+    <g opacity="0.85">
+      <!-- short cyan rays offset -->
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(15)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(45)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(75)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(105)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(135)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(165)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(195)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(225)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(255)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(285)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(315)"/>
+      <rect x="-1.5" y="-500" width="3" height="400" fill="url(#rayGradCyan)" transform="rotate(345)"/>
+    </g>
+    <g opacity="0.55">
+      <!-- thin outer rays -->
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(7.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(22.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(37.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(52.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(67.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(82.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(97.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(112.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(127.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(142.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(157.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(172.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(187.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(202.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(217.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(232.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(247.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(262.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(277.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(292.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(307.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(322.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(337.5)"/>
+      <rect x="-0.6" y="-520" width="1.2" height="420" fill="#ffffff" transform="rotate(352.5)"/>
+    </g>
+  </g>
+
+  <!-- concentric rings -->
+  <g fill="none" stroke-linecap="round">
+    <circle cx="800" cy="450" r="260" stroke="#6c5ce7" stroke-width="1" opacity="0.35"/>
+    <circle cx="800" cy="450" r="320" stroke="#a78bfa" stroke-width="0.8" opacity="0.28"/>
+    <circle cx="800" cy="450" r="380" stroke="#00cec9" stroke-width="0.8" opacity="0.22"/>
+    <circle cx="800" cy="450" r="440" stroke="#6c5ce7" stroke-width="0.6" opacity="0.15"/>
+  </g>
+
+  <!-- crystalline refraction lines -->
+  <g opacity="0.55" stroke-linecap="round">
+    <line x1="800" y1="450" x2="1120" y2="260" stroke="#a78bfa" stroke-width="1"/>
+    <line x1="800" y1="450" x2="480" y2="260" stroke="#00cec9" stroke-width="1"/>
+    <line x1="800" y1="450" x2="1120" y2="640" stroke="#00cec9" stroke-width="1"/>
+    <line x1="800" y1="450" x2="480" y2="640" stroke="#a78bfa" stroke-width="1"/>
+  </g>
+
+  <!-- sparkle particles -->
+  <g fill="#ffffff">
+    <circle cx="560" cy="220" r="2" opacity="0.9"/>
+    <circle cx="1050" cy="190" r="1.5" opacity="0.8"/>
+    <circle cx="1220" cy="340" r="1.8" opacity="0.85"/>
+    <circle cx="1280" cy="520" r="1.3" opacity="0.7"/>
+    <circle cx="1100" cy="700" r="1.8" opacity="0.8"/>
+    <circle cx="720" cy="740" r="1.5" opacity="0.75"/>
+    <circle cx="440" cy="690" r="1.7" opacity="0.8"/>
+    <circle cx="320" cy="500" r="1.4" opacity="0.7"/>
+    <circle cx="380" cy="320" r="1.9" opacity="0.85"/>
+    <circle cx="900" cy="150" r="1.3" opacity="0.7"/>
+    <circle cx="680" cy="180" r="1.5" opacity="0.75"/>
+  </g>
+
+  <!-- central white pinpoint -->
+  <circle cx="800" cy="450" r="8" fill="#ffffff"/>
+  <circle cx="800" cy="450" r="3" fill="#ffffff" opacity="0.95"/>
+</svg>

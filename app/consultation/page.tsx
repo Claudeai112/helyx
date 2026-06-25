@@ -5,7 +5,7 @@ import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 export const metadata: Metadata = {
   title: "Start a Consultation",
   description:
-    "Begin your provider consultation to determine eligibility for Heman Peptide protocols.",
+    "Begin your provider consultation to determine eligibility for Pure Peps protocols.",
 };
 
 const STEPS = [
@@ -36,7 +36,7 @@ export default function ConsultationPage() {
         Start Your Consultation
       </h1>
       <p className="mt-4 max-w-[640px] text-[1.05rem] text-[#c8c8dc]">
-        All Heman Peptide protocols require a provider consultation. A licensed healthcare
+        All Pure Peps protocols require a provider consultation. A licensed healthcare
         professional reviews your intake and determines whether a prescription is appropriate
         for you. The full intake form is coming soon — join the list below to be notified
         when your spot opens.

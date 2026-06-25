@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HemanLogo } from "./brand/heman-logo";
+import { PurePepsLogo } from "./brand/pure-peps-logo";
 import { EmailCapture } from "./marketing/email-capture";
 import { DisclaimerBar } from "./ui/disclaimer-bar";
 
@@ -44,9 +44,9 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-[2fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center gap-2.5">
-              <HemanLogo className="size-[38px] shrink-0" />
+              <PurePepsLogo className="size-[38px] shrink-0" />
               <div className="font-display leading-tight">
-                <span className="block text-[1.2rem] font-bold tracking-widest text-white">HEMAN</span>
+                <span className="block text-[1.2rem] font-bold tracking-widest text-white">PURE PEPS</span>
                 <span className="block text-[0.65rem] font-medium uppercase tracking-[3px] text-[#28e0c8]">
                   Peptide
                 </span>
@@ -115,7 +115,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mx-auto mt-12 flex max-w-[1200px] flex-col items-start gap-4 border-t border-white/5 pt-6 text-[0.8rem] text-[#33334a] md:flex-row md:items-center md:justify-between">
-          <span>© 2026 Heman Peptide. All rights reserved.</span>
+          <span>© 2026 Pure Peps. All rights reserved.</span>
           <DisclaimerBar className="max-w-[640px] text-[0.75rem]" />
         </div>
       </div>

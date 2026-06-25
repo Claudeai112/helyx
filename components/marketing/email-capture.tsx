@@ -6,7 +6,7 @@ import { captureEmail } from "@/app/actions/email-capture";
 export function EmailCapture({ source }: { source: string }) {
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  if (done) return <p className="text-sm text-primary">You&apos;re on the list. Welcome to Heman.</p>;
+  if (done) return <p className="text-sm text-primary">You&apos;re on the list. Welcome to Pure Peps.</p>;
   return (
     <form
       action={async (fd) => {

@@ -5,7 +5,7 @@ describe("seo json-ld", () => {
   it("builds Organization schema", () => {
     const o = organizationJsonLd();
     expect(o["@type"]).toBe("Organization");
-    expect(o.name).toBe("Heman Peptide");
+    expect(o.name).toBe("Pure Peps");
   });
   it("builds Product schema with offers", () => {
     const p = productJsonLd({ name: "BPC-157", description: "x", priceCents: 5900, slug: "bpc-157" });

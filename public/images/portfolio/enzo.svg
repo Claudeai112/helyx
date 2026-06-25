@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Enzo Insurance Group — abstract flowing waves">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050510"/>
+      <stop offset="0.6" stop-color="#0a0a1f"/>
+      <stop offset="1" stop-color="#050510"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.7" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#6c5ce7" stop-opacity="0.35"/>
+      <stop offset="0.5" stop-color="#6c5ce7" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#6c5ce7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo2" cx="0.25" cy="0.75" r="0.55">
+      <stop offset="0" stop-color="#00cec9" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#00cec9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wave1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6c5ce7" stop-opacity="0"/>
+      <stop offset="0.15" stop-color="#6c5ce7" stop-opacity="0.9"/>
+      <stop offset="0.55" stop-color="#a78bfa" stop-opacity="0.95"/>
+      <stop offset="0.85" stop-color="#00cec9" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#00cec9" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wave2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00cec9" stop-opacity="0"/>
+      <stop offset="0.2" stop-color="#00cec9" stop-opacity="0.7"/>
+      <stop offset="0.6" stop-color="#6c5ce7" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wave3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#a78bfa" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#6c5ce7" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="hardGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#halo)"/>
+  <rect width="1600" height="900" fill="url(#halo2)"/>
+
+  <!-- subtle grid -->
+  <g opacity="0.08" stroke="#6c5ce7" stroke-width="1">
+    <path d="M0 150 H1600 M0 300 H1600 M0 450 H1600 M0 600 H1600 M0 750 H1600"/>
+    <path d="M200 0 V900 M400 0 V900 M600 0 V900 M800 0 V900 M1000 0 V900 M1200 0 V900 M1400 0 V900"/>
+  </g>
+
+  <!-- blurred base waves -->
+  <g filter="url(#softGlow)" opacity="0.75">
+    <path d="M-100 620 C 300 380, 600 820, 900 500 S 1500 340, 1800 540" stroke="url(#wave1)" stroke-width="70" fill="none" stroke-linecap="round"/>
+    <path d="M-100 480 C 350 720, 700 260, 1050 560 S 1550 720, 1800 420" stroke="url(#wave2)" stroke-width="60" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- sharp wave stack -->
+  <g filter="url(#hardGlow)">
+    <path d="M-50 560 C 280 340, 620 780, 920 460 S 1480 320, 1700 500" stroke="url(#wave1)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M-50 580 C 290 360, 630 800, 930 480 S 1490 340, 1700 520" stroke="url(#wave1)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+    <path d="M-50 600 C 300 380, 640 820, 940 500 S 1500 360, 1700 540" stroke="url(#wave1)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+    <path d="M-50 440 C 320 680, 680 240, 1040 520 S 1520 680, 1700 400" stroke="url(#wave2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M-50 460 C 330 700, 690 260, 1050 540 S 1530 700, 1700 420" stroke="url(#wave2)" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.7"/>
+    <path d="M-50 480 C 340 720, 700 280, 1060 560 S 1540 720, 1700 440" stroke="url(#wave2)" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+    <path d="M-50 350 C 360 560, 760 180, 1100 440 S 1560 580, 1700 340" stroke="url(#wave3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M-50 680 C 360 480, 760 900, 1100 640 S 1560 520, 1700 740" stroke="url(#wave3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- streak highlights suggesting speed -->
+  <g stroke-linecap="round" opacity="0.9">
+    <line x1="120" y1="250" x2="260" y2="230" stroke="#a78bfa" stroke-width="2"/>
+    <line x1="200" y1="280" x2="360" y2="258" stroke="#a78bfa" stroke-width="1.5" opacity="0.7"/>
+    <line x1="1280" y1="690" x2="1440" y2="672" stroke="#00cec9" stroke-width="2"/>
+    <line x1="1220" y1="720" x2="1380" y2="702" stroke="#00cec9" stroke-width="1.5" opacity="0.7"/>
+    <line x1="1340" y1="220" x2="1480" y2="202" stroke="#6c5ce7" stroke-width="2"/>
+  </g>
+
+  <!-- particles -->
+  <g fill="#ffffff">
+    <circle cx="180" cy="140" r="1.5" opacity="0.85"/>
+    <circle cx="340" cy="210" r="1" opacity="0.6"/>
+    <circle cx="480" cy="120" r="1.2" opacity="0.7"/>
+    <circle cx="720" cy="200" r="1" opacity="0.5"/>
+    <circle cx="960" cy="140" r="1.4" opacity="0.8"/>
+    <circle cx="1180" cy="240" r="1" opacity="0.6"/>
+    <circle cx="1420" cy="180" r="1.2" opacity="0.7"/>
+    <circle cx="260" cy="780" r="1" opacity="0.55"/>
+    <circle cx="520" cy="830" r="1.3" opacity="0.7"/>
+    <circle cx="800" cy="780" r="1" opacity="0.5"/>
+    <circle cx="1080" cy="830" r="1.2" opacity="0.65"/>
+    <circle cx="1340" cy="790" r="1.4" opacity="0.75"/>
+  </g>
+
+  <!-- focal accent -->
+  <g opacity="0.9">
+    <circle cx="900" cy="500" r="6" fill="#ffffff"/>
+    <circle cx="900" cy="500" r="14" fill="none" stroke="#00cec9" stroke-width="1.2" opacity="0.7"/>
+    <circle cx="900" cy="500" r="28" fill="none" stroke="#6c5ce7" stroke-width="0.8" opacity="0.4"/>
+  </g>
+</svg>
