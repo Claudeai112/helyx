@@ -1,9 +1,8 @@
 import { cn } from "@/lib/utils";
 
 export const COMPLIANCE_DISCLAIMER =
-  "Prescription products require an online consultation and approval by a licensed " +
-  "healthcare provider. Individual eligibility is determined by the provider. This site " +
-  "does not provide medical advice.";
+  "For research use only. Not for human consumption. Products are intended for " +
+  "laboratory and research purposes.";
 
 export function DisclaimerBar({ className }: { className?: string }) {
   return (

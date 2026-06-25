@@ -2,14 +2,15 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, it, expect } from "vitest";
 
-// Durable sitewide compliance guard. In a licensed-prescription telehealth model,
-// research-chemical disclaimer language is legally incoherent and forbidden. This
-// scans ALL source under app/, components/, and lib/ — not just one page — so a
-// forbidden phrase introduced into any component, section, or data module fails CI.
+// Durable sitewide compliance guard. Under the research-supply model,
+// human-use / therapeutic / self-administration claims are legally incoherent
+// and forbidden. This scans ALL source under app/, components/, and lib/ — not
+// just one page — so a forbidden phrase introduced into any component, section,
+// or data module fails CI.
 const FORBIDDEN = [
-  "research purposes only",
-  "research use only",
-  "not for human consumption",
+  "for human use", "intended for human", "inject yourself", "how to inject",
+  "your dose", "dose yourself", "weight loss results", "cure ", "treats ",
+  "consult your doctor", "prescription required",
 ];
 
 const ROOTS = ["app", "components", "lib"];
@@ -35,7 +36,7 @@ describe("sitewide compliance copy", () => {
     expect(files.length).toBeGreaterThan(20);
   });
 
-  it("contains none of the forbidden research-chemical phrases anywhere", () => {
+  it("contains none of the forbidden human-use phrases anywhere", () => {
     const offenders: string[] = [];
     for (const file of files) {
       const text = readFileSync(file, "utf8").toLowerCase();
@@ -44,5 +45,11 @@ describe("sitewide compliance copy", () => {
       }
     }
     expect(offenders).toEqual([]);
+  });
+
+  it("ships the research-use disclaimer", () => {
+    const bar = readFileSync("components/ui/disclaimer-bar.tsx", "utf8").toLowerCase();
+    expect(bar).toContain("for research use only");
+    expect(bar).toContain("not for human consumption");
   });
 });

@@ -30,7 +30,7 @@ export default function ConsultationPage() {
   return (
     <main className="relative z-[2] mx-auto min-h-screen max-w-[900px] px-6 pb-24 pt-36">
       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-[rgba(40,224,200,0.25)] bg-[rgba(40,224,200,0.08)] px-4 py-1.5 text-xs font-medium uppercase tracking-[2px] text-[#28e0c8]">
-        Prescription required
+        Research supply
       </div>
       <h1 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
         Start Your Consultation

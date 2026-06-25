@@ -54,7 +54,7 @@ export default function WaitlistPage() {
       {/* Email capture */}
       <div className="mt-10 rounded-2xl border border-[rgba(40,224,200,0.15)] bg-[rgba(40,224,200,0.04)] px-8 py-10">
         <p className="mb-1 text-sm font-semibold uppercase tracking-[1.5px] text-[#28e0c8]">
-          Secure your spot
+          Reserve your place
         </p>
         <p className="mb-5 text-[0.95rem] text-[#7777aa]">
           We respect your inbox. Expect one email when your spot opens, nothing else.
