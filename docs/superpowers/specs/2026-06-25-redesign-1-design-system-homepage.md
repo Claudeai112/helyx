@@ -26,9 +26,14 @@ Copy rules across all rendered surfaces:
 - **Research-use disclaimer** present sitewide (footer + fine print), professionally
   worded: *"For research use only. Not for human consumption. Products are intended
   for laboratory and research purposes."*
-- The **access code** is an **authorized-customer access** mechanism entered at
-  **checkout** to complete a purchase — described as authorized access, never as
-  "bypassing approval." (Checkout itself is a later spec; this spec only frames it.)
+- **No access code / authorization gate.** Checkout is open standard ecommerce
+  (add to cart → checkout → pay; the cart + payment are a later spec). With no
+  gate, the compliance boundary is **entirely** the research-supply controls:
+  genuine RUO labeling, research-framed/claim-free copy, no self-administration or
+  dosing content, and the reference calculator staying a concentration/
+  reconstitution reference only. The prior access-code engine (`lib/codes`,
+  `lib/rx-auth`, redeem flow) becomes **dormant/retired** — not wired into the new
+  checkout.
 
 ### Compliance guard change (test inversion)
 `test/compliance-copy.test.ts` currently FORBIDS "research use only" / "not for human
@@ -52,7 +57,7 @@ client-side cart store (add-to-cart + header count); the copy/disclaimer reframe
 SEO/metadata; the compliance-guard inversion.
 
 **Deferred to later specs:** product-page redesign + research/reconstitution content;
-cart page + checkout + authorized-access code at checkout + Stripe payment; the
+cart page + open checkout (no access code) + Stripe payment; the
 reference calculators (concentration / reconstitution / bulk-pricing); ambassador
 application; SMS opt-in + discount popup; full product-description reframe in
 `lib/seed-data.ts` (the homepage shows names + short descriptors + price, which are
