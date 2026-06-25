@@ -17,3 +17,13 @@ export function toProductCardData(p: ProductLike): ProductCardData {
     minCompareAtCents: cheapest?.compareAtCents ?? null,
   };
 }
+
+type StackItemLike = { product: { variants: { priceCents: number }[] } };
+
+export function stackComponentSumCents(items: StackItemLike[]): number {
+  return items.reduce((sum, item) => {
+    const cheapest = item.product.variants.reduce(
+      (min, v) => Math.min(min, v.priceCents), Infinity);
+    return sum + (Number.isFinite(cheapest) ? cheapest : 0);
+  }, 0);
+}

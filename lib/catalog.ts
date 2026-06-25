@@ -28,7 +28,9 @@ export function getStackBySlug(slug: string) {
 }
 
 export function getAllStacks() {
-  return prisma.stack.findMany({ include: { items: { include: { product: true } } } });
+  return prisma.stack.findMany({
+    include: { items: { include: { product: { include: { variants: true } } } } },
+  });
 }
 
 export function getRelatedProducts(slugs: string[]) {

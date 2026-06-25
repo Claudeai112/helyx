@@ -82,7 +82,7 @@ describe("catalog queries", () => {
     );
   });
 
-  it("getAllStacks includes items with nested product", async () => {
+  it("getAllStacks includes items with nested product and variants", async () => {
     findMany.mockResolvedValue([{ id: 1, items: [] }]);
     const res = await getAllStacks();
     expect(res[0].id).toBe(1);
@@ -90,7 +90,11 @@ describe("catalog queries", () => {
       expect.objectContaining({
         include: expect.objectContaining({
           items: expect.objectContaining({
-            include: expect.objectContaining({ product: true }),
+            include: expect.objectContaining({
+              product: expect.objectContaining({
+                include: expect.objectContaining({ variants: true }),
+              }),
+            }),
           }),
         }),
       }),
