@@ -7,7 +7,8 @@ describe("prisma schema", () => {
   it("defines all core models", () => {
     for (const m of [
       "model Category", "model Product", "model ProductVariant",
-      "model Stack", "model User", "model Cart", "model Order",
+      "model Stack", "model StackItem", "model User", "model Cart",
+      "model CartItem", "model Order", "model OrderItem",
       "model Consult", "model Prescription", "model EmailCapture",
     ]) expect(schema).toContain(m);
   });
@@ -17,5 +18,7 @@ describe("prisma schema", () => {
   });
   it("stores money as integer cents", () => {
     expect(schema).toMatch(/priceCents\s+Int/);
+    expect(schema).toMatch(/compareAtCents\s+Int/);
+    expect(schema).toMatch(/unitPriceCents\s+Int/);
   });
 });
