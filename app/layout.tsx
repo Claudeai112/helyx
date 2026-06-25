@@ -25,8 +25,8 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: "Pure Peps | Provider-Guided Peptide Therapy",
-    template: "%s | Pure Peps",
+    default: "Helyx | Provider-Guided Peptide Therapy",
+    template: "%s | Helyx",
   },
   description:
     "Premium, provider-guided peptide protocols. GLP-1, recovery, longevity and " +

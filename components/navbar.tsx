@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { PurePepsLogo } from "./brand/pure-peps-logo";
+import { HelyxLogo } from "./brand/helyx-logo";
 
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
@@ -33,9 +33,9 @@ export function Navbar() {
     >
       <div className="flex w-full max-w-[1300px] items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
-          <PurePepsLogo className="size-[38px] shrink-0 transition-[filter] duration-300" />
+          <HelyxLogo className="size-[38px] shrink-0 transition-[filter] duration-300" />
           <div className="font-display leading-tight">
-            <span className="block text-[1.2rem] font-bold tracking-widest text-white">PURE PEPS</span>
+            <span className="block text-[1.2rem] font-bold tracking-widest text-white">HELYX</span>
             <span className="block text-[0.65rem] font-medium uppercase tracking-[3px] text-[#28e0c8]">
               Peptide
             </span>
