@@ -16,7 +16,15 @@ import { organizationJsonLd, faqJsonLd } from "@/lib/seo";
 import { HOME_FAQS } from "@/lib/faq-data";
 
 export default async function Home() {
-  const [stacks, products] = await Promise.all([getAllStacks(), getAllProducts()]);
+  // Degrade gracefully: if the catalog DB is unavailable, render the static
+  // homepage without the dynamic stack/product sections rather than 500-ing.
+  let stacks: Awaited<ReturnType<typeof getAllStacks>> = [];
+  let products: Awaited<ReturnType<typeof getAllProducts>> = [];
+  try {
+    [stacks, products] = await Promise.all([getAllStacks(), getAllProducts()]);
+  } catch {
+    // Catalog database not reachable — sections below are gated on length.
+  }
   const trendingProducts = products.slice(0, 6);
 
   return (
