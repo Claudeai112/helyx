@@ -12,18 +12,18 @@ export default function TermsPage() {
 
       <h2>1. About This Platform</h2>
       <p>
-        This platform connects patients with independent licensed healthcare providers and licensed
-        compounding pharmacies. We do not employ healthcare providers, practice medicine, or
-        dispense medications. All prescribing decisions are made independently by the licensed
-        providers in our network.
+        Helyx Peptides operates a research-supply e-commerce platform offering peptide compounds
+        for laboratory and research use. We do not provide medical services or facilitate clinical
+        care. All products are sold solely for research purposes and are not for human or animal
+        consumption.
       </p>
 
       <h2>2. Eligibility</h2>
       <p>
-        You must be at least 18 years of age and a resident of a U.S. state in which our partnered
-        providers are licensed to practice. By creating an account you represent that you meet these
-        requirements. Creating an account on behalf of another person is prohibited without explicit
-        legal authority (e.g., legal guardianship).
+        You must be at least 18 years of age and a resident of the United States. By placing an
+        order you represent that you are 18 or older and will use all products solely for lawful
+        research purposes. Creating an account on behalf of another person is prohibited without
+        explicit legal authority (e.g., legal guardianship).
       </p>
 
       <h2>3. Accounts</h2>
@@ -34,30 +34,23 @@ export default function TermsPage() {
         that we believe pose a risk of fraud or harm.
       </p>
 
-      <h2>4. Prescription Nature of Products</h2>
+      <h2>4. Research-Use Restriction</h2>
       <p>
-        All products available for purchase through this platform are prescription items. A valid
-        prescription issued by a licensed healthcare provider is required before any product is
-        dispensed. Submitting false or misleading information during your intake or consultation
-        may result in immediate account termination and may constitute fraud under applicable law.
+        All products available for purchase through this platform are sold strictly for research
+        use only and are not for human or animal consumption. By placing an order, you
+        confirm that products will be used solely for lawful laboratory or research purposes in
+        compliance with all applicable laws and regulations in your jurisdiction. Resale of
+        research compounds purchased through this platform is strictly prohibited.
       </p>
 
-      <h2>5. No Resale</h2>
+      <h2>5. Payments and Billing</h2>
       <p>
-        Prescription medications dispensed through this platform are for your personal therapeutic
-        use only as directed by your prescribing provider. Resale, redistribution, or transfer of
-        any prescription product to another individual is strictly prohibited and may violate
-        federal and state law.
+        Product pricing is displayed at checkout. By submitting payment you authorize us to charge
+        the payment method on file. All fees are in U.S. dollars. Prices are subject to change
+        with reasonable notice.
       </p>
 
-      <h2>6. Payments and Billing</h2>
-      <p>
-        Consultation fees and product pricing are displayed at checkout. By submitting payment you
-        authorize us to charge the payment method on file. All fees are in U.S. dollars. Prices are
-        subject to change with reasonable notice.
-      </p>
-
-      <h2>7. Limitation of Liability</h2>
+      <h2>6. Limitation of Liability</h2>
       <p>
         To the fullest extent permitted by applicable law, our total liability to you for any claim
         arising out of or relating to these Terms or your use of the platform shall not exceed the
@@ -65,14 +58,14 @@ export default function TermsPage() {
         for indirect, incidental, consequential, or punitive damages.
       </p>
 
-      <h2>8. Disclaimer of Warranties</h2>
+      <h2>7. Disclaimer of Warranties</h2>
       <p>
         The platform and its content are provided &quot;as is&quot; without warranties of any kind, express
         or implied. We do not warrant that the platform will be uninterrupted, error-free, or free
         of viruses or other harmful components.
       </p>
 
-      <h2>9. Governing Law and Dispute Resolution</h2>
+      <h2>8. Governing Law and Dispute Resolution</h2>
       <p>
         These Terms are governed by the laws of [State], without regard to its conflict-of-law
         provisions. Any dispute arising under these Terms shall first be submitted to informal
@@ -81,14 +74,14 @@ export default function TermsPage() {
         (no class actions).
       </p>
 
-      <h2>10. Changes to These Terms</h2>
+      <h2>9. Changes to These Terms</h2>
       <p>
         We may update these Terms periodically. Material changes will be communicated via email or
         a notice on the platform. Continued use of the platform after changes take effect
         constitutes acceptance of the revised Terms.
       </p>
 
-      <h2>11. Contact</h2>
+      <h2>10. Contact</h2>
       <p>
         Questions about these Terms can be directed to our support team through the help center.
       </p>

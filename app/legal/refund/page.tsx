@@ -9,35 +9,26 @@ export default function RefundPage() {
         Last updated: June 2026. Please refer to the most current version posted on this site.
       </p>
 
-      <h2>Prescription Products</h2>
+      <h2>Research Materials</h2>
       <p>
-        Because our products are compounded prescription medications prepared specifically for
-        individual patients, they cannot be restocked or reused once dispensed. For this reason,
-        all prescription product sales are <strong>final once the order has been processed by the
-        pharmacy</strong>. We are unable to accept returns of dispensed prescription medications
-        under federal and state pharmacy law.
+        Because many of our peptide compounds are prepared or handled to order, all
+        research-material sales are <strong>final once the order has been confirmed</strong>. We
+        are unable to accept returns of research compounds once shipped, in accordance with
+        standard research-supply industry practice.
       </p>
       <p>
         If you have concerns about a product you have received, please contact our support team
-        within 7 days of delivery. We will work with you and the dispensing pharmacy to investigate
-        and, where appropriate, arrange a replacement.
-      </p>
-
-      <h2>Consultation Fees</h2>
-      <p>
-        Telehealth consultation fees cover the cost of clinical review by a licensed healthcare
-        provider and are generally non-refundable once the provider has reviewed your intake,
-        regardless of whether a prescription is issued. If a consultation is not yet assigned to a
-        provider, please contact support to request a cancellation.
+        within 7 days of delivery. We will work with you to investigate and, where appropriate,
+        arrange a replacement.
       </p>
 
       <h2>Damaged or Incorrect Orders</h2>
       <p>
         If you receive a product that is visibly damaged, incorrectly labeled, or does not match
-        your prescription, please contact our support team immediately (within 5 days of delivery)
-        and retain the original packaging and product. We will coordinate with the dispensing
-        pharmacy to investigate and, if confirmed, arrange a replacement at no additional charge.
-        Please do not use a product you believe is damaged or incorrect.
+        your order, please contact our support team immediately (within 5 days of delivery) and
+        retain the original packaging and product. Our fulfillment team will investigate and, if
+        confirmed, arrange a replacement at no additional charge. Please do not open or use a
+        product you believe is damaged or incorrect.
       </p>
 
       <h2>Orders Not Delivered</h2>
@@ -51,7 +42,7 @@ export default function RefundPage() {
       <p>
         If you are enrolled in an auto-renewal plan, you may cancel your next renewal by contacting
         support at least 5 business days before the next billing date. Refunds are not issued for
-        renewal orders that have already been processed by the pharmacy.
+        renewal orders that have already been confirmed and processed.
       </p>
 
       <h2>How to Contact Us</h2>

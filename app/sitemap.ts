@@ -4,7 +4,7 @@ import { getAllProducts, getAllCategories, getAllStacks } from "@/lib/catalog";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const staticPaths = [
-    "", "/shop", "/stacks", "/consultation", "/waitlist",
+    "", "/shop", "/stacks", "/faq",
     "/legal/terms", "/legal/privacy", "/legal/refund", "/legal/shipping", "/legal/medical-disclaimer",
   ];
   let dynamicPaths: string[] = [];

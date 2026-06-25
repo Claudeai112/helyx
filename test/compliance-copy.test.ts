@@ -13,6 +13,13 @@ const FORBIDDEN_SUBSTR = [
   "your dose", "dose yourself", "weight loss results",
   "consult your doctor", "prescription required",
   "bacteriostatic",
+  // Prescription / telehealth framing — dormant under the research-supply model.
+  // PHRASE-level on purpose: a bare "provider" collides with React Context
+  // Provider / CartProvider, so we forbid only unambiguous prescription phrases.
+  "licensed provider", "healthcare provider", "your provider",
+  "provider approval", "provider evaluation", "provider consultation",
+  "issues a prescription", "prescribed by", "during your consultation",
+  "compounding pharmacy", "licensed pharmacy", "eligibility is determined",
 ];
 
 const ROOTS = ["app", "components", "lib"];
