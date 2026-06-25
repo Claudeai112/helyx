@@ -28,7 +28,7 @@ export default async function Home() {
       tagline: s.tagline,
       priceCents: stackPriceCents(sum, s.discountBps),
       compareAtCents: sum,
-      items: s.items,
+      contents: s.items.map((i) => i.product.name),
     };
   });
   return (

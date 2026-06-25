@@ -100,18 +100,6 @@
   --chart-5: #5B6675;
 }
 
-/* Gradient utilities — updated to clinical blue palette */
-@utility gradient-brand {
-  background-image: linear-gradient(135deg, #1E5CA8, #2E7DD1);
-}
-@utility gradient-text {
-  background-image: linear-gradient(135deg, #1E5CA8 0%, #2E7DD1 30%, #5B9BD5 70%, #1E5CA8 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 /* Fade in up */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(20px); }

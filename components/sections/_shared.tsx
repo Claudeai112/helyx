@@ -22,12 +22,10 @@ export function SectionShell({
 export function SectionHeader({
   tag,
   title,
-  gradientTitle,
   description,
 }: {
   tag?: string;
   title: string;
-  gradientTitle?: string;
   description?: string;
 }) {
   return (
@@ -39,7 +37,6 @@ export function SectionHeader({
       )}
       <h2 className="mb-4 font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold text-foreground">
         {title}
-        {gradientTitle && ` ${gradientTitle}`}
       </h2>
       {description && (
         <p className="mx-auto max-w-[680px] text-base text-muted-foreground">
