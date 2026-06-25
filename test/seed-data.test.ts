@@ -20,7 +20,7 @@ describe("seed catalog", () => {
       "mots-c", "nad-plus", "dsip",
     ]) expect(slugs).toContain(s);
   });
-  it("marks every product as Rx with a category and pricing", () => {
+  it("marks every product with a category and pricing", () => {
     for (const p of products) {
       expect(p.categorySlug).toBeTruthy();
       expect(p.variants.length).toBeGreaterThan(0);
