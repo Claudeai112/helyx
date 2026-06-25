@@ -10,13 +10,18 @@ export async function captureEmail(formData: FormData): Promise<{ ok: boolean; e
     source: formData.get("source"),
   });
   if (!parsed.ok) return { ok: false, error: parsed.error };
-  await prisma.emailCapture.create({
-    data: {
-      email: parsed.data.email,
-      phone: parsed.data.phone,
-      smsConsent: parsed.data.smsConsent,
-      source: parsed.data.source,
-    },
-  });
+  try {
+    await prisma.emailCapture.create({
+      data: {
+        email: parsed.data.email,
+        phone: parsed.data.phone,
+        smsConsent: parsed.data.smsConsent,
+        source: parsed.data.source,
+      },
+    });
+  } catch {
+    // DB unavailable or write failed — surface a graceful message instead of throwing.
+    return { ok: false, error: "We couldn't save your email right now. Please try again." };
+  }
   return { ok: true };
 }
