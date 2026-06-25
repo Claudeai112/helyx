@@ -20,7 +20,8 @@ export function ProductCard({ product }: { product: ProductCardData }) {
     >
       <div className="mb-4 flex items-center justify-between">
         <Badge>Rx</Badge>
-        {product.status !== "ACTIVE" && <Badge variant="muted">Coming soon</Badge>}
+        {product.status === "WAITLIST" && <Badge variant="muted">Waitlist</Badge>}
+        {product.status === "COMING_SOON" && <Badge variant="muted">Coming soon</Badge>}
       </div>
       <h3 className="text-lg font-semibold text-foreground group-hover:text-primary">
         {product.name}
