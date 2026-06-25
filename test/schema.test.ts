@@ -21,6 +21,10 @@ describe("prisma schema", () => {
     expect(schema).toContain("enum CodeStatus");
     expect(schema).toContain("REVOKED");
     expect(schema).toMatch(/prescriptionCodeId\s+String\?/);
+    // One code authorizes many orders (no usage cap): prescriptionCodeId must NOT
+    // be @unique, and PrescriptionCode must keep the one-to-many back-reference.
+    expect(schema).toMatch(/prescriptionCodeId\s+String\?(?!\s*@unique)/);
+    expect(schema).toMatch(/orders\s+Order\[\]/);
   });
   it("stores money as integer cents", () => {
     expect(schema).toMatch(/priceCents\s+Int/);
