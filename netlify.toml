@@ -1,0 +1,25 @@
+# Netlify build configuration for the Next.js (App Router) storefront.
+# Connect this repo in the Netlify UI (Add new site -> Import from Git); Netlify
+# auto-detects Next.js and uses @netlify/plugin-nextjs. Set the environment
+# variables below in Site settings -> Environment.
+
+[build]
+  command = "npm run build"
+
+[build.environment]
+  # Next 16 / React 19 require a modern Node.
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Required environment variables (set in the Netlify UI, NOT committed):
+#   DATABASE_URL          - Postgres connection string (your Neon database)
+#   NEXT_PUBLIC_SITE_URL  - the deployed site URL, e.g. https://helyx.netlify.app
+#   RX_COOKIE_SECRET      - random secret for signing the redemption cookie (Spec 2A)
+#   STRIPE_SECRET_KEY     - placeholder until a Stripe account exists (Spec 2B)
+#   STRIPE_WEBHOOK_SECRET - placeholder until Stripe is set up (Spec 2B)
+#
+# Prisma: `prisma generate` runs via the package.json "postinstall" hook after
+# `npm install`. The schema is already pushed to the database; when migrations
+# are introduced, add `npx prisma migrate deploy` to the build command.
