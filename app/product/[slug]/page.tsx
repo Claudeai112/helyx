@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProductBySlug, getRelatedProducts } from "@/lib/catalog";
-import { getRedeemedCode } from "@/lib/rx-auth";
-import { ConsultCTA } from "@/components/commerce/consult-cta";
-import { VariantSelector } from "@/components/commerce/variant-selector";
+import { AddToCart } from "@/components/commerce/add-to-cart";
 import { ProductCard } from "@/components/commerce/product-card";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 import { Badge } from "@/components/ui/badge";
@@ -24,7 +22,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = await getProductBySlug(slug);
   if (!product) notFound();
   const related = await getRelatedProducts(product.relatedSlugs);
-  const unlocked = (await getRedeemedCode()) !== null;
   const cheapestCents = product.variants.length
     ? Math.min(...product.variants.map((v) => v.priceCents))
     : 0;
@@ -44,13 +41,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <div className="grid gap-12 lg:grid-cols-2">
         <div className="aspect-square rounded-3xl border border-border bg-card/40" />
         <div>
-          <Badge>Rx · Prescription product</Badge>
+          <Badge>Research compound</Badge>
           <h1 className="mt-4 text-4xl font-semibold text-foreground">{product.name}</h1>
           <p className="mt-2 text-lg text-muted-foreground">{product.subtitle}</p>
           <div className="mt-6">
-            <VariantSelector variants={product.variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents }))} />
+            <AddToCart
+              variants={product.variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents }))}
+              slug={product.slug}
+              name={product.name}
+            />
           </div>
-          <div className="mt-6"><ConsultCTA productName={product.name} status={product.status} unlocked={unlocked} /></div>
           <DisclaimerBar className="mt-6" />
         </div>
       </div>
@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <ul className="mt-3 space-y-2 text-muted-foreground">
           {product.benefits.map((b) => <li key={b}>• {b}</li>)}
         </ul>
-        <h3 className="mt-8 text-xl font-semibold text-foreground">Reconstitution &amp; dosing</h3>
+        <h3 className="mt-8 text-xl font-semibold text-foreground">Reconstitution</h3>
         <p className="mt-3 text-muted-foreground">{product.reconstitution}</p>
       </section>
 

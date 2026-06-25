@@ -4,14 +4,18 @@ import { describe, it, expect } from "vitest";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 
 describe("DisclaimerBar", () => {
-  it("renders the exact compliance disclaimer", () => {
+  it("renders the RUO compliance disclaimer", () => {
     render(<DisclaimerBar />);
     expect(
-      screen.getByText(/Prescription products require an online consultation/i),
+      screen.getByText(/for research use only/i),
     ).toBeTruthy();
   });
-  it("never uses forbidden research-only language", () => {
+  it("contains 'not for human consumption'", () => {
     const { container } = render(<DisclaimerBar />);
-    expect(container.textContent?.toLowerCase()).not.toContain("not for human consumption");
+    expect(container.textContent?.toLowerCase()).toContain("not for human consumption");
+  });
+  it("does not contain the old prescription consultation sentence", () => {
+    const { container } = render(<DisclaimerBar />);
+    expect(container.textContent?.toLowerCase()).not.toContain("prescription products require an online consultation");
   });
 });

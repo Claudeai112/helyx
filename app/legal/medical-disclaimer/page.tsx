@@ -1,69 +1,62 @@
 import { LegalLayout } from "@/components/legal/legal-layout";
 
-export const metadata = { title: "Medical Disclaimer" };
+export const metadata = { title: "Research Use Disclaimer" };
 
 export default function MedicalDisclaimerPage() {
   return (
-    <LegalLayout title="Medical Disclaimer">
+    <LegalLayout title="Research Use Disclaimer">
       <p>
         Last updated: June 2026. Please refer to the most current version posted on this site, as
         this policy may be updated periodically.
       </p>
 
-      <h2>Prescription-Only Products</h2>
+      <h2>Research Use Only</h2>
       <p>
-        All peptide therapeutics and compounded medications offered through this platform are
-        prescription items. They are dispensed exclusively through licensed compounding pharmacies
-        that are partnered with our telehealth network. No product is shipped, dispensed, or
-        otherwise provided to any individual without a valid prescription issued by a licensed
-        healthcare provider following a clinical evaluation.
-      </p>
-
-      <h2>Evaluation and Prescriber Approval Required</h2>
-      <p>
-        Access to prescription products requires completion of a telehealth consultation. A licensed
-        healthcare provider — which may include a physician, nurse practitioner, or physician
-        assistant operating within their scope of practice — reviews each intake, assesses clinical
-        eligibility, and, if appropriate, issues a prescription. Eligibility is determined solely by
-        the reviewing licensed provider, not by this platform or its operators.
+        All peptide compounds and related products offered through this platform are sold strictly
+        for in-vitro and laboratory research purposes only. They are NOT for human or
+        animal consumption, and are not approved, intended, or suitable for clinical, diagnostic,
+        or therapeutic use. These products are not drugs and make no therapeutic or medical
+        claims of any kind.
       </p>
 
       <h2>No Medical Advice</h2>
       <p>
-        This website and its content — including articles, FAQs, product descriptions, and dosing
-        references — are provided for general educational purposes only and do not constitute
-        medical advice, diagnosis, or treatment. Nothing on this site should be construed as a
-        recommendation to begin, modify, or discontinue any medical treatment. Always seek the
-        advice of your own physician or another qualified healthcare professional with any questions
-        you may have regarding a medical condition or prescription therapy.
+        This website and its content — including articles, FAQs, product descriptions, and
+        technical references — are provided for general informational and educational purposes only
+        and do not constitute medical advice, diagnosis, or treatment. Nothing on this site should
+        be construed as a therapeutic recommendation or as guidance for use in humans or animals.
+        If you have medical questions, seek the advice of a qualified healthcare professional.
+      </p>
+
+      <h2>Buyer Responsibility</h2>
+      <p>
+        By placing an order, the buyer represents and warrants that they are a qualified researcher
+        and that all products purchased will be used solely for lawful laboratory or research
+        purposes. The buyer is solely responsible for ensuring that their use of research compounds
+        complies with all applicable laws and regulations in their jurisdiction, including proper
+        handling, storage, and disposal of research materials in accordance with applicable safety
+        guidelines.
       </p>
 
       <h2>No Efficacy Guarantees</h2>
       <p>
-        Individual outcomes vary. No representation is made that any prescription product will
-        produce a particular therapeutic result. Clinical evidence cited on this site reflects
-        published research; it does not constitute a guarantee of personal efficacy or safety.
+        Research outcomes vary. No representation is made that any product will produce a
+        particular result in any research context. Scientific literature and data cited on this
+        site reflect published research findings; such citations do not constitute efficacy or
+        safety guarantees for any specific application.
       </p>
 
       <h2>Emergency Situations</h2>
       <p>
-        This platform does not provide emergency medical services. If you believe you are
-        experiencing a medical emergency, call 911 or go to your nearest emergency room immediately.
-      </p>
-
-      <h2>Regulatory Status</h2>
-      <p>
-        Compounded peptide medications are prepared by licensed pharmacies pursuant to valid
-        prescriptions under applicable federal and state pharmacy law. This platform operates in
-        compliance with applicable telehealth regulations. The regulatory landscape for compounded
-        medications is subject to change; the licensed providers and pharmacies in our network
-        maintain current compliance with all applicable requirements.
+        This platform is not an emergency service and does not provide emergency assistance of any
+        kind. If you believe you are experiencing a medical emergency, call 911 or go to your
+        nearest emergency room immediately.
       </p>
 
       <h2>Questions</h2>
       <p>
-        If you have questions about the medical disclaimer or the prescription process, please
-        contact our support team through the help center.
+        If you have questions about this disclaimer or our research-supply products, please contact
+        our support team through the help center.
       </p>
     </LegalLayout>
   );

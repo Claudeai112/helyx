@@ -1,6 +1,6 @@
 import type { ProductCardData } from "@/components/commerce/product-card";
 
-type VariantLike = { priceCents: number; compareAtCents?: number | null };
+type VariantLike = { id: string; priceCents: number; compareAtCents?: number | null };
 type ProductLike = {
   slug: string; name: string; subtitle: string;
   status: "ACTIVE" | "COMING_SOON" | "WAITLIST"; imageUrl?: string | null;
@@ -15,6 +15,7 @@ export function toProductCardData(p: ProductLike): ProductCardData {
     slug: p.slug, name: p.name, subtitle: p.subtitle, status: p.status, imageUrl: p.imageUrl,
     minPriceCents: cheapest?.priceCents ?? 0,
     minCompareAtCents: cheapest?.compareAtCents ?? null,
+    minVariantId: cheapest?.id ?? "",
   };
 }
 

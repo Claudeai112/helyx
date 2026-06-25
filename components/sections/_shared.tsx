@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { SplitHeading } from "../split-heading";
 
 export function SectionShell({
   id,
@@ -13,7 +12,7 @@ export function SectionShell({
   return (
     <section
       id={id}
-      className={`relative z-[2] px-6 py-16 md:px-8 md:py-28 ${className}`}
+      className={`px-6 py-16 md:px-8 ${className}`}
     >
       {children}
     </section>
@@ -23,45 +22,24 @@ export function SectionShell({
 export function SectionHeader({
   tag,
   title,
-  gradientTitle,
   description,
 }: {
-  tag: string;
+  tag?: string;
   title: string;
-  gradientTitle?: string;
   description?: string;
 }) {
   return (
-    <div className="relative mx-auto mb-16 flex max-w-[900px] flex-col items-center text-center">
-      {/* Local radial scrim — dims the canvas only behind the heading block,
-          fades to transparent at edges so it has no visible seam. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-[-10%] inset-y-[-20%] -z-[1]"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(5,5,16,0.6) 0%, rgba(5,5,16,0.35) 45%, transparent 78%)",
-        }}
-      />
-      <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[rgba(108,92,231,0.25)] bg-[rgba(108,92,231,0.12)] px-4 py-1.5 text-[0.75rem] font-medium uppercase tracking-[1px] text-[#a78bfa]">
-        {tag}
-      </div>
-      <SplitHeading
-        as="h2"
-        className="mb-5 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white"
-      >
+    <div className="mx-auto mb-12 max-w-[900px] text-center">
+      {tag && (
+        <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
+          {tag}
+        </p>
+      )}
+      <h2 className="mb-4 font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold text-foreground">
         {title}
-        {gradientTitle && (
-          <>
-            {" "}
-            <span className="gradient-text bg-[linear-gradient(135deg,#6c5ce7_0%,#a78bfa_30%,#00cec9_70%,#6c5ce7_100%)] bg-[length:200%_auto] bg-clip-text text-transparent">
-              {gradientTitle}
-            </span>
-          </>
-        )}
-      </SplitHeading>
+      </h2>
       {description && (
-        <p className="max-w-[720px] text-[1.05rem] text-[#c8c8dc]">
+        <p className="mx-auto max-w-[680px] text-base text-muted-foreground">
           {description}
         </p>
       )}
@@ -69,10 +47,7 @@ export function SectionHeader({
   );
 }
 
+/** Plain text passthrough — gradient/glow removed in the redesign. */
 export function GradientText({ children }: { children: ReactNode }) {
-  return (
-    <span className="gradient-text bg-[linear-gradient(135deg,#6c5ce7_0%,#a78bfa_30%,#00cec9_70%,#6c5ce7_100%)] bg-[length:200%_auto] bg-clip-text text-transparent">
-      {children}
-    </span>
-  );
+  return <span className="text-primary">{children}</span>;
 }

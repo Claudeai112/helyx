@@ -1,8 +1,13 @@
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export function organizationJsonLd() {
-  return { "@context": "https://schema.org", "@type": "Organization",
-    name: "Helyx", url: SITE };
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Helyx Peptides",
+    description: "Professional peptide research supply company providing high purity research peptides for laboratory and research use.",
+    url: SITE,
+  };
 }
 
 export function productJsonLd(p: { name: string; description: string; priceCents: number; slug: string }) {
