@@ -5,7 +5,7 @@ const CARDS = [
   {
     icon: "🧪",
     title: "Handling and storage protocols",
-    body: "Lyophilized peptides are sensitive to moisture and temperature. Recommended practice is storage at −20 °C in a sealed desiccant environment. Reconstitute with bacteriostatic water under aseptic conditions and aliquot into single-use volumes to avoid repeated freeze-thaw cycles.",
+    body: "Lyophilized peptides are sensitive to moisture and temperature. Store at minus 20 degrees Celsius in a sealed, desiccated environment. For working solutions, reconstitute in an appropriate sterile research solvent and prepare assay sized aliquots to minimise repeated freeze thaw cycles.",
   },
   {
     icon: "❄️",

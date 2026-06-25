@@ -27,7 +27,7 @@ describe("home sections", () => {
     render(<CartProvider><EducationSection /></CartProvider>);
     const text = document.body.textContent?.toLowerCase() ?? "";
     expect(text).toMatch(/research/);
-    for (const banned of ["weight loss results", "cure ", "inject yourself"]) {
+    for (const banned of ["weight loss results", "cure ", "inject yourself", "bacteriostatic"]) {
       expect(text).not.toContain(banned);
     }
   });

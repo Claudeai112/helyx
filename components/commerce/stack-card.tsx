@@ -3,16 +3,16 @@ import { PriceDisplay } from "@/components/ui/price-display";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart/cart-provider";
 
-export function StackCard({ stack }: {
-  stack: {
-    slug: string;
-    name: string;
-    tagline: string;
-    priceCents: number;
-    compareAtCents: number;
-    contents?: string[];
-  };
-}) {
+export type StackCardData = {
+  slug: string;
+  name: string;
+  tagline: string;
+  priceCents: number;
+  compareAtCents: number;
+  contents?: string[];
+};
+
+export function StackCard({ stack }: { stack: StackCardData }) {
   const { add } = useCart();
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-sm">

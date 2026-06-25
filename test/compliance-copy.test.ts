@@ -12,6 +12,7 @@ const FORBIDDEN_SUBSTR = [
   "for human use", "intended for human", "inject yourself", "how to inject",
   "your dose", "dose yourself", "weight loss results",
   "consult your doctor", "prescription required",
+  "bacteriostatic",
 ];
 
 const ROOTS = ["app", "components", "lib"];

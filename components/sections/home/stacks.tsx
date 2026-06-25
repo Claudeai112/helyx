@@ -1,18 +1,9 @@
 "use client";
-import { StackCard } from "@/components/commerce/stack-card";
+import { StackCard, type StackCardData } from "@/components/commerce/stack-card";
 import { Reveal } from "@/components/reveal";
 import { SectionShell, SectionHeader } from "@/components/sections/_shared";
 
-type StackData = {
-  slug: string;
-  name: string;
-  tagline: string;
-  priceCents: number;
-  compareAtCents: number;
-  contents?: string[];
-};
-
-export function StacksSection({ stacks }: { stacks: StackData[] }) {
+export function StacksSection({ stacks }: { stacks: StackCardData[] }) {
   if (!stacks.length) return null;
   return (
     <SectionShell id="stacks" className="bg-secondary/40">
