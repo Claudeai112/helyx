@@ -3,6 +3,10 @@ import { describe, it, expect, vi } from "vitest";
 vi.mock("@/lib/stripe", () => ({
   createCheckoutSession: vi.fn().mockResolvedValue({ url: "https://stripe.test/session" }),
 }));
+vi.mock("@/lib/rate-limit", () => ({
+  rateLimit: () => ({ ok: true, remaining: 9, retryAfterSeconds: 0 }),
+  clientIp: () => "test",
+}));
 
 import { POST } from "@/app/api/checkout/route";
 

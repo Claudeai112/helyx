@@ -6,6 +6,11 @@ import { describe, it, expect, vi } from "vitest";
 // prior resolved call ran in the same file; a dedicated file avoids that quirk.)
 const { create } = vi.hoisted(() => ({ create: vi.fn() }));
 vi.mock("@/lib/db", () => ({ prisma: { emailCapture: { create } } }));
+vi.mock("next/headers", () => ({ headers: async () => new Headers() }));
+vi.mock("@/lib/rate-limit", () => ({
+  rateLimit: () => ({ ok: true, remaining: 4, retryAfterSeconds: 0 }),
+  clientIp: () => "test",
+}));
 
 import { captureEmail } from "@/app/actions/email-capture";
 
