@@ -1,55 +1,79 @@
+"use client";
 import Link from "next/link";
+import { useCart } from "@/components/cart/cart-provider";
+import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
-import { RedeemForm } from "@/components/commerce/redeem-form";
-import { getRedeemedCode } from "@/lib/rx-auth";
 
-export const dynamic = "force-dynamic";
-
-export default async function CartPage() {
-  const redeemed = await getRedeemedCode();
+export default function CartPage() {
+  const { items, remove, subtotalCents } = useCart();
 
   return (
     <main className="relative z-[2] mx-auto min-h-screen max-w-[900px] px-6 pb-24 pt-36">
-      <h1 className="mb-2 font-display text-3xl font-bold text-white">Your Cart</h1>
-      <p className="mb-10 text-sm text-muted-foreground">
-        Items require an approved consultation before checkout can be completed.
-      </p>
+      <h1 className="mb-2 font-heading text-3xl font-bold text-foreground">Your Cart</h1>
 
-      {/* Empty-state */}
-      <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-12 text-center">
-        <p className="mb-2 text-lg font-semibold text-[#e0e0f0]">Your cart is empty</p>
-        <p className="mb-6 text-sm text-[#7777aa]">
-          Browse our peptide protocols and add items to get started.
-        </p>
-        <Link
-          href="/shop"
-          className="inline-flex items-center rounded-full bg-gradient-to-br from-[#28e0c8] to-[#00a896] px-7 py-3 text-sm font-semibold text-[#050510] shadow-[0_4px_20px_rgba(40,224,200,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_30px_rgba(40,224,200,0.5)]"
+      {items.length === 0 ? (
+        <div className="mt-10 rounded-2xl border border-border bg-card p-12 text-center">
+          <p className="mb-2 text-lg font-semibold text-foreground">Your cart is empty</p>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Browse our research peptide catalog and add items to get started.
+          </p>
+          <Link
+            href="/shop"
+            className="inline-flex items-center rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90"
+          >
+            Browse Shop
+          </Link>
+        </div>
+      ) : (
+        <div className="mt-8">
+          <ul className="divide-y divide-border rounded-2xl border border-border bg-card">
+            {items.map((item) => (
+              <li key={item.variantId} className="flex items-center justify-between px-6 py-4">
+                <div>
+                  <p className="font-semibold text-foreground">{item.name}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Qty: {item.quantity} &times; {formatCents(item.unitPriceCents)}
+                  </p>
+                </div>
+                <div className="flex items-center gap-6">
+                  <span className="font-semibold text-foreground">
+                    {formatCents(item.unitPriceCents * item.quantity)}
+                  </span>
+                  <button
+                    onClick={() => remove(item.variantId)}
+                    className="text-sm text-muted-foreground underline hover:text-foreground"
+                    aria-label={`Remove ${item.name}`}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 flex justify-end">
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground">Subtotal</p>
+              <p className="text-2xl font-bold text-foreground">{formatCents(subtotalCents)}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Checkout – coming in a future release */}
+      <div className="mt-10">
+        <button
+          disabled
+          className="w-full cursor-not-allowed rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground opacity-50"
         >
-          Shop Peptides
-        </Link>
+          Proceed to checkout
+        </button>
+        <p className="mt-2 text-center text-xs text-muted-foreground">
+          Checkout is coming soon.
+        </p>
       </div>
 
-      {/* Access gate */}
-      <div className="mt-8 rounded-2xl border border-[rgba(40,224,200,0.15)] bg-[rgba(40,224,200,0.04)] p-6">
-        {redeemed ? (
-          <>
-            <p className="mb-1 text-sm font-semibold text-[#28e0c8]">Access active</p>
-            <p className="text-sm text-[#7777aa]">
-              Your access is active — purchasing arrives in the next release.
-            </p>
-          </>
-        ) : (
-          <>
-            <p className="mb-3 text-sm font-semibold text-[#28e0c8]">Access required</p>
-            <p className="mb-4 text-sm text-[#7777aa]">
-              Enter your access code to continue.
-            </p>
-            <RedeemForm />
-          </>
-        )}
-      </div>
-
-      <div className="mt-10 border-t border-white/5 pt-6">
+      <div className="mt-10 border-t border-border pt-6">
         <DisclaimerBar />
       </div>
     </main>
