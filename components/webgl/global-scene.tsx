@@ -4,6 +4,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   AdaptiveDpr,
   Environment,
+  Lightformer,
   MeshTransmissionMaterial,
   Preload,
 } from "@react-three/drei";
@@ -524,7 +525,16 @@ export function GlobalScene() {
         <pointLight position={[-5, 0, 5]} color="#6c5ce7" intensity={1.5} />
         <directionalLight position={[4, 4, 6]} intensity={0.6} />
 
-        <Environment preset="night" background={false} resolution={256} />
+        {/* Procedural environment built in-GPU from Lightformers — gives the
+            glass icosahedron its reflections WITHOUT fetching a remote HDRI
+            (drei presets load from a third-party CDN, which the CSP blocks and
+            which would otherwise crash the scene). Fully self-contained. */}
+        <Environment background={false} resolution={256}>
+          <Lightformer intensity={2} color="#28e0c8" position={[0, 2, -5]} scale={[6, 6, 1]} />
+          <Lightformer intensity={1} color="#00cec9" position={[-4, 0, -3]} scale={[3, 6, 1]} />
+          <Lightformer intensity={0.6} color="#6c5ce7" position={[4, -1, -3]} scale={[3, 4, 1]} />
+          <Lightformer intensity={0.4} color="#ffffff" position={[0, -3, -4]} scale={[8, 2, 1]} />
+        </Environment>
 
         <ScrollCamera />
 
