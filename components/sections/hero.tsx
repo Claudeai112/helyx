@@ -57,7 +57,7 @@ export function HeroSection() {
             style={{ backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
           >
             <p className="text-[1.15rem] text-[#c8c8dc]">
-              Pure Peps connects you with licensed healthcare providers who evaluate
+              Helyx connects you with licensed healthcare providers who evaluate
               your eligibility and, where appropriate, prescribe peptide protocols for
               GLP-1 support, recovery, longevity, and performance. Every order begins
               with a consultation.
