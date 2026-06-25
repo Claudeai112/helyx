@@ -18,7 +18,7 @@ export default async function StacksPage() {
           const sum = stackComponentSumCents(s.items);
           return <StackCard key={s.slug} stack={{
             slug: s.slug, name: s.name, tagline: s.tagline,
-            priceCents: stackPriceCents(sum, s.discountBps), compareAtCents: sum,
+            priceCents: stackPriceCents(sum, s.discountBps),
           }} />;
         })}
       </div>
