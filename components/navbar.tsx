@@ -21,7 +21,12 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6">
-        <Link href="/" className="shrink-0"><HelyxLogo /></Link>
+        <Link href="/" className="flex shrink-0 items-center gap-2">
+          <HelyxLogo className="size-7" />
+          <span className="font-heading text-[1.05rem] font-semibold tracking-tight text-foreground">
+            Helyx <span className="text-muted-foreground">Peptides</span>
+          </span>
+        </Link>
         <nav className="hidden items-center gap-6 lg:flex">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">

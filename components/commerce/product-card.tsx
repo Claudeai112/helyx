@@ -15,7 +15,15 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-sm">
       <Link href={`/product/${product.slug}`} className="block aspect-[4/3] bg-secondary" aria-hidden tabIndex={-1}>
-        {/* image placeholder area — real imagery later */}
+        {product.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element -- static local thumbnail; next/image not configured
+          <img
+            src={product.imageUrl}
+            alt={`${product.name} research vial`}
+            className="h-full w-full object-contain"
+            loading="lazy"
+          />
+        ) : null}
       </Link>
       <div className="flex flex-1 flex-col p-4">
         <Link href={`/product/${product.slug}`} className="font-heading text-base font-semibold text-foreground hover:text-primary">{product.name}</Link>

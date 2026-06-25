@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/commerce/product-card";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 import { Badge } from "@/components/ui/badge";
 import { toProductCardData } from "@/lib/product-view";
+import { productImage } from "@/lib/product-images";
 import { productJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -39,7 +40,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         }}
       />
       <div className="grid gap-12 lg:grid-cols-2">
-        <div className="aspect-square rounded-3xl border border-border bg-card/40" />
+        <div className="flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-border bg-card/40">
+          {productImage(product.slug) ? (
+            // eslint-disable-next-line @next/next/no-img-element -- static local image; next/image not configured
+            <img
+              src={productImage(product.slug) as string}
+              alt={`${product.name} research vial`}
+              className="h-full w-full object-contain p-6"
+            />
+          ) : null}
+        </div>
         <div>
           <Badge>Research compound</Badge>
           <h1 className="mt-4 text-4xl font-semibold text-foreground">{product.name}</h1>
