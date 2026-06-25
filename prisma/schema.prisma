@@ -33,6 +33,11 @@ enum ConsultStatus {
   DENIED
 }
 
+enum CodeStatus {
+  ACTIVE
+  REVOKED
+}
+
 model Category {
   id          String    @id @default(cuid())
   slug        String    @unique
@@ -132,9 +137,11 @@ model Order {
   items          OrderItem[]
   consultId      String?       @unique
   consult        Consult?      @relation(fields: [consultId], references: [id])
-  prescriptionId String?       @unique
-  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
-  createdAt      DateTime      @default(now())
+  prescriptionId     String?           @unique
+  prescription       Prescription?     @relation(fields: [prescriptionId], references: [id])
+  prescriptionCodeId String?           @unique
+  prescriptionCode   PrescriptionCode? @relation(fields: [prescriptionCodeId], references: [id])
+  createdAt          DateTime          @default(now())
 }
 
 model OrderItem {
@@ -171,4 +178,16 @@ model EmailCapture {
   createdAt  DateTime @default(now())
 
   @@index([email])
+}
+
+model PrescriptionCode {
+  id        String     @id @default(cuid())
+  code      String     @unique
+  status    CodeStatus @default(ACTIVE)
+  batchId   String
+  note      String?
+  orders    Order[]
+  createdAt DateTime   @default(now())
+
+  @@index([batchId])
 }
