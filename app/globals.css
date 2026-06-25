@@ -7,11 +7,11 @@
 @theme inline {
   /* Fonts (wired via next/font in layout.tsx) */
   --font-sans: var(--font-inter);
+  --font-heading: var(--font-plex);
   --font-display: var(--font-space-grotesk);
-  --font-heading: var(--font-space-grotesk);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* shadcn semantic tokens (mapped to Nova dark theme below) */
+  /* shadcn semantic tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -48,26 +48,6 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  /* Brand palette — retuned to Heman Peptide dark-biotech theme.
-     Token names kept (--color-brand-*, --color-nova-*) to avoid breaking
-     downstream component references; values updated to teal/clinical palette. */
-  --color-brand-purple: #1a3a4a;    /* retired purple → deep teal-slate (unused accent) */
-  --color-brand-cyan: #28e0c8;      /* primary clinical teal accent */
-  --color-brand-violet: #5ecfbf;    /* secondary teal, lighter */
-  --color-brand-pink: #4aafc4;      /* cool clinical blue */
-  --color-brand-amber: #7de8d8;     /* pale teal highlight */
-
-  /* Surface palette */
-  --color-nova-base: #050510;
-  --color-nova-elev-1: #0b0b18;
-
-  /* Text palette */
-  --color-nova-text: #e8e8f2;
-  --color-nova-muted: #9090b0;
-  --color-nova-dim: #606080;
-  --color-nova-faint: #404060;
-  --color-nova-ghost: #282840;
-
   /* Radius scale (matches design-system.md) */
   --radius-sm: 10px;
   --radius-md: 12px;
@@ -76,60 +56,56 @@
   --radius-2xl: 24px;
   --radius-4xl: calc(var(--radius) * 2.6);
   --radius-pill: 9999px;
-
-  /* Glow shadows — teal accent for biotech theme */
-  --shadow-glow-sm: 0 4px 20px rgba(40, 224, 200, 0.25);
-  --shadow-glow: 0 4px 25px rgba(40, 224, 200, 0.3);
-  --shadow-glow-lg: 0 8px 40px rgba(40, 224, 200, 0.45);
-  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-/* Heman Peptide dark-biotech theme — applied at :root */
+/* Light clinical theme */
 :root {
-  --background: #050510;
-  --foreground: #e8e8f2;
-  --card: rgba(255, 255, 255, 0.04);
-  --card-foreground: #e8e8f2;
-  --popover: #0b0b18;
-  --popover-foreground: #e8e8f2;
-  --primary: #28e0c8;           /* clinical teal — single luminous accent */
-  --primary-foreground: #050510;
-  --secondary: rgba(255, 255, 255, 0.06);
-  --secondary-foreground: #e8e8f2;
-  --muted: rgba(255, 255, 255, 0.04);
-  --muted-foreground: #9090b0;
-  --accent: #28e0c8;
-  --accent-foreground: #050510;
-  --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.09);
-  --input: rgba(255, 255, 255, 0.06);
-  --ring: #28e0c8;
-  --radius: 1rem;
+  --background: #FFFFFF;
+  --foreground: #1A2230;
+  --card: #FFFFFF;
+  --card-foreground: #1A2230;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A2230;
+  --primary: #1E5CA8;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F7F8FA;
+  --secondary-foreground: #1A2230;
+  --muted: #F7F8FA;
+  --muted-foreground: #5B6675;
+  --accent: #EAF1F9;
+  --accent-foreground: #1E5CA8;
+  --destructive: #B42318;
+  --border: #E6E9EE;
+  --input: #E6E9EE;
+  --ring: #1E5CA8;
+  --surface: #F7F8FA;
+  --footer: #10151E;
+  --radius: 0.625rem;
 
-  /* Sidebar tokens — dark-biotech palette */
-  --sidebar: #0b0b18;
-  --sidebar-foreground: #e8e8f2;
-  --sidebar-primary: #28e0c8;
-  --sidebar-primary-foreground: #050510;
-  --sidebar-accent: rgba(255, 255, 255, 0.06);
-  --sidebar-accent-foreground: #e8e8f2;
-  --sidebar-border: rgba(255, 255, 255, 0.09);
-  --sidebar-ring: #28e0c8;
+  /* Sidebar tokens — clinical palette */
+  --sidebar: #F7F8FA;
+  --sidebar-foreground: #1A2230;
+  --sidebar-primary: #1E5CA8;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EAF1F9;
+  --sidebar-accent-foreground: #1E5CA8;
+  --sidebar-border: #E6E9EE;
+  --sidebar-ring: #1E5CA8;
 
-  /* Chart colors — biotech palette */
-  --chart-1: #28e0c8;
-  --chart-2: #4aa8ff;
-  --chart-3: #8b7cf0;
-  --chart-4: #f0b86b;
-  --chart-5: #5fd0a8;
+  /* Chart colors — clinical palette */
+  --chart-1: #1E5CA8;
+  --chart-2: #2E7DD1;
+  --chart-3: #5B9BD5;
+  --chart-4: #88B8E6;
+  --chart-5: #5B6675;
 }
 
-/* Heman Peptide signature gradient utility */
+/* Gradient utilities — updated to clinical blue palette */
 @utility gradient-brand {
-  background-image: linear-gradient(135deg, #1a6b5c, #28e0c8);
+  background-image: linear-gradient(135deg, #1E5CA8, #2E7DD1);
 }
 @utility gradient-text {
-  background-image: linear-gradient(135deg, #28e0c8 0%, #5ecfbf 30%, #4aafc4 70%, #28e0c8 100%);
+  background-image: linear-gradient(135deg, #1E5CA8 0%, #2E7DD1 30%, #5B9BD5 70%, #1E5CA8 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -159,10 +135,10 @@ html.custom-cursor-active * {
   padding: 1.5px;
   background: conic-gradient(
     from var(--conic-angle),
-    #28e0c8,
-    #5ecfbf,
-    #4aafc4,
-    #28e0c8
+    #1E5CA8,
+    #2E7DD1,
+    #5B9BD5,
+    #1E5CA8
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -181,7 +157,7 @@ html.custom-cursor-active * {
   inset: 0;
   border-radius: 20px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(40,224,200,0.2), transparent, rgba(40,224,200,0.2));
+  background: linear-gradient(135deg, rgba(30,92,168,0.2), transparent, rgba(30,92,168,0.2));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -191,7 +167,7 @@ html.custom-cursor-active * {
 }
 .service-card:hover::before { opacity: 1; }
 
-/* Ambient nebula blobs */
+/* Ambient nebula blobs — neutralised to clinical blue */
 .nebula-blob {
   position: absolute;
   border-radius: 50%;
@@ -199,11 +175,11 @@ html.custom-cursor-active * {
   opacity: 0;
   animation: nebulaFloat 20s ease-in-out infinite;
 }
-.nebula-blob.n1 { width: 500px; height: 500px; background: rgba(40,224,200,0.05); top: -10%; left: -5%; animation-delay: 0s; }
-.nebula-blob.n2 { width: 400px; height: 400px; background: rgba(40,224,200,0.04); bottom: -10%; right: -5%; animation-delay: -7s; }
-.nebula-blob.n3 { width: 350px; height: 350px; background: rgba(94,207,191,0.04); top: 40%; left: 50%; transform: translateX(-50%); animation-delay: -14s; }
-.nebula-blob.n4 { width: 300px; height: 300px; background: rgba(40,224,200,0.03); top: 10%; right: 20%; animation-delay: -4s; animation-duration: 25s; }
-.nebula-blob.n5 { width: 250px; height: 250px; background: rgba(74,175,196,0.03); bottom: 20%; left: 15%; animation-delay: -11s; animation-duration: 22s; }
+.nebula-blob.n1 { width: 500px; height: 500px; background: rgba(30,92,168,0.05); top: -10%; left: -5%; animation-delay: 0s; }
+.nebula-blob.n2 { width: 400px; height: 400px; background: rgba(30,92,168,0.04); bottom: -10%; right: -5%; animation-delay: -7s; }
+.nebula-blob.n3 { width: 350px; height: 350px; background: rgba(91,155,213,0.04); top: 40%; left: 50%; transform: translateX(-50%); animation-delay: -14s; }
+.nebula-blob.n4 { width: 300px; height: 300px; background: rgba(30,92,168,0.03); top: 10%; right: 20%; animation-delay: -4s; animation-duration: 25s; }
+.nebula-blob.n5 { width: 250px; height: 250px; background: rgba(46,125,209,0.03); bottom: 20%; left: 15%; animation-delay: -11s; animation-duration: 22s; }
 
 @keyframes nebulaFloat {
   0%, 100% { opacity: 0.3; transform: translate(0, 0) scale(1); }
@@ -226,7 +202,7 @@ html.custom-cursor-active * {
    the gradient to each char so the gradient renders per-glyph. */
 .gradient-text .char,
 .gradient-text .word {
-  background-image: linear-gradient(135deg, #28e0c8 0%, #5ecfbf 30%, #4aafc4 70%, #28e0c8 100%);
+  background-image: linear-gradient(135deg, #1E5CA8 0%, #2E7DD1 30%, #5B9BD5 70%, #1E5CA8 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -290,12 +266,12 @@ html.custom-cursor-active * {
     overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
   }
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #0b0b18; }
+  ::-webkit-scrollbar-track { background: #E6E9EE; }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #28e0c8, #4aafc4);
+    background: linear-gradient(180deg, #1E5CA8, #2E7DD1);
     border-radius: 3px;
   }
 }
