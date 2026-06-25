@@ -2,12 +2,15 @@
 // bundled into client-side code.
 import "server-only";
 import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 function getPrismaClient(): PrismaClient {
   if (!globalForPrisma.prisma) {
-    globalForPrisma.prisma = new PrismaClient();
+    // Prisma 7 connects through a driver adapter (here: node-postgres / pg).
+    const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+    globalForPrisma.prisma = new PrismaClient({ adapter });
   }
   return globalForPrisma.prisma;
 }
