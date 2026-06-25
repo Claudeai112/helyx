@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { MagneticButton } from "../magnetic-button";
 import { SplitHeading } from "../split-heading";
 import { GradientText } from "./_shared";
