@@ -34,6 +34,9 @@ export function ProductCard({ product }: { product: ProductCardData }) {
       <div className="flex flex-1 flex-col p-4">
         <p className="font-heading text-base font-semibold text-foreground">{name}</p>
         <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+        <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-primary">
+          ✓ Third-party tested
+        </span>
         <select
           className="mt-auto w-full rounded-md border border-border bg-card px-2 py-1.5 text-sm text-foreground"
           value={selectedId}
@@ -46,6 +49,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <span className="mt-2 text-lg font-semibold text-foreground">
           {formatCents(selected?.priceCents ?? 0)}
         </span>
+        {/* Compliant quantity cost preview — total for a 3-vial research quantity (no cycle/dosing) */}
+        <p className="mt-1 text-xs text-muted-foreground">
+          3-vial research quantity ≈ {formatCents((selected?.priceCents ?? 0) * 3)}
+        </p>
         <AddToCartButton
           className="mt-3 w-full"
           onAdd={() => add({ variantId: selected.id, slug, name, unitPriceCents: selected.priceCents, quantity: 1, variants: variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents })) })}
