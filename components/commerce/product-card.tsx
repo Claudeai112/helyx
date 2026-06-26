@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/commerce/add-to-cart-button";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatCents } from "@/lib/money";
 
@@ -46,12 +46,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <span className="mt-2 text-lg font-semibold text-foreground">
           {formatCents(selected?.priceCents ?? 0)}
         </span>
-        <Button
+        <AddToCartButton
           className="mt-3 w-full"
-          onClick={() => add({ variantId: selected.id, slug, name, unitPriceCents: selected.priceCents, quantity: 1, variants: variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents })) })}
-        >
-          Add to cart
-        </Button>
+          onAdd={() => add({ variantId: selected.id, slug, name, unitPriceCents: selected.priceCents, quantity: 1, variants: variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents })) })}
+        />
         <Link href={`/product/${slug}`} className="mt-2 text-center text-sm text-muted-foreground hover:text-primary">
           Learn More
         </Link>

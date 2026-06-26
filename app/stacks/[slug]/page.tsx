@@ -4,6 +4,7 @@ import { AddToCart } from "@/components/commerce/add-to-cart";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 import { stackComponentSumCents } from "@/lib/product-view";
 import { stackPriceCents, formatCents } from "@/lib/money";
+import { stackOutcomes } from "@/lib/stack-outcomes";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,12 @@ export default async function StackPage({ params }: { params: Promise<{ slug: st
       <p className="mt-2 text-lg text-muted-foreground">{stack.tagline}</p>
       <div className="mt-6"><span className="text-2xl font-semibold text-foreground">{formatCents(bundlePriceCents)}</span></div>
       <p className="mt-8 text-muted-foreground">{stack.overview}</p>
+      {stackOutcomes(stack.slug) ? (
+        <>
+          <h2 className="mt-8 text-xl font-semibold text-foreground">Studied outcomes</h2>
+          <p className="mt-3 text-muted-foreground">{stackOutcomes(stack.slug)}</p>
+        </>
+      ) : null}
       <h2 className="mt-8 text-xl font-semibold text-foreground">Protocol notes</h2>
       <p className="mt-3 text-muted-foreground">{stack.protocol}</p>
       <ul className="mt-6 space-y-1 text-muted-foreground">
