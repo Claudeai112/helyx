@@ -13,16 +13,15 @@ describe("BulkPage", () => {
     ).toBeTruthy();
   });
 
-  it("lists the discount tiers", () => {
+  it("lists the vial-count discount tiers", () => {
     render(<BulkPage />);
     const text = document.body.textContent ?? "";
     expect(text).toContain("15%");
     expect(text).toContain("20%");
-    expect(text).toContain("25%");
     expect(text).toContain("30%");
     expect(text).toContain("40%");
-    expect(text).toContain("100+"); // entry vials threshold
-    expect(text).toContain("7+"); // top peptide-type threshold
+    expect(text).toContain("25+"); // entry tier starts at 25 vials
+    expect(text).toContain("200+"); // top tier at 200 vials
   });
 
   it("states shipping is paid by the customer", () => {

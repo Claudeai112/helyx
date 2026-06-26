@@ -19,8 +19,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   const selected = variants.find((v) => v.id === selectedId) ?? variants[0];
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-sm">
-      <Link href={`/product/${slug}`} className="block aspect-[4/3] bg-secondary" aria-hidden tabIndex={-1}>
+    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-md">
+      {/* Whole card is clickable -> product page (stretched link behind the controls) */}
+      <Link href={`/product/${slug}`} className="absolute inset-0 z-0" aria-label={`View ${name}`} />
+      <div className="block aspect-[4/3] bg-secondary">
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- static local thumbnail; next/image not configured
           <img
@@ -30,7 +32,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             loading="lazy"
           />
         ) : null}
-      </Link>
+      </div>
       <div className="flex flex-1 flex-col p-4">
         <p className="font-heading text-base font-semibold text-foreground">{name}</p>
         <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
@@ -38,7 +40,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           ✓ Third-party tested
         </span>
         <select
-          className="mt-auto w-full rounded-md border border-border bg-card px-2 py-1.5 text-sm text-foreground"
+          className="relative z-10 mt-auto w-full rounded-md border border-border bg-card px-2 py-1.5 text-sm text-foreground"
           value={selectedId}
           onChange={(e) => setSelectedId(e.target.value)}
         >
@@ -54,10 +56,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           3-vial research quantity ≈ {formatCents((selected?.priceCents ?? 0) * 3)}
         </p>
         <AddToCartButton
-          className="mt-3 w-full"
+          className="relative z-10 mt-3 w-full"
           onAdd={() => add({ variantId: selected.id, slug, name, unitPriceCents: selected.priceCents, quantity: 1, variants: variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents })) })}
         />
-        <Link href={`/product/${slug}`} className="mt-2 text-center text-sm text-muted-foreground hover:text-primary">
+        <Link href={`/product/${slug}`} className="relative z-10 mt-2 text-center text-sm text-muted-foreground hover:text-primary">
           Learn More
         </Link>
       </div>

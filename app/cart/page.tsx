@@ -3,21 +3,19 @@ import Link from "next/link";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
-import { cartPeptideVials, cartPeptideTypes } from "@/lib/cart-store";
+import { cartPeptideVials } from "@/lib/cart-store";
 import { bulkDiscountBps, bulkDiscountedTotalCents, bulkSavingsCents, nextBulkTier, BULK_TIERS } from "@/lib/pricing";
 
 export default function CartPage() {
   const { items, remove, changeVariant, setQuantity, subtotalCents } = useCart();
 
-  // Tiered bulk discount based on peptide vials + distinct peptide types in the cart.
+  // Tiered bulk discount based on total peptide vials in the cart.
   const vials = cartPeptideVials(items);
-  const types = cartPeptideTypes(items);
-  const bulkBps = bulkDiscountBps(vials, types);
-  const bulkSavings = bulkSavingsCents(subtotalCents, vials, types);
-  const orderTotal = bulkDiscountedTotalCents(subtotalCents, vials, types);
-  const next = nextBulkTier(vials, types);
+  const bulkBps = bulkDiscountBps(vials);
+  const bulkSavings = bulkSavingsCents(subtotalCents, vials);
+  const orderTotal = bulkDiscountedTotalCents(subtotalCents, vials);
+  const next = nextBulkTier(vials);
   const vialsToNext = next ? Math.max(0, next.minVials - vials) : 0;
-  const typesToNext = next ? Math.max(0, next.minTypes - types) : 0;
   const nextProgress = next ? Math.min(100, Math.round((vials / next.minVials) * 100)) : 100;
 
   return (
@@ -112,7 +110,7 @@ export default function CartPage() {
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <p className="text-sm font-semibold text-foreground">Wholesale pricing</p>
               <p className="text-sm text-muted-foreground">
-                {vials} vial{vials !== 1 ? "s" : ""} · {types} peptide type{types !== 1 ? "s" : ""}
+                {vials} vial{vials !== 1 ? "s" : ""}
                 {bulkBps > 0 ? ` · ${bulkBps / 100}% unlocked` : ""}
               </p>
             </div>
@@ -122,25 +120,18 @@ export default function CartPage() {
             </div>
 
             <p className="mt-2 text-sm text-muted-foreground">
-              {next ? (
-                <>
-                  Add{vialsToNext > 0 ? ` ${vialsToNext} more vial${vialsToNext !== 1 ? "s" : ""}` : ""}
-                  {vialsToNext > 0 && typesToNext > 0 ? " and" : ""}
-                  {typesToNext > 0 ? ` ${typesToNext} more peptide type${typesToNext !== 1 ? "s" : ""}` : ""}
-                  {" "}to unlock {next.bps / 100}% off.
-                </>
-              ) : (
-                "You've unlocked the maximum wholesale tier."
-              )}
+              {next
+                ? `Add ${vialsToNext} more vial${vialsToNext !== 1 ? "s" : ""} to unlock ${next.bps / 100}% off.`
+                : "You've unlocked the maximum wholesale tier."}
             </p>
 
             {/* Tier ladder */}
-            <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-xs sm:grid-cols-3">
+            <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-xs sm:grid-cols-4">
               {[...BULK_TIERS].sort((a, b) => a.minVials - b.minVials).map((t) => {
-                const unlocked = vials >= t.minVials && types >= t.minTypes;
+                const unlocked = vials >= t.minVials;
                 return (
                   <li key={t.bps} className={unlocked ? "font-medium text-primary" : "text-muted-foreground"}>
-                    {unlocked ? "✓ " : ""}{t.minVials}v · {t.minTypes}t → {t.bps / 100}%
+                    {unlocked ? "✓ " : ""}{t.minVials}+ vials → {t.bps / 100}%
                   </li>
                 );
               })}

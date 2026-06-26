@@ -74,11 +74,14 @@ function FilterPanel({ state, categories, mgOptions, onChange, onClear }: Filter
         </div>
       </div>
 
-      {/* MG strength */}
+      {/* MG strength — compact collapsible dropdown */}
       {mgOptions.length > 0 && (
-        <div>
-          <p className="mb-2 text-sm font-semibold text-foreground">MG strength</p>
-          <div className="flex flex-col gap-1.5">
+        <details className="rounded-md">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-foreground">
+            <span>MG strength{state.mgs.length > 0 ? ` (${state.mgs.length})` : ""}</span>
+            <span aria-hidden className="text-xs text-muted-foreground">▾</span>
+          </summary>
+          <div className="mt-2 flex max-h-48 flex-col gap-1.5 overflow-y-auto">
             {mgOptions.map((mg) => (
               <label key={mg} className="flex cursor-pointer items-center gap-2 text-sm text-foreground">
                 <input
@@ -95,7 +98,7 @@ function FilterPanel({ state, categories, mgOptions, onChange, onClear }: Filter
               </label>
             ))}
           </div>
-        </div>
+        </details>
       )}
 
       {/* Popular / New arrivals */}
