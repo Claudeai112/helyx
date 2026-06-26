@@ -10,6 +10,14 @@ export default function ShippingPage() {
         This policy applies to research-supply orders placed on this platform.
       </p>
 
+      <h2>Shipping Charges</h2>
+      <p>
+        <strong>Shipping is paid by the customer on all orders.</strong> Shipping charges are
+        calculated at checkout based on order weight, destination, and any cold-chain requirements,
+        and are added to your order total. We do not offer free shipping, and this applies to all
+        orders, including bulk and wholesale orders.
+      </p>
+
       <h2>Processing Times</h2>
       <p>
         After your order is confirmed, we typically process and ship within{" "}
