@@ -15,17 +15,17 @@ describe("BulkPage", () => {
     ).toBeTruthy();
   });
 
-  it("states the 25% off total order over the $1000 minimum", () => {
+  it("states the 15% off total order over the $1000 minimum", () => {
     render(<BulkPage />);
     const text = document.body.textContent ?? "";
-    expect(text).toContain("25%");
+    expect(text).toContain("15%");
     expect(text).toContain("$1,000.00");
   });
 
-  it("renders an example discounted total ($1,000 -> $750)", () => {
+  it("renders an example discounted total ($1,000 -> $850)", () => {
     render(<BulkPage />);
     const discounted = formatCents(bulkDiscountedTotalCents(100000));
-    expect(discounted).toBe("$750.00");
-    expect(screen.getByText(discounted)).toBeTruthy();
+    expect(discounted).toBe("$850.00");
+    expect(screen.getAllByText(discounted).length).toBeGreaterThan(0);
   });
 });

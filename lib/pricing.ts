@@ -1,5 +1,5 @@
-// Bulk/wholesale: 25% off the total order once the subtotal reaches the minimum.
-export const BULK_DISCOUNT_BPS = 2500; // 25% off total order
+// Bulk/wholesale: 15% off the total order once the subtotal reaches the minimum.
+export const BULK_DISCOUNT_BPS = 1500; // 15% off total order
 export const BULK_MIN_CENTS = 100000; // $1000 minimum subtotal
 
 export function qualifiesForBulk(subtotalCents: number): boolean {
