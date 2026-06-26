@@ -4,7 +4,8 @@ import { formatCents } from "@/lib/money";
 import {
   bulkDiscountedTotalCents,
   bulkSavingsCents,
-  BULK_MIN_CENTS,
+  BULK_MIN_VIALS,
+  BULK_MIN_TYPES,
   BULK_DISCOUNT_BPS,
 } from "@/lib/pricing";
 
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
 };
 
 const PCT = BULK_DISCOUNT_BPS / 100; // 15
-const EXAMPLES = [BULK_MIN_CENTS, 200000, 500000]; // $1,000 / $2,000 / $5,000
+// Illustrative order subtotals for a qualifying bulk order (100+ vials, 5+ types).
+const EXAMPLES = [500000, 1000000, 2000000]; // $5,000 / $10,000 / $20,000
 
 export default function BulkPage() {
   return (
@@ -23,8 +25,10 @@ export default function BulkPage() {
 
       <p className="mt-4 text-muted-foreground">
         Qualified research institutions, academic laboratories, and pharmaceutical companies may
-        place bulk orders through the standard checkout process. Orders with a subtotal of{" "}
-        {formatCents(BULK_MIN_CENTS)} or more automatically receive {PCT}% off the total order.
+        place bulk orders through the standard checkout process. A bulk order qualifies with a
+        minimum of <strong>{BULK_MIN_VIALS} vials</strong> across at least{" "}
+        <strong>{BULK_MIN_TYPES} different peptide types</strong>, and automatically receives{" "}
+        {PCT}% off the order total.
       </p>
 
       <p className="mt-4 text-muted-foreground">
@@ -32,16 +36,12 @@ export default function BulkPage() {
         compounds are supplied for in-vitro and non-clinical research use exclusively.
       </p>
 
-      {/* Bulk pricing examples — 15% off the total order over the minimum */}
+      {/* Qualifying bulk pricing — 15% off the total */}
       <div className="mt-10">
-        <h2 className="text-lg font-semibold tracking-tight">
-          {PCT}% off orders over {formatCents(BULK_MIN_CENTS)}
-        </h2>
+        <h2 className="text-lg font-semibold tracking-tight">{PCT}% off qualifying bulk orders</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The {PCT}% bulk discount applies to your entire order subtotal once it reaches{" "}
-          {formatCents(BULK_MIN_CENTS)}. Example: a {formatCents(BULK_MIN_CENTS)} subtotal &times;{" "}
-          {PCT}% off = {formatCents(bulkSavingsCents(BULK_MIN_CENTS))} off, so you pay{" "}
-          {formatCents(bulkDiscountedTotalCents(BULK_MIN_CENTS))}. Illustrative totals (USD):
+          Orders of {BULK_MIN_VIALS}+ vials across {BULK_MIN_TYPES}+ different peptide types receive{" "}
+          {PCT}% off the entire order subtotal. Illustrative qualifying-order totals (USD):
         </p>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-border">
@@ -57,8 +57,12 @@ export default function BulkPage() {
               {EXAMPLES.map((sub) => (
                 <tr key={sub} className="border-b border-border last:border-0">
                   <td className="px-4 py-3 text-foreground">{formatCents(sub)}</td>
-                  <td className="px-4 py-3 text-muted-foreground">− {formatCents(bulkSavingsCents(sub))}</td>
-                  <td className="px-4 py-3 font-medium text-foreground">{formatCents(bulkDiscountedTotalCents(sub))}</td>
+                  <td className="px-4 py-3 text-muted-foreground">
+                    − {formatCents(bulkSavingsCents(sub, BULK_MIN_VIALS, BULK_MIN_TYPES))}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-foreground">
+                    {formatCents(bulkDiscountedTotalCents(sub, BULK_MIN_VIALS, BULK_MIN_TYPES))}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -75,9 +79,9 @@ export default function BulkPage() {
             quantities to your cart via the standard product catalogue.
           </li>
           <li>
-            <span className="font-medium text-foreground">2.</span> Proceed to checkout. Orders
-            totalling {formatCents(BULK_MIN_CENTS)} or more automatically receive {PCT}% off the
-            total and are routed for wholesale processing.
+            <span className="font-medium text-foreground">2.</span> Reach at least {BULK_MIN_VIALS}{" "}
+            vials across {BULK_MIN_TYPES} or more different peptide types. Qualifying orders
+            automatically receive {PCT}% off the total and are routed for wholesale processing.
           </li>
           <li>
             <span className="font-medium text-foreground">3.</span> Provide your institutional or
