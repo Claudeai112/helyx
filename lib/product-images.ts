@@ -13,7 +13,7 @@ const SLUGS = new Set<string>([
   "pt-141", "kisspeptin-10", "gonadorelin", "gonadorelin-acetate", "hcg", "hmg", "oxytocin",
   "dsip",
   "ahk-cu", "melanotan-1", "melanotan-2", "snap-8",
-  "sterile-water", "acetic-acid",
+  "sterile-water", "acetic-acid", "bac-water",
 ]);
 
 export function productImage(slug: string): string | null {

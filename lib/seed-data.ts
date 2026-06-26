@@ -1172,7 +1172,31 @@ export const products: SeedProduct[] = [
       { label: "3ml vial",  sku: "HX-HAC-3",  mg: 3,  subscriptionEligible: false },
       { label: "10ml vial", sku: "HX-HAC-10", mg: 10, subscriptionEligible: false },
     ],
-    relatedSlugs: ["sterile-water"],
+    relatedSlugs: ["sterile-water", "bac-water"],
+  },
+  {
+    slug: "bac-water",
+    name: "BAC Water",
+    subtitle: "Research-grade preserved reconstitution solvent",
+    categorySlug: "supplies",
+    researchOverview:
+      "Research-grade preserved water solvent for reconstituting lyophilised peptide samples in laboratory " +
+      "settings. The added preservative supports multi-use vial workflows across repeated draws during research.",
+    benefits: [
+      "Preserved multi-use solvent suitable for peptide reconstitution research",
+      "Convenient for repeated laboratory draws from a single vial",
+      "Pairs with lyophilised research compounds that require reconstitution",
+    ],
+    reconstitution:
+      "Research-grade solvent — use as directed for reconstituting lyophilised research compounds. " +
+      "Store at room temperature; discard unused solvent per laboratory protocols.",
+    status: "ACTIVE",
+    variants: [
+      { label: "3ml vial",  sku: "HX-BAC-3",  mg: 3,  subscriptionEligible: false },
+      { label: "10ml vial", sku: "HX-BAC-10", mg: 10, subscriptionEligible: false },
+      { label: "30ml vial", sku: "HX-BAC-30", mg: 30, subscriptionEligible: false },
+    ],
+    relatedSlugs: ["sterile-water", "acetic-acid"],
   },
 ];
 

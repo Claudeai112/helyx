@@ -7,15 +7,15 @@ describe("bulk pricing", () => {
     expect(qualifiesForBulk(99999)).toBe(false);
     expect(qualifiesForBulk(100000)).toBe(true);
   });
-  it("applies 25% off the total order once it qualifies", () => {
-    expect(bulkDiscountedTotalCents(100000)).toBe(75000);  // $1000 -> $750
-    expect(bulkDiscountedTotalCents(200000)).toBe(150000); // $2000 -> $1500
+  it("applies 15% off the total order once it qualifies", () => {
+    expect(bulkDiscountedTotalCents(100000)).toBe(85000);  // $1000 -> $850
+    expect(bulkDiscountedTotalCents(200000)).toBe(170000); // $2000 -> $1700
   });
   it("does not discount orders below the minimum", () => {
     expect(bulkDiscountedTotalCents(99999)).toBe(99999);
   });
   it("reports the savings amount", () => {
-    expect(bulkSavingsCents(200000)).toBe(50000); // $500 off $2000
+    expect(bulkSavingsCents(200000)).toBe(30000); // $300 off $2000
     expect(bulkSavingsCents(50000)).toBe(0);
   });
 });

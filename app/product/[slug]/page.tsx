@@ -10,6 +10,7 @@ import { productImage } from "@/lib/product-images";
 import { productJsonLd } from "@/lib/seo";
 import { ReconstitutionReference } from "@/components/commerce/reconstitution-reference";
 import { ProviderPathway } from "@/components/commerce/provider-pathway";
+import { AddBacWater } from "@/components/commerce/add-bac-water";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = await getProductBySlug(slug);
   if (!product) notFound();
   const related = await getRelatedProducts(product.relatedSlugs);
+  // Reconstitution add-on: offer BAC water on peptide pages (not on supplies themselves).
+  const bac = product.category?.slug !== "supplies" ? await getProductBySlug("bac-water") : null;
+  const bacVariants = bac?.variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents })) ?? [];
   const cheapestCents = product.variants.length
     ? Math.min(...product.variants.map((v) => v.priceCents))
     : 0;
@@ -70,6 +74,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               name={product.name}
             />
           </div>
+          {bacVariants.length > 0 ? <AddBacWater variants={bacVariants} /> : null}
           <DisclaimerBar className="mt-6" />
           <div className="mt-6">
             <ProviderPathway />
