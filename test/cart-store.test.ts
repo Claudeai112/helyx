@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { addToCart, removeFromCart, cartCount, cartSubtotalCents } from "@/lib/cart-store";
+import { addToCart, removeFromCart, changeVariant, cartCount, cartSubtotalCents } from "@/lib/cart-store";
 const a = { variantId: "v1", slug: "bpc-157", name: "BPC-157", unitPriceCents: 5900, quantity: 1 };
 describe("cart store", () => {
   it("adds and merges quantities by variant", () => {
@@ -13,5 +13,15 @@ describe("cart store", () => {
   it("removes by variant", () => {
     const items = removeFromCart(addToCart([], a), "v1");
     expect(items).toHaveLength(0);
+  });
+  it("changes a line to a different MG variant (updates id + unit price, keeps qty)", () => {
+    const line = {
+      variantId: "v1", slug: "bpc-157", name: "BPC-157", unitPriceCents: 4500, quantity: 3,
+      variants: [{ id: "v1", label: "5mg vial", priceCents: 4500 }, { id: "v2", label: "10mg vial", priceCents: 6100 }],
+    };
+    const next = changeVariant([line], "v1", "v2");
+    expect(next[0].variantId).toBe("v2");
+    expect(next[0].unitPriceCents).toBe(6100);
+    expect(next[0].quantity).toBe(3);
   });
 });

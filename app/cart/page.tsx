@@ -5,7 +5,7 @@ import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 
 export default function CartPage() {
-  const { items, remove, subtotalCents } = useCart();
+  const { items, remove, changeVariant, subtotalCents } = useCart();
 
   return (
     <main className="relative z-[2] mx-auto min-h-screen max-w-[900px] px-6 pb-24 pt-36">
@@ -31,7 +31,21 @@ export default function CartPage() {
               <li key={item.variantId} className="flex items-center justify-between px-6 py-4">
                 <div>
                   <p className="font-semibold text-foreground">{item.name}</p>
-                  <p className="text-sm text-muted-foreground">
+                  {item.variants && item.variants.length > 1 ? (
+                    <select
+                      value={item.variantId}
+                      onChange={(e) => changeVariant(item.variantId, e.target.value)}
+                      aria-label={`Vial strength for ${item.name}`}
+                      className="mt-1 rounded-md border border-border bg-card px-2 py-1 text-sm text-foreground"
+                    >
+                      {item.variants.map((v) => (
+                        <option key={v.id} value={v.id}>
+                          {v.label} · {formatCents(v.priceCents)}
+                        </option>
+                      ))}
+                    </select>
+                  ) : null}
+                  <p className="mt-1 text-sm text-muted-foreground">
                     Qty: {item.quantity} &times; {formatCents(item.unitPriceCents)}
                   </p>
                 </div>

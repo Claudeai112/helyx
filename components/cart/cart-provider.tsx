@@ -1,8 +1,15 @@
 "use client";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { addToCart, removeFromCart, cartCount, cartSubtotalCents, type CartItem } from "@/lib/cart-store";
+import { addToCart, removeFromCart, changeVariant, cartCount, cartSubtotalCents, type CartItem } from "@/lib/cart-store";
 
-type CartCtx = { items: CartItem[]; add: (i: CartItem) => void; remove: (id: string) => void; count: number; subtotalCents: number };
+type CartCtx = {
+  items: CartItem[];
+  add: (i: CartItem) => void;
+  remove: (id: string) => void;
+  changeVariant: (currentVariantId: string, newVariantId: string) => void;
+  count: number;
+  subtotalCents: number;
+};
 const Ctx = createContext<CartCtx | null>(null);
 const KEY = "helyx_cart";
 
@@ -24,6 +31,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     items,
     add: (i) => setItems((cur) => addToCart(cur, i)),
     remove: (id) => setItems((cur) => removeFromCart(cur, id)),
+    changeVariant: (currentVariantId, newVariantId) =>
+      setItems((cur) => changeVariant(cur, currentVariantId, newVariantId)),
     count: cartCount(items),
     subtotalCents: cartSubtotalCents(items),
   };
