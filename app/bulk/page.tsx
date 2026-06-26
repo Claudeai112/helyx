@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Bulk peptide research supply orders for institutions and laboratories.",
 };
 
-const PCT = BULK_DISCOUNT_BPS / 100; // 25
+const PCT = BULK_DISCOUNT_BPS / 100; // 15
 const EXAMPLES = [BULK_MIN_CENTS, 200000, 500000]; // $1,000 / $2,000 / $5,000
 
 export default function BulkPage() {
@@ -32,7 +32,7 @@ export default function BulkPage() {
         compounds are supplied for in-vitro and non-clinical research use exclusively.
       </p>
 
-      {/* Bulk pricing examples — 25% off the total order over the minimum */}
+      {/* Bulk pricing examples — 15% off the total order over the minimum */}
       <div className="mt-10">
         <h2 className="text-lg font-semibold tracking-tight">
           {PCT}% off orders over {formatCents(BULK_MIN_CENTS)}
