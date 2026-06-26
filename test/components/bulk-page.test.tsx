@@ -2,7 +2,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import BulkPage from "@/app/bulk/page";
-import { bulkDiscountedTotalCents } from "@/lib/pricing";
+import { bulkDiscountedTotalCents, BULK_MIN_VIALS, BULK_MIN_TYPES } from "@/lib/pricing";
 import { formatCents } from "@/lib/money";
 
 describe("BulkPage", () => {
@@ -15,17 +15,18 @@ describe("BulkPage", () => {
     ).toBeTruthy();
   });
 
-  it("states the 15% off total order over the $1000 minimum", () => {
+  it("states the 100-vial / 5-type qualification and 15% off", () => {
     render(<BulkPage />);
     const text = document.body.textContent ?? "";
     expect(text).toContain("15%");
-    expect(text).toContain("$1,000.00");
+    expect(text).toContain(String(BULK_MIN_VIALS)); // 100 vials
+    expect(text).toContain(String(BULK_MIN_TYPES)); // 5 types
   });
 
-  it("renders an example discounted total ($1,000 -> $850)", () => {
+  it("renders an example discounted total for a qualifying order ($5,000 -> $4,250)", () => {
     render(<BulkPage />);
-    const discounted = formatCents(bulkDiscountedTotalCents(100000));
-    expect(discounted).toBe("$850.00");
+    const discounted = formatCents(bulkDiscountedTotalCents(500000, BULK_MIN_VIALS, BULK_MIN_TYPES));
+    expect(discounted).toBe("$4,250.00");
     expect(screen.getAllByText(discounted).length).toBeGreaterThan(0);
   });
 });
