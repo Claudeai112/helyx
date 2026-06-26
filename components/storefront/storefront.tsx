@@ -15,12 +15,11 @@ type Category = { slug: string; name: string };
 type FilterPanelProps = {
   state: FilterState;
   categories: Category[];
-  mgOptions: number[];
   onChange: (partial: Partial<FilterState>) => void;
   onClear: () => void;
 };
 
-function FilterPanel({ state, categories, mgOptions, onChange, onClear }: FilterPanelProps) {
+function FilterPanel({ state, categories, onChange, onClear }: FilterPanelProps) {
   return (
     <div className="flex flex-col gap-6">
       {/* Category */}
@@ -74,33 +73,6 @@ function FilterPanel({ state, categories, mgOptions, onChange, onClear }: Filter
         </div>
       </div>
 
-      {/* MG strength */}
-      {mgOptions.length > 0 && (
-        <div>
-          <p className="mb-2 text-sm font-semibold text-foreground">MG strength</p>
-          <div className="flex flex-col gap-1.5">
-            {mgOptions.map((mg) => (
-              <label
-                key={mg}
-                className="flex cursor-pointer items-center gap-2 text-sm text-foreground"
-              >
-                <input
-                  type="checkbox"
-                  checked={state.mgs.includes(mg)}
-                  onChange={(e) => {
-                    const next = e.target.checked
-                      ? [...state.mgs, mg]
-                      : state.mgs.filter((m) => m !== mg);
-                    onChange({ mgs: next });
-                  }}
-                />
-                {mg}mg
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Popular / New arrivals */}
       <div className="flex flex-col gap-1.5">
         <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground">
@@ -152,8 +124,6 @@ export function Storefront({
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const mgOptions = [...new Set(items.flatMap((i) => i.mgs))].sort((a, b) => a - b);
-
   const onChange = (partial: Partial<FilterState>) =>
     setState((s) => ({ ...s, ...partial }));
 
@@ -162,13 +132,12 @@ export function Storefront({
   const results = filterAndSort(items, state);
 
   return (
-    <div className="flex min-h-0 gap-8">
+    <div className="mx-auto flex min-h-0 max-w-[1400px] gap-8 px-6 py-10 lg:px-8">
       {/* Left sidebar — desktop only */}
       <aside className="hidden lg:block w-56 shrink-0">
         <FilterPanel
           state={state}
           categories={categories}
-          mgOptions={mgOptions}
           onChange={onChange}
           onClear={onClear}
         />
@@ -250,7 +219,6 @@ export function Storefront({
             <FilterPanel
               state={state}
               categories={categories}
-              mgOptions={mgOptions}
               onChange={onChange}
               onClear={onClear}
             />
