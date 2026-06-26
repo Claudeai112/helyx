@@ -65,7 +65,16 @@ export default function CartPage() {
                       >
                         −
                       </button>
-                      <span className="min-w-8 px-2 text-center text-foreground">{item.quantity}</span>
+                      <input
+                        type="number"
+                        min={1}
+                        value={item.quantity}
+                        onChange={(e) =>
+                          setQuantity(item.variantId, Math.max(1, Math.floor(Number(e.target.value) || 1)))
+                        }
+                        aria-label={`Quantity for ${item.name}`}
+                        className="w-14 border-x border-border bg-card px-2 py-1 text-center text-foreground"
+                      />
                       <button
                         type="button"
                         aria-label={`Increase ${item.name} quantity`}
