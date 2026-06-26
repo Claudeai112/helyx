@@ -33,10 +33,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     ? Math.min(...product.variants.map((v) => v.priceCents))
     : 0;
   const firstVariantLabel = product.variants[0]?.label ?? "";
-  const mgPerVial = parseFloat(firstVariantLabel);
+  const mgOptions = [...new Set(
+    product.variants.map((v) => parseFloat(v.label)).filter((n) => Number.isFinite(n) && n > 0),
+  )].sort((a, b) => a - b);
   const showReconstitution =
-    Number.isFinite(mgPerVial) &&
-    mgPerVial > 0 &&
+    mgOptions.length > 0 &&
     firstVariantLabel.includes("mg") &&
     product.category?.slug !== "supplies";
   return (
@@ -93,7 +94,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <p className="mt-3 text-muted-foreground">{product.reconstitution}</p>
         {showReconstitution && (
           <div className="mt-6">
-            <ReconstitutionReference mgPerVial={mgPerVial} />
+            <ReconstitutionReference mgOptions={mgOptions} />
           </div>
         )}
       </section>
