@@ -23,9 +23,11 @@ describe("route consolidation", () => {
     expect(cat).toMatch(/redirect\(/);
     expect(cat).not.toMatch(/notFound\(\)/);
   });
-  it("navbar links resolve into the storefront, no dead /category/healing", () => {
+  it("navbar features the page links and no dead /category links", () => {
     const nav = readFileSync("components/navbar.tsx", "utf8");
-    expect(nav).toMatch(/\/\?purpose=healing-recovery/);
-    expect(nav).not.toMatch(/\/category\/healing/);
+    expect(nav).toMatch(/"\/stacks"/);
+    expect(nav).toMatch(/"\/bulk"/);
+    expect(nav).toMatch(/"\/ambassador"/);
+    expect(nav).not.toMatch(/\/category\//);
   });
 });
