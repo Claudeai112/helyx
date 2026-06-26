@@ -17,7 +17,11 @@ export function StackCard({ stack }: { stack: StackCardData }) {
   const { add } = useCart();
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-sm">
-      <div className="flex h-[260px] items-center justify-center bg-secondary">
+      <Link
+        href={`/stacks/${stack.slug}`}
+        className="flex h-[260px] items-center justify-center bg-secondary"
+        aria-label={`View ${stack.name} details`}
+      >
         {stackImage(stack.slug) ? (
           // eslint-disable-next-line @next/next/no-img-element -- static local bundle image; next/image not configured
           <img
@@ -27,7 +31,7 @@ export function StackCard({ stack }: { stack: StackCardData }) {
             loading="lazy"
           />
         ) : null}
-      </div>
+      </Link>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-heading text-base font-semibold text-foreground">{stack.name}</h3>
         <p className="mt-1 text-sm text-muted-foreground">{stack.tagline}</p>
