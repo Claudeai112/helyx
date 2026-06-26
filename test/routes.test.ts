@@ -8,12 +8,14 @@ describe("route consolidation", () => {
     expect(page).not.toMatch(/CatalogBrowser/);
     expect(page).toMatch(/<Suspense/); // useSearchParams boundary
   });
-  it("stacks section keeps the #stacks anchor", () => {
-    expect(readFileSync("components/sections/home/stacks.tsx", "utf8")).toMatch(/id="stacks"/);
+  it("/stacks is its own listing page (bundles live on a separate page)", () => {
+    const stacks = readFileSync("app/stacks/page.tsx", "utf8");
+    expect(stacks).toMatch(/getAllStacks/);
+    expect(stacks).toMatch(/StackCard/);
+    expect(stacks).not.toMatch(/redirect\(/);
   });
-  it("/shop and /stacks redirect into the unified storefront", () => {
+  it("/shop redirects into the unified storefront", () => {
     expect(readFileSync("app/shop/page.tsx", "utf8")).toMatch(/redirect\(/);
-    expect(readFileSync("app/stacks/page.tsx", "utf8")).toMatch(/redirect\(/);
   });
   it("category route aliases old slugs and redirects (fixes Healing 404)", () => {
     const cat = readFileSync("app/category/[slug]/page.tsx", "utf8");
