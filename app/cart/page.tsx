@@ -112,7 +112,7 @@ export default function CartPage() {
               </div>
               {bulkBps === 0 ? (
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Add 100+ vials across 5+ peptide types to unlock bulk pricing.
+                  Add 100+ vials across 3+ peptide types to unlock bulk pricing.
                 </p>
               ) : null}
               <p className="mt-1 text-xs text-muted-foreground">
