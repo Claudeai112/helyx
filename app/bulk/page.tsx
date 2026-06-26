@@ -39,7 +39,9 @@ export default function BulkPage() {
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The {PCT}% bulk discount applies to your entire order subtotal once it reaches{" "}
-          {formatCents(BULK_MIN_CENTS)}. Illustrative totals (USD):
+          {formatCents(BULK_MIN_CENTS)}. Example: a {formatCents(BULK_MIN_CENTS)} subtotal &times;{" "}
+          {PCT}% off = {formatCents(bulkSavingsCents(BULK_MIN_CENTS))} off, so you pay{" "}
+          {formatCents(bulkDiscountedTotalCents(BULK_MIN_CENTS))}. Illustrative totals (USD):
         </p>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-border">

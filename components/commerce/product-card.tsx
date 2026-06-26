@@ -48,7 +48,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         </span>
         <Button
           className="mt-3 w-full"
-          onClick={() => add({ variantId: selected.id, slug, name, unitPriceCents: selected.priceCents, quantity: 1 })}
+          onClick={() => add({ variantId: selected.id, slug, name, unitPriceCents: selected.priceCents, quantity: 1, variants: variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents })) })}
         >
           Add to cart
         </Button>
