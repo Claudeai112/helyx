@@ -35,7 +35,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <p className="font-heading text-base font-semibold text-foreground">{name}</p>
         <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
         <select
-          className="mt-3 w-full rounded-md border border-border bg-card px-2 py-1.5 text-sm text-foreground"
+          className="mt-auto w-full rounded-md border border-border bg-card px-2 py-1.5 text-sm text-foreground"
           value={selectedId}
           onChange={(e) => setSelectedId(e.target.value)}
         >
