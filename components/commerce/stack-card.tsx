@@ -16,7 +16,7 @@ export function StackCard({ stack }: { stack: StackCardData }) {
   const { add } = useCart();
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-sm">
-      <div className="aspect-[4/3] bg-secondary">
+      <div className="flex h-[260px] items-center justify-center bg-secondary">
         {stackImage(stack.slug) ? (
           // eslint-disable-next-line @next/next/no-img-element -- static local bundle image; next/image not configured
           <img
