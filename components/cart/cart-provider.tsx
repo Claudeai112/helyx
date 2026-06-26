@@ -1,12 +1,13 @@
 "use client";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { addToCart, removeFromCart, changeVariant, cartCount, cartSubtotalCents, type CartItem } from "@/lib/cart-store";
+import { addToCart, removeFromCart, changeVariant, setQuantity, cartCount, cartSubtotalCents, type CartItem } from "@/lib/cart-store";
 
 type CartCtx = {
   items: CartItem[];
   add: (i: CartItem) => void;
   remove: (id: string) => void;
   changeVariant: (currentVariantId: string, newVariantId: string) => void;
+  setQuantity: (variantId: string, quantity: number) => void;
   count: number;
   subtotalCents: number;
 };
@@ -33,6 +34,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     remove: (id) => setItems((cur) => removeFromCart(cur, id)),
     changeVariant: (currentVariantId, newVariantId) =>
       setItems((cur) => changeVariant(cur, currentVariantId, newVariantId)),
+    setQuantity: (variantId, quantity) =>
+      setItems((cur) => setQuantity(cur, variantId, quantity)),
     count: cartCount(items),
     subtotalCents: cartSubtotalCents(items),
   };

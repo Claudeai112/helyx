@@ -15,6 +15,7 @@ export function AddToCart({
   name: string;
 }) {
   const [selectedId, setSelectedId] = useState<string>(variants[0]?.id ?? "");
+  const [qty, setQty] = useState<number>(1);
   const selected = variants.find((v) => v.id === selectedId) ?? variants[0];
   const { add } = useCart();
 
@@ -41,6 +42,36 @@ export function AddToCart({
         {formatCents(selected?.priceCents ?? 0)}
       </div>
 
+      <label className="block text-sm">
+        <span className="mb-1 block text-muted-foreground">Quantity</span>
+        <div className="inline-flex items-center rounded-md border border-border">
+          <button
+            type="button"
+            aria-label="Decrease quantity"
+            onClick={() => setQty((q) => Math.max(1, q - 1))}
+            className="px-3 py-2 text-foreground hover:bg-secondary"
+          >
+            −
+          </button>
+          <input
+            type="number"
+            min={1}
+            value={qty}
+            onChange={(e) => setQty(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+            aria-label="Quantity"
+            className="w-14 border-x border-border bg-card px-2 py-2 text-center text-sm text-foreground"
+          />
+          <button
+            type="button"
+            aria-label="Increase quantity"
+            onClick={() => setQty((q) => q + 1)}
+            className="px-3 py-2 text-foreground hover:bg-secondary"
+          >
+            +
+          </button>
+        </div>
+      </label>
+
       <Button
         size="lg"
         className="w-full"
@@ -50,7 +81,7 @@ export function AddToCart({
             slug,
             name,
             unitPriceCents: selected.priceCents,
-            quantity: 1,
+            quantity: qty,
             variants,
           })
         }

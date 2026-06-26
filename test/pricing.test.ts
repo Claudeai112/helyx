@@ -1,29 +1,36 @@
 import { describe, it, expect } from "vitest";
 import {
+  bulkDiscountBps,
   bulkDiscountedTotalCents,
   bulkSavingsCents,
   qualifiesForBulk,
-  BULK_MIN_VIALS,
-  BULK_MIN_TYPES,
 } from "@/lib/pricing";
 
-describe("bulk pricing", () => {
-  it("qualifies only with 100+ vials across 5+ peptide types", () => {
-    expect(BULK_MIN_VIALS).toBe(100);
-    expect(BULK_MIN_TYPES).toBe(5);
-    expect(qualifiesForBulk(99, 5)).toBe(false); // too few vials
-    expect(qualifiesForBulk(100, 4)).toBe(false); // too few types
+describe("bulk pricing tiers", () => {
+  it("returns the right tier discount for vials + types", () => {
+    expect(bulkDiscountBps(99, 5)).toBe(0); // too few vials
+    expect(bulkDiscountBps(100, 4)).toBe(0); // too few types
+    expect(bulkDiscountBps(100, 5)).toBe(2000); // 20%
+    expect(bulkDiscountBps(300, 10)).toBe(2500); // 25%
+    expect(bulkDiscountBps(500, 15)).toBe(4000); // 40%
+  });
+  it("uses the best tier whose BOTH thresholds are met", () => {
+    expect(bulkDiscountBps(500, 10)).toBe(2500); // 500 vials but only 10 types -> 25%
+    expect(bulkDiscountBps(300, 15)).toBe(2500); // 15 types but only 300 vials -> 25%
+    expect(bulkDiscountBps(600, 20)).toBe(4000); // both top thresholds -> 40%
+  });
+  it("qualifies once any tier applies", () => {
     expect(qualifiesForBulk(100, 5)).toBe(true);
+    expect(qualifiesForBulk(99, 5)).toBe(false);
   });
-  it("applies 15% off a qualifying order total", () => {
-    expect(bulkDiscountedTotalCents(500000, 100, 5)).toBe(425000); // $5,000 -> $4,250
+  it("applies the tier discount to the subtotal", () => {
+    expect(bulkDiscountedTotalCents(500000, 100, 5)).toBe(400000);  // 20% off $5,000 -> $4,000
+    expect(bulkDiscountedTotalCents(500000, 300, 10)).toBe(375000); // 25% off -> $3,750
+    expect(bulkDiscountedTotalCents(500000, 500, 15)).toBe(300000); // 40% off -> $3,000
+    expect(bulkDiscountedTotalCents(500000, 50, 5)).toBe(500000);   // no discount
   });
-  it("does not discount non-qualifying orders", () => {
-    expect(bulkDiscountedTotalCents(500000, 50, 5)).toBe(500000); // too few vials
-    expect(bulkDiscountedTotalCents(500000, 100, 3)).toBe(500000); // too few types
-  });
-  it("reports the savings amount for a qualifying order", () => {
-    expect(bulkSavingsCents(1000000, 100, 5)).toBe(150000); // $1,500 off $10,000
-    expect(bulkSavingsCents(1000000, 10, 1)).toBe(0);
+  it("reports savings", () => {
+    expect(bulkSavingsCents(500000, 500, 15)).toBe(200000); // $2,000 off
+    expect(bulkSavingsCents(500000, 1, 1)).toBe(0);
   });
 });
