@@ -158,11 +158,16 @@
 /* Slow continuous DNA rotation of the whole mark */
 .helyx-mark {
   transform-origin: center;
-  animation: helyx-rotate 12s linear infinite;
+  animation: helyx-rotate 12s linear infinite, helyx-glow 4s ease-in-out infinite;
 }
 @keyframes helyx-rotate {
   from { transform: perspective(240px) rotateY(0deg); }
   to { transform: perspective(240px) rotateY(360deg); }
+}
+/* Soft teal glow pulse — subtle, restrained */
+@keyframes helyx-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(0, 168, 150, 0)); }
+  50% { filter: drop-shadow(0 0 4px rgba(0, 168, 150, 0.55)); }
 }
 
 /* Add-to-cart confirmation checkmark — draws in on click */

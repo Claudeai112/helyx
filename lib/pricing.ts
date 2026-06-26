@@ -26,6 +26,13 @@ export function qualifiesForBulk(totalVials: number, distinctTypes: number): boo
   return bulkDiscountBps(totalVials, distinctTypes) > 0;
 }
 
+// The next (higher) tier the order doesn't yet qualify for, or null if at the top.
+export function nextBulkTier(totalVials: number, distinctTypes: number): BulkTier | null {
+  const currentBps = bulkDiscountBps(totalVials, distinctTypes);
+  const ascending = [...BULK_TIERS].sort((a, b) => a.bps - b.bps);
+  return ascending.find((t) => t.bps > currentBps) ?? null;
+}
+
 export function bulkDiscountedTotalCents(subtotalCents: number, totalVials: number, distinctTypes: number): number {
   const bps = bulkDiscountBps(totalVials, distinctTypes);
   return Math.round(subtotalCents * (1 - bps / 10000));

@@ -11,6 +11,7 @@ import { productJsonLd } from "@/lib/seo";
 import { ReconstitutionReference } from "@/components/commerce/reconstitution-reference";
 import { ProviderPathway } from "@/components/commerce/provider-pathway";
 import { AddBacWater } from "@/components/commerce/add-bac-water";
+import { CoaSection } from "@/components/commerce/coa-section";
 
 export const dynamic = "force-dynamic";
 
@@ -98,6 +99,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
         )}
       </section>
+
+      <div className="max-w-2xl">
+        <CoaSection />
+      </div>
 
       {related.length > 0 && (
         <section className="mt-16">
