@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useCart } from "@/components/cart/cart-provider";
-import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/commerce/add-to-cart-button";
 import { formatCents } from "@/lib/money";
 
 type BacVariant = { id: string; label: string; priceCents: number };
@@ -34,8 +34,9 @@ export function AddBacWater({ variants }: { variants: BacVariant[] }) {
             </option>
           ))}
         </select>
-        <Button
-          onClick={() =>
+        <AddToCartButton
+          label="Add BAC water"
+          onAdd={() =>
             add({
               variantId: selected.id,
               slug: "bac-water",
@@ -45,9 +46,7 @@ export function AddBacWater({ variants }: { variants: BacVariant[] }) {
               variants,
             })
           }
-        >
-          Add BAC water
-        </Button>
+        />
       </div>
     </div>
   );

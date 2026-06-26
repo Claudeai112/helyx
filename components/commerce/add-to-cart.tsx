@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useCart } from "@/components/cart/cart-provider";
 import { type VariantOption } from "@/components/commerce/variant-selector";
-import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/commerce/add-to-cart-button";
 import { formatCents } from "@/lib/money";
 
 export function AddToCart({
@@ -72,10 +72,10 @@ export function AddToCart({
         </div>
       </label>
 
-      <Button
+      <AddToCartButton
         size="lg"
         className="w-full"
-        onClick={() =>
+        onAdd={() =>
           add({
             variantId: selected.id,
             slug,
@@ -85,9 +85,7 @@ export function AddToCart({
             variants,
           })
         }
-      >
-        Add to cart
-      </Button>
+      />
     </div>
   );
 }

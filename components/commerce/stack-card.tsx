@@ -1,5 +1,6 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { AddToCartButton } from "@/components/commerce/add-to-cart-button";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatCents } from "@/lib/money";
 import { stackImage } from "@/lib/stack-images";
@@ -44,12 +45,16 @@ export function StackCard({ stack }: { stack: StackCardData }) {
             {formatCents(stack.priceCents)}
           </span>
         </div>
-        <Button
+        <AddToCartButton
           className="mt-4 w-full"
-          onClick={() => add({ variantId: `stack:${stack.slug}`, slug: stack.slug, name: stack.name, unitPriceCents: stack.priceCents, quantity: 1 })}
+          onAdd={() => add({ variantId: `stack:${stack.slug}`, slug: stack.slug, name: stack.name, unitPriceCents: stack.priceCents, quantity: 1 })}
+        />
+        <Link
+          href={`/stacks/${stack.slug}`}
+          className="mt-2 text-center text-sm text-muted-foreground hover:text-primary"
         >
-          Add to cart
-        </Button>
+          Learn more
+        </Link>
       </div>
     </div>
   );
