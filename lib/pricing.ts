@@ -1,15 +1,17 @@
-export const BULK_VIAL_QTY = 100;
-export const BULK_DISCOUNT_BPS = 1500; // 15%
-export const BULK_MIN_CENTS = 100000; // $1000
-
-export function bulkLotPriceCents(vialPriceCents: number): number {
-  return Math.round(vialPriceCents * BULK_VIAL_QTY * (1 - BULK_DISCOUNT_BPS / 10000));
-}
-
-export function bulkPerVialCents(vialPriceCents: number): number {
-  return Math.round(bulkLotPriceCents(vialPriceCents) / BULK_VIAL_QTY);
-}
+// Bulk/wholesale: 25% off the total order once the subtotal reaches the minimum.
+export const BULK_DISCOUNT_BPS = 2500; // 25% off total order
+export const BULK_MIN_CENTS = 100000; // $1000 minimum subtotal
 
 export function qualifiesForBulk(subtotalCents: number): boolean {
   return subtotalCents >= BULK_MIN_CENTS;
+}
+
+export function bulkDiscountedTotalCents(subtotalCents: number): number {
+  return qualifiesForBulk(subtotalCents)
+    ? Math.round(subtotalCents * (1 - BULK_DISCOUNT_BPS / 10000))
+    : subtotalCents;
+}
+
+export function bulkSavingsCents(subtotalCents: number): number {
+  return subtotalCents - bulkDiscountedTotalCents(subtotalCents);
 }

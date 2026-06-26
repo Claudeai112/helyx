@@ -39,7 +39,7 @@ export function StackCard({ stack }: { stack: StackCardData }) {
             ))}
           </ul>
         )}
-        <div className="mt-3">
+        <div className="mt-auto pt-3">
           <span className="text-lg font-semibold text-foreground">
             {formatCents(stack.priceCents)}
           </span>
