@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatCents } from "@/lib/money";
+import { stackImage } from "@/lib/stack-images";
 
 export type StackCardData = {
   slug: string;
@@ -15,8 +16,17 @@ export function StackCard({ stack }: { stack: StackCardData }) {
   const { add } = useCart();
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-sm">
-      {/* image placeholder area — real imagery later */}
-      <div className="aspect-[4/3] bg-secondary" />
+      <div className="aspect-[4/3] bg-secondary">
+        {stackImage(stack.slug) ? (
+          // eslint-disable-next-line @next/next/no-img-element -- static local bundle image; next/image not configured
+          <img
+            src={stackImage(stack.slug) as string}
+            alt={`${stack.name} stack — bundled research vials`}
+            className="h-full w-full object-contain"
+            loading="lazy"
+          />
+        ) : null}
+      </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-heading text-base font-semibold text-foreground">{stack.name}</h3>
         <p className="mt-1 text-sm text-muted-foreground">{stack.tagline}</p>
