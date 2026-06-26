@@ -3,9 +3,18 @@ import Link from "next/link";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
+import { cartPeptideVials, cartPeptideTypes } from "@/lib/cart-store";
+import { bulkDiscountBps, bulkDiscountedTotalCents, bulkSavingsCents } from "@/lib/pricing";
 
 export default function CartPage() {
-  const { items, remove, changeVariant, subtotalCents } = useCart();
+  const { items, remove, changeVariant, setQuantity, subtotalCents } = useCart();
+
+  // Tiered bulk discount based on peptide vials + distinct peptide types in the cart.
+  const vials = cartPeptideVials(items);
+  const types = cartPeptideTypes(items);
+  const bulkBps = bulkDiscountBps(vials, types);
+  const bulkSavings = bulkSavingsCents(subtotalCents, vials, types);
+  const orderTotal = bulkDiscountedTotalCents(subtotalCents, vials, types);
 
   return (
     <main className="relative z-[2] mx-auto min-h-screen max-w-[900px] px-6 pb-24 pt-36">
@@ -45,9 +54,29 @@ export default function CartPage() {
                       ))}
                     </select>
                   ) : null}
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Qty: {item.quantity} &times; {formatCents(item.unitPriceCents)}
-                  </p>
+                  <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+                    <span>Qty</span>
+                    <div className="inline-flex items-center rounded-md border border-border">
+                      <button
+                        type="button"
+                        aria-label={`Decrease ${item.name} quantity`}
+                        onClick={() => setQuantity(item.variantId, item.quantity - 1)}
+                        className="px-2 py-1 text-foreground hover:bg-secondary"
+                      >
+                        −
+                      </button>
+                      <span className="min-w-8 px-2 text-center text-foreground">{item.quantity}</span>
+                      <button
+                        type="button"
+                        aria-label={`Increase ${item.name} quantity`}
+                        onClick={() => setQuantity(item.variantId, item.quantity + 1)}
+                        className="px-2 py-1 text-foreground hover:bg-secondary"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <span>&times; {formatCents(item.unitPriceCents)}</span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-6">
                   <span className="font-semibold text-foreground">
@@ -66,9 +95,26 @@ export default function CartPage() {
           </ul>
 
           <div className="mt-6 flex justify-end">
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground">Subtotal</p>
-              <p className="text-2xl font-bold text-foreground">{formatCents(subtotalCents)}</p>
+            <div className="min-w-[260px] text-right">
+              <div className="flex items-center justify-between gap-6">
+                <span className="text-sm text-muted-foreground">Subtotal</span>
+                <span className="text-foreground">{formatCents(subtotalCents)}</span>
+              </div>
+              {bulkBps > 0 && (
+                <div className="mt-1 flex items-center justify-between gap-6">
+                  <span className="text-sm text-muted-foreground">Bulk discount ({bulkBps / 100}%)</span>
+                  <span className="text-foreground">− {formatCents(bulkSavings)}</span>
+                </div>
+              )}
+              <div className="mt-2 flex items-center justify-between gap-6 border-t border-border pt-2">
+                <span className="text-sm text-muted-foreground">Total</span>
+                <span className="text-2xl font-bold text-foreground">{formatCents(orderTotal)}</span>
+              </div>
+              {bulkBps === 0 ? (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Add 100+ vials across 5+ peptide types to unlock bulk pricing.
+                </p>
+              ) : null}
               <p className="mt-1 text-xs text-muted-foreground">
                 Shipping is calculated at checkout and paid by the customer.
               </p>

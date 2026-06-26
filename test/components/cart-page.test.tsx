@@ -105,9 +105,10 @@ describe("CartPage (neutral research-supply cart)", () => {
     );
     // item name
     expect(screen.getByText("BPC-157")).toBeTruthy();
-    // line price text (Qty: 2 × $59.00)
-    expect(screen.getByText(/qty:\s*2/i)).toBeTruthy();
-    // line total + subtotal both render formatCents(11800) → "$118.00"
+    // quantity stepper + unit price (× $59.00)
+    expect(screen.getByRole("button", { name: /increase bpc-157 quantity/i })).toBeTruthy();
+    expect(screen.getByText(/\$59\.00/)).toBeTruthy();
+    // line total + subtotal/total render formatCents(11800) → "$118.00"
     expect(screen.getAllByText("$118.00").length).toBeGreaterThan(0);
     // Remove button
     expect(screen.getByRole("button", { name: /remove bpc-157/i })).toBeTruthy();
