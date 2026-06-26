@@ -18,8 +18,8 @@ export default function BulkPage() {
       <p className="mt-4 text-muted-foreground">
         Qualified research institutions, academic laboratories, and pharmaceutical companies may
         place bulk orders through the standard checkout process. The bulk discount is applied to the
-        order subtotal (each compound&apos;s standard price × quantity) and scales with the number of
-        vials and the number of different peptide types in the order.
+        order subtotal (each compound&apos;s standard price × quantity) and scales with the total
+        number of vials in the order.
       </p>
 
       <p className="mt-4 text-muted-foreground">
@@ -31,7 +31,7 @@ export default function BulkPage() {
       <div className="mt-10">
         <h2 className="text-lg font-semibold tracking-tight">Bulk discount tiers</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Discounts apply automatically once an order meets both thresholds for a tier:
+          Discounts apply automatically based on the total number of vials in your order:
         </p>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-border">
@@ -39,7 +39,6 @@ export default function BulkPage() {
             <thead>
               <tr className="border-b border-border bg-muted/40">
                 <th className="px-4 py-3 text-left font-medium text-foreground">Vials</th>
-                <th className="px-4 py-3 text-left font-medium text-foreground">Different peptide types</th>
                 <th className="px-4 py-3 text-left font-medium text-foreground">Discount off subtotal</th>
               </tr>
             </thead>
@@ -47,7 +46,6 @@ export default function BulkPage() {
               {TIERS.map((t) => (
                 <tr key={t.bps} className="border-b border-border last:border-0">
                   <td className="px-4 py-3 text-foreground">{t.minVials}+</td>
-                  <td className="px-4 py-3 text-muted-foreground">{t.minTypes}+</td>
                   <td className="px-4 py-3 font-medium text-foreground">{t.bps / 100}%</td>
                 </tr>
               ))}
@@ -55,7 +53,7 @@ export default function BulkPage() {
           </table>
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          The best tier whose vial and peptide-type thresholds are both met is applied.
+          The best tier whose vial threshold is met is applied.
         </p>
       </div>
 
