@@ -1,13 +1,17 @@
 // Bulk/wholesale: tiered discount on the order subtotal, based on total vials
 // and the number of distinct peptide types in the order.
-//   100+ vials & 5+ types  -> 20% off
-//   300+ vials & 10+ types -> 25% off
-//   500+ vials & 15+ types -> 40% off
+//   100+ vials & 3+ types -> 15% off
+//   200+ vials & 4+ types -> 20% off
+//   300+ vials & 5+ types -> 25% off
+//   400+ vials & 6+ types -> 30% off
+//   500+ vials & 7+ types -> 40% off
 export type BulkTier = { minVials: number; minTypes: number; bps: number };
 export const BULK_TIERS: BulkTier[] = [
-  { minVials: 500, minTypes: 15, bps: 4000 },
-  { minVials: 300, minTypes: 10, bps: 2500 },
-  { minVials: 100, minTypes: 5, bps: 2000 },
+  { minVials: 500, minTypes: 7, bps: 4000 },
+  { minVials: 400, minTypes: 6, bps: 3000 },
+  { minVials: 300, minTypes: 5, bps: 2500 },
+  { minVials: 200, minTypes: 4, bps: 2000 },
+  { minVials: 100, minTypes: 3, bps: 1500 },
 ];
 
 // Best applicable discount (basis points) for the given totals; 0 if none qualifies.

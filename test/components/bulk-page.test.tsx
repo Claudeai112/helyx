@@ -13,14 +13,16 @@ describe("BulkPage", () => {
     ).toBeTruthy();
   });
 
-  it("lists the three discount tiers", () => {
+  it("lists the discount tiers", () => {
     render(<BulkPage />);
     const text = document.body.textContent ?? "";
+    expect(text).toContain("15%");
     expect(text).toContain("20%");
     expect(text).toContain("25%");
+    expect(text).toContain("30%");
     expect(text).toContain("40%");
-    expect(text).toContain("100+"); // vials threshold
-    expect(text).toContain("15+"); // top peptide-type threshold
+    expect(text).toContain("100+"); // entry vials threshold
+    expect(text).toContain("7+"); // top peptide-type threshold
   });
 
   it("states shipping is paid by the customer", () => {
