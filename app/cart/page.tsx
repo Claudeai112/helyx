@@ -69,6 +69,9 @@ export default function CartPage() {
             <div className="text-right">
               <p className="text-sm text-muted-foreground">Subtotal</p>
               <p className="text-2xl font-bold text-foreground">{formatCents(subtotalCents)}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Shipping is calculated at checkout and paid by the customer.
+              </p>
             </div>
           </div>
         </div>

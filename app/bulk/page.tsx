@@ -99,6 +99,10 @@ export default function BulkPage() {
         {"Bulk/wholesale orders may require additional processing time. Estimated delivery window: 2–3 weeks."}
       </p>
 
+      <p className="mt-4 text-sm text-muted-foreground">
+        Shipping is paid by the customer on all orders, including bulk and wholesale.
+      </p>
+
       {/* Contact */}
       <p className="mt-8 text-sm text-muted-foreground">
         For institutional account enquiries or purchase order processing, contact our research
