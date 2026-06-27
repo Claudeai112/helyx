@@ -17,7 +17,6 @@ export async function submitBulkInquiry(formData: FormData): Promise<{ ok: boole
     role: formData.get("role") || undefined,
     compounds: formData.get("compounds"),
     quantities: formData.get("quantities"),
-    poNumber: formData.get("poNumber") || undefined,
     notes: formData.get("notes") || undefined,
     ruoConfirmed: formData.get("ruoConfirmed") === "true",
   });
@@ -32,7 +31,6 @@ export async function submitBulkInquiry(formData: FormData): Promise<{ ok: boole
         role: parsed.data.role,
         compounds: parsed.data.compounds,
         quantities: parsed.data.quantities,
-        poNumber: parsed.data.poNumber,
         notes: parsed.data.notes,
         ruoConfirmed: parsed.data.ruoConfirmed,
       },

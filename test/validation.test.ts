@@ -31,7 +31,7 @@ describe("bulk inquiry validation", () => {
   });
 
   it("accepts optional fields", () => {
-    const r = parseBulkInquiry({ ...valid, phone: "5551234567", role: "PI", poNumber: "PO-99", notes: "rush" });
+    const r = parseBulkInquiry({ ...valid, phone: "5551234567", role: "PI", notes: "rush" });
     expect(r.ok).toBe(true);
   });
 
