@@ -189,7 +189,6 @@ model BulkInquiry {
   role         String?
   compounds    String   @db.Text
   quantities   String
-  poNumber     String?
   notes        String?  @db.Text
   ruoConfirmed Boolean  @default(false)
   createdAt    DateTime @default(now())

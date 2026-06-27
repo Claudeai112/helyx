@@ -72,13 +72,6 @@ export function BulkOrderForm() {
         <textarea id="compounds" name="compounds" required rows={3} className={fieldCls} placeholder="List the compounds and strengths you're interested in" />
       </div>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="poNumber" className={labelCls}>Purchase order number</label>
-          <input id="poNumber" name="poNumber" className={fieldCls} />
-        </div>
-      </div>
-
       <div className="mt-4">
         <label htmlFor="notes" className={labelCls}>Additional notes</label>
         <textarea id="notes" name="notes" rows={3} className={fieldCls} />

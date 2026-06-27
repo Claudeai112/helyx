@@ -26,7 +26,6 @@ export const bulkInquirySchema = z.object({
   role: z.string().trim().max(120).optional(),
   compounds: z.string().trim().min(1, "List the compounds of interest").max(4000),
   quantities: z.string().trim().min(1, "Estimated quantities are required").max(2000),
-  poNumber: z.string().trim().max(120).optional(),
   notes: z.string().trim().max(4000).optional(),
   ruoConfirmed: z.literal(true, { message: "You must confirm research-use-only" }),
 });
