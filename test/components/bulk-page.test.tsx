@@ -13,15 +13,16 @@ describe("BulkPage", () => {
     ).toBeTruthy();
   });
 
-  it("lists the vial-count discount tiers", () => {
+  it("does not show bulk discount tiers", () => {
     render(<BulkPage />);
     const text = document.body.textContent ?? "";
-    expect(text).toContain("15%");
-    expect(text).toContain("20%");
-    expect(text).toContain("30%");
-    expect(text).toContain("40%");
-    expect(text).toContain("25+"); // entry tier starts at 25 vials
-    expect(text).toContain("200+"); // top tier at 200 vials
+    expect(text).not.toContain("discount tier");
+    expect(text).not.toContain("Discount off subtotal");
+  });
+
+  it("renders the bulk inquiry form", () => {
+    render(<BulkPage />);
+    expect(screen.getByText("Submit bulk inquiry")).toBeTruthy();
   });
 
   it("states shipping is paid by the customer", () => {
