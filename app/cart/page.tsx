@@ -3,20 +3,9 @@ import Link from "next/link";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
-import { cartPeptideVials } from "@/lib/cart-store";
-import { bulkDiscountBps, bulkDiscountedTotalCents, bulkSavingsCents, nextBulkTier, BULK_TIERS } from "@/lib/pricing";
 
 export default function CartPage() {
   const { items, remove, changeVariant, setQuantity, subtotalCents } = useCart();
-
-  // Tiered bulk discount based on total peptide vials in the cart.
-  const vials = cartPeptideVials(items);
-  const bulkBps = bulkDiscountBps(vials);
-  const bulkSavings = bulkSavingsCents(subtotalCents, vials);
-  const orderTotal = bulkDiscountedTotalCents(subtotalCents, vials);
-  const next = nextBulkTier(vials);
-  const vialsToNext = next ? Math.max(0, next.minVials - vials) : 0;
-  const nextProgress = next ? Math.min(100, Math.round((vials / next.minVials) * 100)) : 100;
 
   return (
     <main className="relative z-[2] mx-auto min-h-screen max-w-[900px] px-6 pb-24 pt-36">
@@ -105,54 +94,15 @@ export default function CartPage() {
             ))}
           </ul>
 
-          {/* Wholesale progress — tracks toward the next live discount tier */}
-          <div className="mt-6 rounded-xl border border-border bg-card p-5">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <p className="text-sm font-semibold text-foreground">Wholesale pricing</p>
-              <p className="text-sm text-muted-foreground">
-                {vials} vial{vials !== 1 ? "s" : ""}
-                {bulkBps > 0 ? ` · ${bulkBps / 100}% unlocked` : ""}
-              </p>
-            </div>
-
-            <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary">
-              <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${nextProgress}%` }} />
-            </div>
-
-            <p className="mt-2 text-sm text-muted-foreground">
-              {next
-                ? `Add ${vialsToNext} more vial${vialsToNext !== 1 ? "s" : ""} to unlock ${next.bps / 100}% off.`
-                : "You've unlocked the maximum wholesale tier."}
-            </p>
-
-            {/* Tier ladder */}
-            <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-xs sm:grid-cols-4">
-              {[...BULK_TIERS].sort((a, b) => a.minVials - b.minVials).map((t) => {
-                const unlocked = vials >= t.minVials;
-                return (
-                  <li key={t.bps} className={unlocked ? "font-medium text-primary" : "text-muted-foreground"}>
-                    {unlocked ? "✓ " : ""}{t.minVials}+ vials → {t.bps / 100}%
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
           <div className="mt-6 flex justify-end">
             <div className="min-w-[260px] text-right">
               <div className="flex items-center justify-between gap-6">
                 <span className="text-sm text-muted-foreground">Subtotal</span>
                 <span className="text-foreground">{formatCents(subtotalCents)}</span>
               </div>
-              {bulkBps > 0 && (
-                <div className="mt-1 flex items-center justify-between gap-6">
-                  <span className="text-sm text-muted-foreground">Bulk discount ({bulkBps / 100}%)</span>
-                  <span className="text-foreground">− {formatCents(bulkSavings)}</span>
-                </div>
-              )}
               <div className="mt-2 flex items-center justify-between gap-6 border-t border-border pt-2">
                 <span className="text-sm text-muted-foreground">Total</span>
-                <span className="text-2xl font-bold text-foreground">{formatCents(orderTotal)}</span>
+                <span className="text-2xl font-bold text-foreground">{formatCents(subtotalCents)}</span>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
                 Shipping is calculated at checkout and paid by the customer.

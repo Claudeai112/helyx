@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 import { BulkOrderForm } from "@/components/bulk/bulk-order-form";
-import { BULK_TIERS } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Bulk Orders",
   description: "Bulk peptide research supply orders for institutions and laboratories.",
 };
-
-// Tiers displayed low-to-high.
-const TIERS = [...BULK_TIERS].sort((a, b) => a.minVials - b.minVials);
 
 export default function BulkPage() {
   return (
@@ -18,45 +14,14 @@ export default function BulkPage() {
 
       <p className="mt-4 text-muted-foreground">
         Qualified research institutions, academic laboratories, and pharmaceutical companies may
-        place bulk orders through the standard checkout process. The bulk discount is applied to the
-        order subtotal (each compound&apos;s standard price × quantity) and scales with the total
-        number of vials in the order.
+        request bulk research supply through the form below. Our team will follow up with pricing
+        and availability for the compounds and quantities you need.
       </p>
 
       <p className="mt-4 text-muted-foreground">
         Bulk ordering is intended for institutional and laboratory research procurement only. All
         compounds are supplied for in-vitro and non-clinical research use exclusively.
       </p>
-
-      {/* Tiered bulk discounts */}
-      <div className="mt-10">
-        <h2 className="text-lg font-semibold tracking-tight">Bulk discount tiers</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Discounts apply automatically based on the total number of vials in your order:
-        </p>
-
-        <div className="mt-4 overflow-hidden rounded-xl border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-muted/40">
-                <th className="px-4 py-3 text-left font-medium text-foreground">Vials</th>
-                <th className="px-4 py-3 text-left font-medium text-foreground">Discount off subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              {TIERS.map((t) => (
-                <tr key={t.bps} className="border-b border-border last:border-0">
-                  <td className="px-4 py-3 text-foreground">{t.minVials}+</td>
-                  <td className="px-4 py-3 font-medium text-foreground">{t.bps / 100}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          The best tier whose vial threshold is met is applied.
-        </p>
-      </div>
 
       {/* Bulk inquiry form */}
       <div className="mt-10">
