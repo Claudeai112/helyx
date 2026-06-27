@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
+import { BulkOrderForm } from "@/components/bulk/bulk-order-form";
 import { BULK_TIERS } from "@/lib/pricing";
 
 export const metadata: Metadata = {
@@ -57,28 +58,16 @@ export default function BulkPage() {
         </p>
       </div>
 
-      {/* Ordering instructions */}
+      {/* Bulk inquiry form */}
       <div className="mt-10">
-        <h2 className="text-lg font-semibold tracking-tight">How to Place a Bulk Order</h2>
-        <ol className="mt-4 space-y-2 text-sm text-muted-foreground">
-          <li>
-            <span className="font-medium text-foreground">1.</span> Add the required compounds and
-            quantities to your cart via the standard product catalogue.
-          </li>
-          <li>
-            <span className="font-medium text-foreground">2.</span> The applicable tier discount is
-            calculated automatically from your cart&apos;s total vials and number of different peptide
-            types; qualifying orders are routed for wholesale processing.
-          </li>
-          <li>
-            <span className="font-medium text-foreground">3.</span> Provide your institutional or
-            laboratory purchase order number at checkout if applicable.
-          </li>
-          <li>
-            <span className="font-medium text-foreground">4.</span> You will receive an order
-            confirmation with an estimated dispatch date.
-          </li>
-        </ol>
+        <h2 className="text-lg font-semibold tracking-tight">Request a Bulk Quote</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Tell us what your laboratory needs and our research-supply team will follow up with bulk
+          pricing and availability.
+        </p>
+        <div className="mt-4">
+          <BulkOrderForm />
+        </div>
       </div>
 
       {/* Verbatim bulk notice — required verbatim */}
@@ -95,10 +84,10 @@ export default function BulkPage() {
         For institutional account enquiries or purchase order processing, contact our research
         supply team at{" "}
         <a
-          href="mailto:bulk@helyxpeptides.com"
+          href="mailto:info@helyxpeps.com"
           className="underline underline-offset-4 hover:text-foreground"
         >
-          bulk@helyxpeptides.com
+          info@helyxpeps.com
         </a>
         .
       </p>

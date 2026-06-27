@@ -180,6 +180,23 @@ model EmailCapture {
   @@index([email])
 }
 
+model BulkInquiry {
+  id           String   @id @default(cuid())
+  fullName     String
+  email        String
+  phone        String?
+  organization String
+  role         String?
+  compounds    String   @db.Text
+  quantities   String
+  poNumber     String?
+  notes        String?  @db.Text
+  ruoConfirmed Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  @@index([email])
+}
+
 model PrescriptionCode {
   id        String     @id @default(cuid())
   code      String     @unique
