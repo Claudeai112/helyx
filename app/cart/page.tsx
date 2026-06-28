@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useCart } from "@/components/cart/cart-provider";
 import { useAuth } from "@/components/auth/auth-provider";
+import { CartUpsell } from "@/components/commerce/cart-upsell";
 import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 
@@ -113,6 +114,8 @@ export default function CartPage() {
           </div>
         </div>
       )}
+
+      {items.length > 0 && <CartUpsell />}
 
       {/* Checkout – requires an account; checkout itself ships in a future release */}
       <div className="mt-10">
