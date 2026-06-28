@@ -35,7 +35,8 @@ export function ProductCard({ product }: { product: ProductCardData }) {
       </div>
       <div className="flex flex-1 flex-col p-4">
         <p className="font-heading text-base font-semibold text-foreground">{name}</p>
-        <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+        {/* Reserve two lines so the badge below lines up across cards in a row */}
+        <p className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm text-muted-foreground">{subtitle}</p>
         <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-primary">
           ✓ Third-party tested
         </span>
