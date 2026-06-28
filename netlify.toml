@@ -17,6 +17,7 @@
 #   DATABASE_URL          - Postgres connection string (your Neon database)
 #   NEXT_PUBLIC_SITE_URL  - the deployed site URL, e.g. https://helyx.netlify.app
 #   RX_COOKIE_SECRET      - random secret for signing the redemption cookie (Spec 2A)
+#   SESSION_SECRET        - random secret for signing account session cookies
 #   STRIPE_SECRET_KEY     - placeholder until a Stripe account exists (Spec 2B)
 #   STRIPE_WEBHOOK_SECRET - placeholder until Stripe is set up (Spec 2B)
 #

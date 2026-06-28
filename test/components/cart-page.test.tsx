@@ -13,13 +13,19 @@ type MockCart = {
   subtotalCents: number;
   count: number;
 };
-const { cartState } = vi.hoisted(() => ({
+const { cartState, authState } = vi.hoisted(() => ({
   cartState: { current: null as unknown as MockCart },
+  authState: { current: null as null | { id: string; email: string; name: string | null } },
 }));
 
 vi.mock("@/components/cart/cart-provider", () => ({
   CartProvider: ({ children }: { children: React.ReactNode }) => children,
   useCart: () => cartState.current,
+}));
+
+vi.mock("@/components/auth/auth-provider", () => ({
+  AuthProvider: ({ children }: { children: React.ReactNode }) => children,
+  useAuth: () => authState.current,
 }));
 
 import { CartProvider } from "@/components/cart/cart-provider";
@@ -32,6 +38,7 @@ function emptyCart(): MockCart {
 describe("CartPage (neutral research-supply cart)", () => {
   beforeEach(() => {
     cartState.current = emptyCart();
+    authState.current = null;
   });
 
   it("shows empty-state message when cart is empty", () => {
@@ -53,16 +60,31 @@ describe("CartPage (neutral research-supply cart)", () => {
     expect(link.getAttribute("href")).toBe("/shop");
   });
 
-  it("shows a disabled checkout button with coming-soon note", () => {
+  it("gates checkout behind an account when logged out", () => {
+    authState.current = null;
+    render(
+      <CartProvider>
+        <CartPage />
+      </CartProvider>,
+    );
+    const cta = screen.getByRole("link", { name: /create an account to check out/i });
+    expect(cta).toBeTruthy();
+    expect(cta.getAttribute("href")).toBe("/account");
+    // The disabled checkout button should NOT be shown to logged-out visitors.
+    expect(screen.queryByRole("button", { name: /proceed to checkout/i })).toBeNull();
+  });
+
+  it("shows the (coming-soon) checkout button when signed in", () => {
+    authState.current = { id: "u1", email: "a@b.com", name: "A" };
     render(
       <CartProvider>
         <CartPage />
       </CartProvider>,
     );
     const btn = screen.getByRole("button", { name: /proceed to checkout/i });
-    expect(btn).toBeTruthy();
     expect((btn as HTMLButtonElement).disabled).toBe(true);
     expect(screen.getByText(/coming soon/i)).toBeTruthy();
+    expect(screen.queryByRole("link", { name: /create an account to check out/i })).toBeNull();
   });
 
   it("contains NO access-code or consultation language", () => {
