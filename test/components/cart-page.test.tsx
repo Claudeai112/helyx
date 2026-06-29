@@ -28,6 +28,12 @@ vi.mock("@/components/auth/auth-provider", () => ({
   useAuth: () => authState.current,
 }));
 
+// Stub child components that import server-only modules (server actions).
+vi.mock("@/components/commerce/cart-upsell", () => ({ CartUpsell: () => null }));
+vi.mock("@/components/commerce/bitcoin-checkout-button", () => ({
+  BitcoinCheckoutButton: () => <button type="button">Pay with Bitcoin</button>,
+}));
+
 import { CartProvider } from "@/components/cart/cart-provider";
 import CartPage from "@/app/cart/page";
 
@@ -74,16 +80,14 @@ describe("CartPage (neutral research-supply cart)", () => {
     expect(screen.queryByRole("button", { name: /proceed to checkout/i })).toBeNull();
   });
 
-  it("shows the (coming-soon) checkout button when signed in", () => {
+  it("shows the Bitcoin checkout when signed in", () => {
     authState.current = { id: "u1", email: "a@b.com", name: "A" };
     render(
       <CartProvider>
         <CartPage />
       </CartProvider>,
     );
-    const btn = screen.getByRole("button", { name: /proceed to checkout/i });
-    expect((btn as HTMLButtonElement).disabled).toBe(true);
-    expect(screen.getByText(/coming soon/i)).toBeTruthy();
+    expect(screen.getByRole("button", { name: /pay with bitcoin/i })).toBeTruthy();
     expect(screen.queryByRole("link", { name: /create an account to check out/i })).toBeNull();
   });
 

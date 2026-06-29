@@ -18,6 +18,10 @@
 #   NEXT_PUBLIC_SITE_URL  - the deployed site URL, e.g. https://helyx.netlify.app
 #   RX_COOKIE_SECRET      - random secret for signing the redemption cookie (Spec 2A)
 #   SESSION_SECRET        - random secret for signing account session cookies
+#   BTCPAY_URL            - BTCPay Server base URL (Bitcoin checkout)
+#   BTCPAY_API_KEY        - BTCPay Greenfield API key with invoice permissions
+#   BTCPAY_STORE_ID       - BTCPay store ID
+#   BTCPAY_WEBHOOK_SECRET - BTCPay store webhook signing secret
 #   STRIPE_SECRET_KEY     - placeholder until a Stripe account exists (Spec 2B)
 #   STRIPE_WEBHOOK_SECRET - placeholder until Stripe is set up (Spec 2B)
 #

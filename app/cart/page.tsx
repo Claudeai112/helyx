@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useCart } from "@/components/cart/cart-provider";
 import { useAuth } from "@/components/auth/auth-provider";
 import { CartUpsell } from "@/components/commerce/cart-upsell";
+import { BitcoinCheckoutButton } from "@/components/commerce/bitcoin-checkout-button";
 import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 
@@ -117,20 +118,10 @@ export default function CartPage() {
 
       {items.length > 0 && <CartUpsell />}
 
-      {/* Checkout – requires an account; checkout itself ships in a future release */}
+      {/* Checkout – requires an account; pay in Bitcoin via BTCPay */}
       <div className="mt-10">
         {user ? (
-          <>
-            <button
-              disabled
-              className="w-full cursor-not-allowed rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground opacity-50"
-            >
-              Proceed to checkout
-            </button>
-            <p className="mt-2 text-center text-xs text-muted-foreground">
-              Checkout is coming soon.
-            </p>
-          </>
+          <BitcoinCheckoutButton />
         ) : (
           <>
             <Link
