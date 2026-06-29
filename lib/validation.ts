@@ -40,3 +40,36 @@ export function parseBulkInquiry(input: unknown):
     ? { ok: true, data: r.data }
     : { ok: false, error: r.error.issues[0]?.message ?? "Invalid input" };
 }
+
+export const signUpSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(120),
+  email: z.email("Enter a valid email"),
+  password: z.string().min(8, "Password must be at least 8 characters").max(200),
+});
+
+export type SignUpInput = z.infer<typeof signUpSchema>;
+
+export function parseSignUp(input: unknown):
+  | { ok: true; data: SignUpInput }
+  | { ok: false; error: string } {
+  const r = signUpSchema.safeParse(input);
+  return r.success
+    ? { ok: true, data: r.data }
+    : { ok: false, error: r.error.issues[0]?.message ?? "Invalid input" };
+}
+
+export const signInSchema = z.object({
+  email: z.email("Enter a valid email"),
+  password: z.string().min(1, "Password is required").max(200),
+});
+
+export type SignInInput = z.infer<typeof signInSchema>;
+
+export function parseSignIn(input: unknown):
+  | { ok: true; data: SignInInput }
+  | { ok: false; error: string } {
+  const r = signInSchema.safeParse(input);
+  return r.success
+    ? { ok: true, data: r.data }
+    : { ok: false, error: r.error.issues[0]?.message ?? "Invalid input" };
+}

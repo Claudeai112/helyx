@@ -1198,6 +1198,69 @@ export const products: SeedProduct[] = [
     ],
     relatedSlugs: ["sterile-water", "acetic-acid"],
   },
+  {
+    slug: "insulin-syringes",
+    name: "Insulin Syringes",
+    subtitle: "Single-use graduated lab syringes",
+    categorySlug: "supplies",
+    researchOverview:
+      "Single-use graduated syringes for accurately measuring and transferring small volumes of reconstituted " +
+      "research solutions between vials in the laboratory. Fine-gauge and clearly graduated for precise volumetric work.",
+    benefits: [
+      "Fine-gauge, clearly graduated barrels for precise small-volume measuring",
+      "Individually wrapped and single-use for clean laboratory handling",
+      "Convenient for transferring reconstituted research solutions between vials",
+    ],
+    reconstitution: "Laboratory consumable — no reconstitution required.",
+    status: "ACTIVE",
+    variants: [
+      { label: "0.5 mL · pack of 30", sku: "HX-SYR-30", mg: 30, subscriptionEligible: false },
+      { label: "0.5 mL · pack of 100", sku: "HX-SYR-100", mg: 100, subscriptionEligible: false },
+    ],
+    relatedSlugs: ["alcohol-prep-pads", "bac-water"],
+  },
+  {
+    slug: "alcohol-prep-pads",
+    name: "Alcohol Prep Pads",
+    subtitle: "Sterile 70% isopropyl alcohol wipes",
+    categorySlug: "supplies",
+    researchOverview:
+      "Sterile 70% isopropyl alcohol prep pads for cleaning vial septa and laboratory work surfaces before " +
+      "handling research samples. Individually sealed to keep each pad saturated and contaminant-free.",
+    benefits: [
+      "Sterile 70% isopropyl alcohol for cleaning vial septa and surfaces",
+      "Individually sealed pouches keep each pad saturated until use",
+      "Low-lint pads suitable for routine laboratory cleaning",
+    ],
+    reconstitution: "Laboratory consumable — no reconstitution required.",
+    status: "ACTIVE",
+    variants: [
+      { label: "Pack of 100", sku: "HX-ALC-100", mg: 100, subscriptionEligible: false },
+      { label: "Pack of 200", sku: "HX-ALC-200", mg: 200, subscriptionEligible: false },
+    ],
+    relatedSlugs: ["insulin-syringes", "vial-holder"],
+  },
+  {
+    slug: "vial-holder",
+    name: "Vial Holder",
+    subtitle: "Foam rack for organising research vials",
+    categorySlug: "supplies",
+    researchOverview:
+      "Protective foam vial holder for organising and storing research vials on the bench and in refrigerated " +
+      "storage. Snug cut-outs keep vials upright and reduce the risk of knocks and breakage.",
+    benefits: [
+      "Keeps research vials upright and organised on the bench or in storage",
+      "Cushioned foam cut-outs help protect vials from knocks and breakage",
+      "Fits standard research vial diameters",
+    ],
+    reconstitution: "Laboratory accessory — no reconstitution required.",
+    status: "ACTIVE",
+    variants: [
+      { label: "10-vial rack", sku: "HX-VR-10", mg: 10, subscriptionEligible: false },
+      { label: "50-vial rack", sku: "HX-VR-50", mg: 50, subscriptionEligible: false },
+    ],
+    relatedSlugs: ["insulin-syringes", "alcohol-prep-pads"],
+  },
 ];
 
 export const stacks: SeedStack[] = [

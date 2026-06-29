@@ -1,11 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useCart } from "@/components/cart/cart-provider";
+import { useAuth } from "@/components/auth/auth-provider";
+import { CartUpsell } from "@/components/commerce/cart-upsell";
+import { BitcoinCheckoutButton } from "@/components/commerce/bitcoin-checkout-button";
 import { formatCents } from "@/lib/money";
 import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 
 export default function CartPage() {
   const { items, remove, changeVariant, setQuantity, subtotalCents } = useCart();
+  const user = useAuth();
 
   return (
     <main className="relative z-[2] mx-auto min-h-screen max-w-[900px] px-6 pb-24 pt-36">
@@ -112,17 +116,25 @@ export default function CartPage() {
         </div>
       )}
 
-      {/* Checkout – coming in a future release */}
+      {items.length > 0 && <CartUpsell />}
+
+      {/* Checkout – requires an account; pay in Bitcoin via BTCPay */}
       <div className="mt-10">
-        <button
-          disabled
-          className="w-full cursor-not-allowed rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground opacity-50"
-        >
-          Proceed to checkout
-        </button>
-        <p className="mt-2 text-center text-xs text-muted-foreground">
-          Checkout is coming soon.
-        </p>
+        {user ? (
+          <BitcoinCheckoutButton />
+        ) : (
+          <>
+            <Link
+              href="/account"
+              className="block w-full rounded-full bg-primary px-8 py-4 text-center text-sm font-semibold text-primary-foreground transition-all hover:opacity-90"
+            >
+              Create an account to check out
+            </Link>
+            <p className="mt-2 text-center text-xs text-muted-foreground">
+              You need a Helyx account to check out. Sign in or create one to continue.
+            </p>
+          </>
+        )}
       </div>
 
       <div className="mt-10 border-t border-border pt-6">

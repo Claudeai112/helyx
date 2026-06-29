@@ -77,6 +77,11 @@ const PRICES_CENTS: Record<string, number> = {
   "sterile-water:3": 900, "sterile-water:10": 1400,
   "acetic-acid:3": 900, "acetic-acid:10": 1400,
   "bac-water:3": 900, "bac-water:10": 1400, "bac-water:30": 2400,
+
+  // Research supplies — accessories
+  "insulin-syringes:30": 1200, "insulin-syringes:100": 2900,
+  "alcohol-prep-pads:100": 700, "alcohol-prep-pads:200": 1200,
+  "vial-holder:10": 1500, "vial-holder:50": 3900,
 };
 
 export function retailPriceCents(slug: string, mg: number): number {

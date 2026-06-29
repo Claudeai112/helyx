@@ -103,13 +103,14 @@ model StackItem {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  name      String?
-  role      UserRole  @default(CUSTOMER)
-  carts     Cart[]
-  orders    Order[]
-  createdAt DateTime  @default(now())
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  passwordHash String?
+  role         UserRole  @default(CUSTOMER)
+  carts        Cart[]
+  orders       Order[]
+  createdAt    DateTime  @default(now())
 }
 
 model Cart {
@@ -135,6 +136,9 @@ model Order {
   user           User?         @relation(fields: [userId], references: [id])
   status         OrderStatus   @default(PENDING_CONSULT)
   items          OrderItem[]
+  amountCents      Int?
+  paymentProvider  String?
+  paymentInvoiceId String?
   consultId      String?       @unique
   consult        Consult?      @relation(fields: [consultId], references: [id])
   prescriptionId     String?           @unique
@@ -142,6 +146,8 @@ model Order {
   prescriptionCodeId String?
   prescriptionCode   PrescriptionCode? @relation(fields: [prescriptionCodeId], references: [id])
   createdAt          DateTime          @default(now())
+
+  @@index([paymentInvoiceId])
 }
 
 model OrderItem {

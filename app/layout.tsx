@@ -5,8 +5,10 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CartProvider } from "@/components/cart/cart-provider";
+import { AuthProvider } from "@/components/auth/auth-provider";
 import { AgeGate } from "@/components/age-gate";
 import { AGE_COOKIE } from "@/lib/age";
+import { getCurrentUser } from "@/lib/session";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const plex = IBM_Plex_Sans({
@@ -25,14 +27,17 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const ageVerified = (await cookies()).get(AGE_COOKIE)?.value === "1";
+  const user = await getCurrentUser();
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <CartProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </CartProvider>
+        <AuthProvider user={user}>
+          <CartProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </CartProvider>
+        </AuthProvider>
         {!ageVerified && <AgeGate />}
       </body>
     </html>
