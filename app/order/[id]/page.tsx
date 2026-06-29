@@ -80,6 +80,13 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         ))}
       </ul>
 
+      {order.discountCents > 0 && (
+        <div className="mt-4 flex items-center justify-between">
+          <span className="text-sm text-primary">Loyalty reward — free vial</span>
+          <span className="text-sm font-medium text-primary">− {formatCents(order.discountCents)}</span>
+        </div>
+      )}
+
       <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
         <span className="text-sm text-muted-foreground">Total</span>
         <span className="text-xl font-bold text-foreground">

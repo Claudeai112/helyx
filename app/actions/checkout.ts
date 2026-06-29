@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { createInvoice, btcpayConfigured } from "@/lib/payments/btcpay";
+import { qualifyingVialCount } from "@/lib/loyalty-data";
+import { VIALS_PER_REWARD, freeVialDiscountCents } from "@/lib/loyalty";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
 
 export type CheckoutLine = { variantId: string; quantity: number };
@@ -35,7 +37,7 @@ export async function startBitcoinCheckout(lines: CheckoutLine[]): Promise<Check
     // Recompute every price from the DB — never trust client-supplied amounts.
     const variants = await prisma.productVariant.findMany({
       where: { id: { in: [...wanted.keys()] } },
-      select: { id: true, priceCents: true },
+      select: { id: true, priceCents: true, product: { select: { category: { select: { slug: true } } } } },
     });
     if (variants.length === 0) return { ok: false, error: "These items are no longer available." };
 
@@ -44,14 +46,41 @@ export async function startBitcoinCheckout(lines: CheckoutLine[]): Promise<Check
       quantity: wanted.get(v.id) as number,
       unitPriceCents: v.priceCents,
     }));
-    const amountCents = items.reduce((sum, i) => sum + i.unitPriceCents * i.quantity, 0);
-    if (amountCents <= 0) return { ok: false, error: "Your cart total is invalid." };
+    const subtotalCents = items.reduce((sum, i) => sum + i.unitPriceCents * i.quantity, 0);
+    if (subtotalCents <= 0) return { ok: false, error: "Your cart total is invalid." };
+
+    // Loyalty: if the user has an unredeemed reward and the order contains an
+    // eligible peptide vial, knock the cheapest such vial off the total. The
+    // reward is only *consumed* (counted) once the order is paid (in the webhook).
+    const [paidVials, dbUser] = await Promise.all([
+      qualifyingVialCount(user.id),
+      prisma.user.findUnique({ where: { id: user.id }, select: { loyaltyRedeemed: true } }),
+    ]);
+    const available = Math.floor(paidVials / VIALS_PER_REWARD) - (dbUser?.loyaltyRedeemed ?? 0);
+    let discountCents = 0;
+    let loyaltyApplied = false;
+    if (available >= 1) {
+      const candidate = freeVialDiscountCents(
+        variants.map((v) => ({
+          priceCents: v.priceCents,
+          eligible: v.product.category.slug !== "supplies",
+        })),
+      );
+      // Only apply if something is still owed after the discount (no $0 invoice).
+      if (candidate > 0 && subtotalCents - candidate > 0) {
+        discountCents = candidate;
+        loyaltyApplied = true;
+      }
+    }
+    const amountCents = subtotalCents - discountCents;
 
     const order = await prisma.order.create({
       data: {
         userId: user.id,
         status: "AWAITING_PAYMENT",
         amountCents,
+        discountCents,
+        loyaltyApplied,
         paymentProvider: "btcpay",
         items: { create: items },
       },
