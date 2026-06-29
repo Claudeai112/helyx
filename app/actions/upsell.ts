@@ -13,7 +13,7 @@ export async function getUpsellItems(): Promise<ProductCardData[]> {
     // Preserve the curated order and skip any that aren't seeded yet.
     return UPSELL_SLUGS.flatMap((slug) => {
       const p = bySlug.get(slug);
-      return p ? [toProductCardData(p, p.category?.slug)] : [];
+      return p ? [toProductCardData(p)] : [];
     });
   } catch {
     return [];

@@ -7,7 +7,6 @@ import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 import { Badge } from "@/components/ui/badge";
 import { toProductCardData } from "@/lib/product-view";
 import { productImage } from "@/lib/product-images";
-import { isInStock, MADE_TO_ORDER_DELIVERY } from "@/lib/stock";
 import { productJsonLd } from "@/lib/seo";
 import { ReconstitutionReference } from "@/components/commerce/reconstitution-reference";
 import { ProviderPathway } from "@/components/commerce/provider-pathway";
@@ -70,15 +69,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <Badge>Research compound</Badge>
           <h1 className="mt-4 text-4xl font-semibold text-foreground">{product.name}</h1>
           <p className="mt-2 text-lg text-muted-foreground">{product.subtitle}</p>
-          {isInStock(product.slug, product.category?.slug) ? (
-            <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600">
-              ● In stock — ready to ship
-            </p>
-          ) : (
-            <p className="mt-3 text-sm font-medium text-muted-foreground">
-              Made to order — ships in {MADE_TO_ORDER_DELIVERY}
-            </p>
-          )}
           <div className="mt-6">
             <AddToCart
               variants={product.variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents }))}
@@ -118,7 +108,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <section className="mt-16">
           <h2 className="text-2xl font-semibold text-foreground">Frequently paired</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {related.map((p) => <ProductCard key={p.slug} product={toProductCardData(p, p.category?.slug)} />)}
+            {related.map((p) => <ProductCard key={p.slug} product={toProductCardData(p)} />)}
           </div>
         </section>
       )}

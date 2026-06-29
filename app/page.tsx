@@ -18,7 +18,7 @@ export default async function Home() {
 
   // One unified, filterable item list (card data + filter facets + search haystack + merchandising).
   const items: StorefrontItem[] = products.map((p) => {
-    const card = toProductCardData(p, p.category?.slug);
+    const card = toProductCardData(p);
     const mgs = [...new Set(p.variants.map((v) => parseFloat(v.label)).filter((n) => Number.isFinite(n)))]
       .sort((a, b) => a - b);
     const haystack = [p.name, p.subtitle, p.researchOverview, ...(p.benefits ?? []), p.category?.name ?? ""]

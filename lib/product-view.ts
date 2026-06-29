@@ -1,6 +1,5 @@
 import type { ProductCardData } from "@/components/commerce/product-card";
 import { productImage } from "@/lib/product-images";
-import { isInStock } from "@/lib/stock";
 
 type VariantLike = { id: string; label: string; mg?: number; priceCents: number; compareAtCents?: number | null };
 type ProductLike = {
@@ -9,7 +8,7 @@ type ProductLike = {
   variants: VariantLike[];
 };
 
-export function toProductCardData(p: ProductLike, categorySlug?: string | null): ProductCardData {
+export function toProductCardData(p: ProductLike): ProductCardData {
   const cheapest = p.variants.reduce<VariantLike | null>(
     (min, v) => (min === null || v.priceCents < min.priceCents ? v : min), null,
   );
@@ -19,7 +18,6 @@ export function toProductCardData(p: ProductLike, categorySlug?: string | null):
     minPriceCents: cheapest?.priceCents ?? 0,
     minCompareAtCents: cheapest?.compareAtCents ?? null,
     minVariantId: cheapest?.id ?? "",
-    inStock: isInStock(p.slug, categorySlug),
     variants: p.variants
       .sort((a, b) => (a.mg ?? 0) - (b.mg ?? 0))
       .map((v) => ({ id: v.id, label: v.label, mg: v.mg, priceCents: v.priceCents })),
