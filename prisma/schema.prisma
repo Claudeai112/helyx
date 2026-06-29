@@ -108,6 +108,7 @@ model User {
   name         String?
   passwordHash String?
   role         UserRole  @default(CUSTOMER)
+  loyaltyRedeemed Int    @default(0)
   carts        Cart[]
   orders       Order[]
   createdAt    DateTime  @default(now())
@@ -137,6 +138,8 @@ model Order {
   status         OrderStatus   @default(PENDING_CONSULT)
   items          OrderItem[]
   amountCents      Int?
+  discountCents    Int      @default(0)
+  loyaltyApplied   Boolean  @default(false)
   paymentProvider  String?
   paymentInvoiceId String?
   consultId      String?       @unique

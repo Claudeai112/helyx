@@ -1,27 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/session";
-import { prisma } from "@/lib/db";
-import { loyaltyProgress } from "@/lib/loyalty";
+import { getLoyaltyProgress } from "@/lib/loyalty-data";
 import { AuthForms } from "@/components/auth/auth-forms";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { LoyaltyTracker } from "@/components/account/loyalty-tracker";
-
-// Lifetime peptide vials from this user's paid orders (supplies excluded).
-async function qualifyingVialCount(userId: string): Promise<number> {
-  try {
-    const agg = await prisma.orderItem.aggregate({
-      _sum: { quantity: true },
-      where: {
-        order: { userId, status: { in: ["PAID", "FULFILLED"] } },
-        variant: { product: { category: { slug: { not: "supplies" } } } },
-      },
-    });
-    return agg._sum.quantity ?? 0;
-  } catch {
-    return 0;
-  }
-}
 
 export const metadata: Metadata = {
   title: "Account",
@@ -51,7 +34,7 @@ export default async function AccountPage() {
               <SignOutButton />
             </div>
           </div>
-          <LoyaltyTracker progress={loyaltyProgress(await qualifyingVialCount(user.id))} />
+          <LoyaltyTracker progress={await getLoyaltyProgress(user.id)} />
         </>
       ) : (
         <>

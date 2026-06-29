@@ -22,11 +22,26 @@ export async function POST(req: Request) {
   // "InvoiceSettled" = fully paid and confirmed.
   if (event.type === "InvoiceSettled" && event.invoiceId) {
     try {
-      // Only transition orders still awaiting payment → idempotent.
-      await prisma.order.updateMany({
+      // Find the still-unpaid order for this invoice. Because we filter on
+      // AWAITING_PAYMENT, a redelivered event finds nothing → fully idempotent.
+      const order = await prisma.order.findFirst({
         where: { paymentInvoiceId: event.invoiceId, status: "AWAITING_PAYMENT" },
-        data: { status: "PAID" },
+        select: { id: true, userId: true, loyaltyApplied: true },
       });
+      if (order) {
+        await prisma.$transaction([
+          prisma.order.update({ where: { id: order.id }, data: { status: "PAID" } }),
+          // Consume one loyalty reward only on successful payment.
+          ...(order.loyaltyApplied && order.userId
+            ? [
+                prisma.user.update({
+                  where: { id: order.userId },
+                  data: { loyaltyRedeemed: { increment: 1 } },
+                }),
+              ]
+            : []),
+        ]);
+      }
     } catch {
       // Surface a 500 so BTCPay retries delivery.
       return NextResponse.json({ error: "processing failed" }, { status: 500 });
