@@ -7,6 +7,7 @@ import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 import { Badge } from "@/components/ui/badge";
 import { toProductCardData } from "@/lib/product-view";
 import { productImage } from "@/lib/product-images";
+import { MADE_TO_ORDER_NOTE } from "@/lib/fulfillment";
 import { productJsonLd } from "@/lib/seo";
 import { ReconstitutionReference } from "@/components/commerce/reconstitution-reference";
 import { ProviderPathway } from "@/components/commerce/provider-pathway";
@@ -69,6 +70,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <Badge>Research compound</Badge>
           <h1 className="mt-4 text-4xl font-semibold text-foreground">{product.name}</h1>
           <p className="mt-2 text-lg text-muted-foreground">{product.subtitle}</p>
+          <p className="mt-3 text-sm font-medium text-muted-foreground">{MADE_TO_ORDER_NOTE}</p>
           <div className="mt-6">
             <AddToCart
               variants={product.variants.map((v) => ({ id: v.id, label: v.label, priceCents: v.priceCents }))}

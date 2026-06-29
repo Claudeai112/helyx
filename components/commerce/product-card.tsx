@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AddToCartButton } from "@/components/commerce/add-to-cart-button";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatCents } from "@/lib/money";
+import { MADE_TO_ORDER_NOTE } from "@/lib/fulfillment";
 
 export type ProductCardData = {
   slug: string; name: string; subtitle: string;
@@ -40,6 +41,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-primary">
           ✓ Third-party tested
         </span>
+        <span className="mt-1 text-xs text-muted-foreground">{MADE_TO_ORDER_NOTE}</span>
         <select
           className="relative z-10 mt-auto w-full rounded-md border border-border bg-card px-2 py-1.5 text-sm text-foreground"
           value={selectedId}
