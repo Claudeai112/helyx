@@ -1,8 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/session";
+import { prisma } from "@/lib/db";
+import { loyaltyProgress } from "@/lib/loyalty";
 import { AuthForms } from "@/components/auth/auth-forms";
 import { SignOutButton } from "@/components/auth/sign-out-button";
+import { LoyaltyTracker } from "@/components/account/loyalty-tracker";
+
+// Lifetime peptide vials from this user's paid orders (supplies excluded).
+async function qualifyingVialCount(userId: string): Promise<number> {
+  try {
+    const agg = await prisma.orderItem.aggregate({
+      _sum: { quantity: true },
+      where: {
+        order: { userId, status: { in: ["PAID", "FULFILLED"] } },
+        variant: { product: { category: { slug: { not: "supplies" } } } },
+      },
+    });
+    return agg._sum.quantity ?? 0;
+  } catch {
+    return 0;
+  }
+}
 
 export const metadata: Metadata = {
   title: "Account",
@@ -17,20 +36,23 @@ export default async function AccountPage() {
       <h1 className="text-3xl font-semibold tracking-tight">Account</h1>
 
       {user ? (
-        <div className="mt-6 max-w-md rounded-xl border border-border bg-card p-6">
-          <p className="text-sm text-muted-foreground">Signed in as</p>
-          <p className="mt-1 font-medium text-foreground">{user.name ?? user.email}</p>
-          <p className="text-sm text-muted-foreground">{user.email}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/cart"
-              className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90"
-            >
-              Go to cart
-            </Link>
-            <SignOutButton />
+        <>
+          <div className="mt-6 max-w-md rounded-xl border border-border bg-card p-6">
+            <p className="text-sm text-muted-foreground">Signed in as</p>
+            <p className="mt-1 font-medium text-foreground">{user.name ?? user.email}</p>
+            <p className="text-sm text-muted-foreground">{user.email}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/cart"
+                className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
+                Go to cart
+              </Link>
+              <SignOutButton />
+            </div>
           </div>
-        </div>
+          <LoyaltyTracker progress={loyaltyProgress(await qualifyingVialCount(user.id))} />
+        </>
       ) : (
         <>
           <p className="mt-4 text-muted-foreground">
