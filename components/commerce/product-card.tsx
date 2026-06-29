@@ -9,12 +9,13 @@ export type ProductCardData = {
   slug: string; name: string; subtitle: string;
   status: "ACTIVE" | "COMING_SOON" | "WAITLIST"; imageUrl?: string | null;
   minPriceCents: number; minCompareAtCents?: number | null; minVariantId: string;
+  inStock?: boolean;
   variants: { id: string; label: string; mg?: number; priceCents: number }[];
 };
 
 export function ProductCard({ product }: { product: ProductCardData }) {
   const { add } = useCart();
-  const { slug, name, subtitle, imageUrl, variants } = product;
+  const { slug, name, subtitle, imageUrl, variants, inStock } = product;
   const [selectedId, setSelectedId] = useState<string>(variants[0]?.id ?? "");
   const selected = variants.find((v) => v.id === selectedId) ?? variants[0];
 
@@ -39,6 +40,11 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <p className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm text-muted-foreground">{subtitle}</p>
         <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-primary">
           ✓ Third-party tested
+        </span>
+        <span
+          className={`mt-1 inline-flex items-center gap-1 text-xs font-medium ${inStock ? "text-emerald-600" : "text-muted-foreground"}`}
+        >
+          {inStock ? "● In stock" : "Made to order · ships in 2–3 weeks"}
         </span>
         <select
           className="relative z-10 mt-auto w-full rounded-md border border-border bg-card px-2 py-1.5 text-sm text-foreground"
