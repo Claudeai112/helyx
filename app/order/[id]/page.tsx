@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 import { prisma } from "@/lib/db";
 import { formatCents } from "@/lib/money";
+import { DisclaimerBar } from "@/components/ui/disclaimer-bar";
 
 export const metadata: Metadata = { title: "Order" };
 
@@ -98,6 +99,10 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         <Link href="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
           Continue browsing
         </Link>
+      </div>
+
+      <div className="mt-10 border-t border-border pt-6">
+        <DisclaimerBar />
       </div>
     </div>
   );

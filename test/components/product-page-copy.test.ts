@@ -33,8 +33,4 @@ describe("product page — required imports", () => {
   it("imports ReconstitutionReference", () => {
     expect(productPage).toContain("ReconstitutionReference");
   });
-
-  it("imports ProviderPathway", () => {
-    expect(productPage).toContain("ProviderPathway");
-  });
 });

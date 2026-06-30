@@ -1,4 +1,5 @@
-// Name of the cookie that records a visitor confirmed they are 21 or older.
+// Name of the cookie that records a visitor confirmed the research-use
+// attestation (qualified researcher / research entity, 18 or older).
 // Kept in its own module so both the server action and the root layout can
 // import it (a "use server" file may only export async functions).
 export const AGE_COOKIE = "helyx_age_verified";
