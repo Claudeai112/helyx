@@ -25,19 +25,19 @@ export const categories: SeedCategory[] = [
     heroCopy: "Research peptides studied for metabolic and glycemic signalling pathways.",
   },
   {
-    slug: "metabolic-fat-loss", name: "Metabolic & Fat Loss Research", order: 2,
+    slug: "metabolic-fat-loss", name: "Metabolic & Incretin Research", order: 2,
     description: "Peptides and small molecules studied in the context of lipid metabolism and metabolic homeostasis.",
   },
   {
-    slug: "healing-recovery", name: "Healing & Recovery", order: 3,
+    slug: "healing-recovery", name: "Tissue-Repair Peptides", order: 3,
     description: "Peptides studied for tissue repair, angiogenesis, and anti-inflammatory signalling in pre-clinical models.",
   },
   {
-    slug: "muscle-gh", name: "Muscle & GH-Axis Research", order: 4,
+    slug: "muscle-gh", name: "GH-Axis Research", order: 4,
     description: "Growth-hormone-axis secretagogues and IGF-pathway peptides investigated in body-composition research.",
   },
   {
-    slug: "longevity", name: "Longevity", order: 5,
+    slug: "longevity", name: "Senescence & Longevity Research", order: 5,
     description: "Peptides and cofactors studied in the context of cellular ageing, mitochondrial function, and immunosenescence.",
   },
   {
@@ -45,15 +45,15 @@ export const categories: SeedCategory[] = [
     description: "Neuropeptides studied for neurological function, stress response, and cognitive signalling pathways.",
   },
   {
-    slug: "hormonal-reproductive", name: "Hormonal & Reproductive Research", order: 7,
+    slug: "hormonal-reproductive", name: "Endocrine Research", order: 7,
     description: "Peptides investigated in the context of endocrine and reproductive signalling pathways.",
   },
   {
-    slug: "sleep-recovery", name: "Sleep & Recovery", order: 8,
+    slug: "sleep-recovery", name: "Neuropeptide Research", order: 8,
     description: "Neuropeptides studied for sleep-architecture regulation and neuroendocrine signalling.",
   },
   {
-    slug: "skin-cosmetic", name: "Skin & Cosmetic Research", order: 9,
+    slug: "skin-cosmetic", name: "Dermal & Cosmetic Research", order: 9,
     description: "Peptides studied for collagen synthesis, pigmentation pathways, and dermal-repair models.",
   },
   {
@@ -1266,7 +1266,7 @@ export const products: SeedProduct[] = [
 export const stacks: SeedStack[] = [
   {
     slug: "wolverine",
-    name: "Wolverine Stack",
+    name: "Tissue-Repair Reference Set",
     tagline: "The two most-studied repair peptides, paired.",
     overview:
       "BPC-157 and TB-500 are among the most frequently co-investigated repair peptides in the preclinical " +
@@ -1279,7 +1279,7 @@ export const stacks: SeedStack[] = [
   },
   {
     slug: "glow",
-    name: "Glow Stack",
+    name: "Dermal Research Set",
     tagline: "Copper peptides and BPC-157 for dermal and tissue research.",
     overview:
       "GHK-Cu, BPC-157, and TB-500 combined for research programmes examining collagen-synthesis, " +
@@ -1305,7 +1305,7 @@ export const stacks: SeedStack[] = [
   },
   {
     slug: "performance",
-    name: "Performance Stack",
+    name: "GH-Axis Reference Set",
     tagline: "GH-axis secretagogue pair for research.",
     overview:
       "CJC-1295 (no DAC) and Ipamorelin are the most widely co-studied GH-axis secretagogues in the preclinical " +

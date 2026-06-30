@@ -10,7 +10,6 @@ import { productImage } from "@/lib/product-images";
 import { MADE_TO_ORDER_NOTE } from "@/lib/fulfillment";
 import { productJsonLd } from "@/lib/seo";
 import { ReconstitutionReference } from "@/components/commerce/reconstitution-reference";
-import { ProviderPathway } from "@/components/commerce/provider-pathway";
 import { AddBacWater } from "@/components/commerce/add-bac-water";
 import { CoaSection } from "@/components/commerce/coa-section";
 
@@ -80,9 +79,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
           {bacVariants.length > 0 ? <AddBacWater variants={bacVariants} /> : null}
           <DisclaimerBar className="mt-6" />
-          <div className="mt-6">
-            <ProviderPathway />
-          </div>
         </div>
       </div>
 

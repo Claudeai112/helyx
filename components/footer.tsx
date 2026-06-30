@@ -6,8 +6,8 @@ import { DisclaimerBar } from "./ui/disclaimer-bar";
 const SHOP_LINKS = [
   { href: "/shop", label: "All Products" },
   { href: "/category/glp-1", label: "GLP-1" },
-  { href: "/category/healing", label: "Healing" },
-  { href: "/category/fat-loss", label: "Fat Loss" },
+  { href: "/category/healing", label: "Tissue-Repair Peptides" },
+  { href: "/category/fat-loss", label: "Metabolic & Incretin Research" },
   { href: "/stacks", label: "Stacks" },
   { href: "/bulk", label: "Bulk" },
 ];
